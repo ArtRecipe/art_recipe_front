@@ -18,8 +18,8 @@ function App() {
       <NavBar />
       <Route path="/" component={MainPage} exact={true} />
       {/* <Route path="/" component={PostList} />
-      <Route path="/" component={MyPage} exact={true} />
-      <Route path="/" component={LogIn} exact={true} /> */}
+      <Route path="/" component={MyPage}  />
+      <Route path="/" component={Auth}  /> */}
       <Footer />
     </div>
   );
