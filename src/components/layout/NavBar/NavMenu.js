@@ -1,11 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import "./navmenu.scss";
 
 const NavMenu = () => {
   return (
-    <div>
-      <div>ART{"&"}RECIPE</div>
-      <div>MY PAGE</div>
-      <div>LOG IN</div>
+    <div className="menu">
+      <Link to="/PostList">
+        <div className="links">ART{"&"}RECIPE</div>
+      </Link>
+      <Link to="/MyPage">
+        <div className="links">MY PAGE</div>
+      </Link>
+      <Link to="/LogIn">
+        <div className="links">LOG IN</div>
+      </Link>
     </div>
   );
 };

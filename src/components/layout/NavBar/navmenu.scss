@@ -1,0 +1,21 @@
+.menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  .links {
+    width: 10rem;
+    // z-index: 1001;
+    font-size: 1rem;
+    color: rgba(245, 245, 245, 0.619);
+  }
+  .links:hover {
+    color: white;
+  }
+  .links::after {
+    color: white;
+  }
+  .links:active {
+    color: white;
+  }
+}

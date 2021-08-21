@@ -1,0 +1,23 @@
+.nav-layout {
+  border: 0rem solid rgba(0, 0, 0, 0.482);
+  background-color: rgba(0, 0, 0, 0.427);
+  width: 100%;
+  height: 13%;
+  z-index: 1000;
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  img {
+    right: 1rem;
+    width: 30%;
+    height: 10%;
+  }
+
+  //   .nav-title {
+  //     width: 30%;
+  //     height: 10%;
+  //   }
+}
