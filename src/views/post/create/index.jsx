@@ -12,6 +12,7 @@ import {
 import plusIcon from "../../../assets/images/plusBtn.svg";
 import minusIcon from "../../../assets/images/minBtn.svg";
 import Plusinput from "./plusinput";
+import PostBanner from "../banner";
 
 
 const PostCreate = () => {
@@ -55,6 +56,7 @@ const PostCreate = () => {
 
 return (
     <>
+        <PostBanner />
         <CreateWrap>
             <CreateAdvice>나만의 재료와 미술작품을 공유하고, 작품에 스토리를 더하세요 !</CreateAdvice>
             <ContentWrap>
