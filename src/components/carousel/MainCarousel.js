@@ -12,12 +12,26 @@ import SlideImg2 from "./slide2.jpg";
 export default class SimpleSlider extends Component {
   render() {
     const settings = {
-      dots: true,
+      dots: false,
       infinite: true,
       speed: 70,
       autoplay: true,
       slidesToShow: 1,
       slidesToScroll: 1,
+      // appendDots: (dots) => (
+      //   <div style={{}}>
+      //     <ul
+      //       style={{
+      //         margin: "0px",
+      //         zindex: "100",
+      //         marginTop: "0",
+      //       }}
+      //     >
+      //       {" "}
+      //       {dots}{" "}
+      //     </ul>
+      //   </div>
+      // ),
     };
     return (
       <div className="carousel-layout">
@@ -28,15 +42,15 @@ export default class SimpleSlider extends Component {
           </div>
           <div>
             <img src={SlideImg2} alt="slide img" />
-            <h3>2</h3>
+            {/* <h3>2</h3> */}
           </div>
           <div>
             <img src={SlideImg1} alt="slide img" />
-            <h3>3</h3>
+            {/* <h3>3</h3> */}
           </div>
           <div>
             <img src={SlideImg1} alt="slide img" />
-            <h3>4</h3>
+            {/* <h3>4</h3> */}
           </div>
         </Slider>
       </div>

@@ -8,10 +8,10 @@ const NavBar = () => {
   return (
     <div className="nav-layout">
       <NavTitle className="nav-title" />
-      <div>
-        <NavSearch className="nav-search" />
-        <NavMenu className="nav-menu" />
-      </div>
+      {/* <div> */}
+      <NavSearch />
+      <NavMenu />
+      {/* </div> */}
     </div>
   );
 };

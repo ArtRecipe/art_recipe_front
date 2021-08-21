@@ -3,6 +3,7 @@ import { Route } from "react-router-dom";
 import GlobalStyle from "./GlobalStyle";
 import MainPage from "./views/post/MainPage";
 import NavBar from "../../art_recipe_front/src/components/layout/NavBar/NavBar.js";
+import Footer from "./components/layout/footer/Footer.js";
 
 {
   /* <div>ART{"&"}RECIPE</div>
@@ -16,11 +17,10 @@ function App() {
       <GlobalStyle />
       <NavBar />
       <Route path="/" component={MainPage} exact={true} />
-      {/* <Route path="/" component={PostList} exact={true} />
+      {/* <Route path="/" component={PostList} />
       <Route path="/" component={MyPage} exact={true} />
       <Route path="/" component={LogIn} exact={true} /> */}
-
-      <div>hello world!</div>
+      <Footer />
     </div>
   );
 }
