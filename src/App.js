@@ -1,7 +1,12 @@
+import PostBanner from "./views/post/banner";
+import GlobalStyle from "./GlobalStyle";
 
 function App() {
   return (
-    <div>hello world!</div>
+      <>
+         <GlobalStyle/>
+         <PostBanner />
+      </>
   );
 }
 
