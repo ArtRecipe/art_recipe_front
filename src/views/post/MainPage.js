@@ -1,13 +1,11 @@
-import React, { Component } from "react";
-import NavBar from "../../components/layout/NavBar/NavBar";
-import MainCarousel from "../../";
+import React from "react";
+
+import MainCarousel from "../../components/carousel/MainCarousel.js";
 
 const MainPage = () => {
   return (
     <div>
-      <NavBar />
       <MainCarousel />
-      <Footer />
     </div>
   );
 };
