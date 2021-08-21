@@ -11,7 +11,7 @@ const NavMenu = () => {
       <Link to="/MyPage">
         <div className="links">MY PAGE</div>
       </Link>
-      <Link to="/LogIn">
+      <Link to="/Auth">
         <div className="links">LOG IN</div>
       </Link>
     </div>
