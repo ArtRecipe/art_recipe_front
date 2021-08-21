@@ -5,6 +5,7 @@ import MainPage from "./views/post/MainPage";
 import NavBar from "../../art_recipe_front/src/components/layout/NavBar/NavBar.js";
 import Footer from "./components/layout/footer/Footer.js";
 import Auth from "./views/user/AuthPage/AuthPage.js";
+import MyPage from "./views/user/MyPage/MyPage";
 
 {
   /* <div>ART{"&"}RECIPE</div>
@@ -18,8 +19,8 @@ function App() {
       <GlobalStyle />
       <NavBar />
       <Route path="/" component={MainPage} exact={true} />
-      {/* <Route path="/" component={PostList} />
-      <Route path="/" component={MyPage}  />*/}
+      {/* <Route path="/" component={PostList} /> */}
+      <Route path="/MyPage" component={MyPage} />
       <Route path="/Auth" component={Auth} />
       <Footer />
     </div>

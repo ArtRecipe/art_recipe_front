@@ -1,0 +1,20 @@
+.my-layout {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .my-info {
+    width: 60%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 0.1rem;
+      height: 0.1rem;
+    }
+  }
+}

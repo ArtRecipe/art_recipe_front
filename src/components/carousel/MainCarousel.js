@@ -5,7 +5,7 @@ import "./MainCarousel.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import SlideImg1 from "./s5.png";
-import SlideImg2 from "./s2.png";
+import SlideImg2 from "./slide2.jpg";
 import SlideImg3 from "./s3.png";
 import SlideImg4 from "./s4.png";
 
@@ -17,7 +17,7 @@ export default class SimpleSlider extends Component {
     const settings = {
       dots: false,
       infinite: true,
-      speed: 30,
+      speed: 20,
       autoplay: true,
       slidesToShow: 1,
       slidesToScroll: 1,
