@@ -12,8 +12,12 @@
 
   img {
     //right: 1rem;
-    width: 30%;
-    height: 10%;
+    width: 20rem;
+    height: 5rem;
+    @media only screen and (max-width: 600px) {
+      width: 10rem;
+      height: 2.5rem;
+    }
   }
 
   //   .nav-title {
