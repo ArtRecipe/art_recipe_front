@@ -7,7 +7,7 @@ export const Axios = axios.create({
 
 export const getData = async () => {
     try {
-        return await Axios.get("post/post/");
+        return await Axios.get("/post/post/");
     } catch (error) {
         console.error(error);
     }
