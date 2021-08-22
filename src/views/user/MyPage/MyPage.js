@@ -46,10 +46,14 @@ const MyPage = () => {
         </div>
         <div className="row">
           <img className="icon" src={palette} alt="icon" />
-          <h3>내 게시물 0 개</h3>
+          <h3>내 게시물 3 개</h3>
         </div>
         <hr />
-        <img src={defaultimg} alt="sample img" />
+        <div class="image-box">
+          <img src={defaultimg} alt="sample img" />
+          <img src={defaultimg} alt="sample img" />
+          <img src={defaultimg} alt="sample img" />
+        </div>
       </div>
     </div>
   );

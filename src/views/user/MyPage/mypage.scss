@@ -5,7 +5,10 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
+  .image-box img {
+    margin: 10px;
+    margin-top: 0;
+  }
   .my-center {
     border: 0rem rgb(255, 255, 255);
     padding-top: 10rem;
@@ -35,12 +38,13 @@
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      margin: 1rem;
       img {
+        margin: 10px;
         padding-right: 1rem;
         width: 5rem;
         height: 4rem;
         margin-bottom: 1rem;
+
         @media only screen and (max-width: 600px) {
           width: 50%;
           height: 40%;
