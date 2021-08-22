@@ -1,11 +1,11 @@
-import {DefailtProfile, PostCardWrap, UserDetail, UserName} from "./styles";
+import {DefaultProfile, PostCardWrap, ProfileImg, Thumbnail, UserDetail, UserName} from "./styles";
 
 const PostCard = ({thumbnail, username, profile}) => {
     return (
         <PostCardWrap>
-            <img src={thumbnail} alt={thumbnail}/>
+            <Thumbnail src={thumbnail} alt={thumbnail}/>
             <UserDetail>
-                {profile ? <img src={profile} alt={profile} /> : <DefailtProfile />}
+                {/*{profile ? <img src={prifle} alt={profile} /> : <DefaultProfile />}*/}
                 <UserName>{username}</UserName>
             </UserDetail>
         </PostCardWrap>
