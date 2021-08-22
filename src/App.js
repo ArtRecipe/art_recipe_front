@@ -16,7 +16,7 @@ function App() {
       <GlobalStyle />
       <NavBar />
       <Route path="/" component={MainPage} exact={true} />
-       <Route path="/:id" component={PostDetail} />
+       {/*<Route path="/:id" component={PostDetail} />*/}
       <Route path="/MyPage" component={MyPage} />
       <Route path="/Auth" component={Auth} />
       <Route path="/create" component={PostCreate}/>
