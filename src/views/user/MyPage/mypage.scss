@@ -21,6 +21,15 @@
     @media only screen and (max-width: 600px) {
       height: 30rem;
     }
+    hr {
+      width: 100%;
+      color: #646f6f39;
+      margin-bottom: 5rem;
+    }
+    img {
+      width: 13rem;
+      height: 13rem;
+    }
     .row {
       display: flex;
       flex-direction: row;
@@ -45,13 +54,18 @@
           width: 50%;
           height: 40%;
         }
-        h3 {
-          padding-left: 1rem;
+      }
+      h3 {
+        padding-left: 0rem;
 
-          color: rgb(29, 29, 29);
-
-          font-size: 2rem;
-        }
+        color: rgba(29, 29, 29, 0.612);
+        font-size: 1.2rem;
+      }
+      .icon {
+        height: 3rem;
+        width: 3rem;
+        opacity: 0.3;
+        margin-right: 0rem;
       }
       .my-box {
         border: solid 0.01rem #bec6c6;

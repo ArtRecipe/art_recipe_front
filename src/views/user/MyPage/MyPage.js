@@ -2,23 +2,25 @@ import React from "react";
 import ci from "./smallestci.png";
 import button from "./sbutton.png";
 import edit from "./pen-square-solid.svg";
+import palette from "./palette.svg";
 import "./mypage.scss";
 import axios from "axios";
 import usePromise from "react-use-promise";
+import defaultimg from "./example.png";
 
 const MyPage = () => {
-  const [loading, response, error] = usePromise(() => {
-    return axios.get(`http://127.0.0.1:8000/api`);
-  });
-  //if(loading){return<div></div>};
-  if (!response) {
-    return null;
-  }
-  if (error) {
-    console.log("Error");
-    return <div></div>;
-  }
-  const { myinfo } = response.data;
+  //   const [loading, response, error] = usePromise(() => {
+  //     return axios.get(`http://127.0.0.1:8000/api`);
+  //   });
+  //   ////if(loading){return<div></div>};
+  //   if (!response) {
+  //     return null;
+  //   }
+  //   if (error) {
+  //     console.log("Error");
+  //     return <div></div>;
+  //   }
+  //   const { myinfo } = response.data;
 
   return (
     <div className="my-layout">
@@ -42,7 +44,12 @@ const MyPage = () => {
             </div> */}
           </div>
         </div>
-        <div className="row"></div>
+        <div className="row">
+          <img className="icon" src={palette} alt="icon" />
+          <h3>내 게시물 0 개</h3>
+        </div>
+        <hr />
+        <img src={defaultimg} alt="sample img" />
       </div>
     </div>
   );
