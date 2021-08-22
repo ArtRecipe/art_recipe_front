@@ -13,6 +13,14 @@ export const getData = async () => {
     }
 }
 
+export const getDataOnly = async () => {
+    try {
+        return await Axios.get("post/post/");
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 // export const postData = async () => {
 //     try {
 //         return await Axios.post("post/post/",{

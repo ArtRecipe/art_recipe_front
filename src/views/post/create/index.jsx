@@ -13,7 +13,7 @@ import plusIcon from "../../../assets/images/plusBtn.svg";
 import minusIcon from "../../../assets/images/minBtn.svg";
 import Plusinput from "./plusinput";
 import PostBanner from "../banner";
-import {postData} from "../../../services/api";
+// import {postData} from "../../../services/api";
 
 
 const PostCreate = () => {
@@ -92,7 +92,7 @@ const PostCreate = () => {
     }
 
     const onSubmitPost = () => {
-        const response = postData();
+        // const response = postData();
     }
 
 return (
