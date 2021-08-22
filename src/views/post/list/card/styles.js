@@ -1,26 +1,28 @@
 import styled from "styled-components";
 
-export const  PostCardWrap = styled.div`
+export const PostCardWrap = styled.div`
   margin-top: 3rem;
 `;
 
 export const UserDetail = styled.div`
-    display: flex;
-      align-items: center;
+  display: flex;
+  align-items: center;
 `;
 
 export const Thumbnail = styled.img`
-    width: 30rem;
+  width: 25rem;
+  height: 450px;
+  object-fit: cover;
 `;
 
 export const DefaultProfile = styled.div`
-    width: 3rem;
-      height: 3rem;
-      background-color: #C4C4C4;
-      border-radius: 60px;
+  width: 3rem;
+  height: 3rem;
+  background-color: #c4c4c4;
+  border-radius: 60px;
 `;
 
 export const UserName = styled.div`
-    margin-left: 2rem;
-  font-size: 2rem;
+  font-size: 1.2rem;
+  color: #2e2e2e;
 `;
