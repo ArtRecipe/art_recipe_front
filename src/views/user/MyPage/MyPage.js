@@ -27,11 +27,11 @@ const MyPage = () => {
       <div className="my-center">
         <div className="row">
           <img src={ci} alt="default profile img" />
-          <h3>USER_NAME</h3>
+          <h3>ArtChef</h3>
           <div className="my-box">
             <div className="make-row">
               <div className="contents">SNS</div>
-              <div className="contents">@insta-id</div>
+              <div className="contents">@seolday_</div>
             </div>
             <div className="make-row">
               <div className="contents">소개</div>
