@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const BannerWrap = styled.div`
-  background-color: grey;
+  background: linear-gradient(#ACA4D3,#FFCED9);
   height: 26rem;
   display: flex;
   flex-direction: column;
