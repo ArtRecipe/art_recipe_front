@@ -26,9 +26,10 @@ export const Form = styled.form`
 
 export const PostImage = styled.div`
     width: 30%;
+  height: 500px;
     border: 1px solid black;
     & input {
-      visibility: hidden;
+      display: none;
     }
     background-color: #6C6C6C;
 

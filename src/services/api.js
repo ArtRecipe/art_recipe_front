@@ -13,6 +13,20 @@ export const getData = async () => {
     }
 }
 
+// export const postData = async () => {
+//     try {
+//         return await Axios.post("post/post/",{
+//             title:'hi',
+//             thumbnail: '',
+//             material: 'hi',
+//             color: '#5dd',
+//             desc:"hee"
+//         })
+//     } catch (e){
+//         console.error(e);
+//     }
+// }
+
 
 
 
