@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         margin: 0;
         font-family: Noto Sans KR;
+        text-decoration:none;
       }
 `;
 
