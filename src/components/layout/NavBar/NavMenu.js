@@ -5,7 +5,7 @@ import "./navmenu.scss";
 const NavMenu = () => {
   return (
     <div className="menu">
-      <Link to="/PostList">
+      <Link to="/list">
         <div className="links">ART{"&"}RECIPE</div>
       </Link>
       <Link to="/MyPage">
