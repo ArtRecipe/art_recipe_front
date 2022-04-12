@@ -3,20 +3,53 @@
   background-color: rgba(0, 0, 0, 0.427);
   width: 100%;
   height: 13%;
+  top: 0;
   z-index: 1000;
   position: fixed;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
-  img {
+  text-decoration-line: none;
+  .menu {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    align-items: center;
+    width: 30%;
+    // padding: 1%;
+    
+  .logo-img {
     //right: 1rem;
-    width: 20rem;
-    height: 5rem;
+    width: 80%;
+    height: 20%;
     @media only screen and (max-width: 600px) {
-      width: 10rem;
-      height: 2.5rem;
+      width: 20%;
+      height: 15%;
+    }      
+      .links {
+        
+        
+        
+        
+        // z-index: 1001;
+        font-size: 1rem;
+        color: rgba(245, 245, 245, 0.619);
+        //margin-left: 1rem;
+        @media only screen and (max-width: 600px) {
+          font-size: 8px;
+          
+        }
+      }
+      .links:hover {
+        color: white;
+      }
+      .links::after {
+        color: white;
+      }
+      .links:active {
+        color: white;
+      }
     }
   }
 
