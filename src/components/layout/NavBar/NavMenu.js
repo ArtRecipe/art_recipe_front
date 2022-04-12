@@ -5,14 +5,14 @@ import "./navmenu.scss";
 const NavMenu = () => {
   return (
     <div className="menu">
-      <Link to="/list">
-        <div className="links">ART{"&"}RECIPE</div>
+      <Link to="/list" className="links">
+        <div>ART{"&"}RECIPE</div>
       </Link>
-      <Link to="/MyPage">
-        <div className="links">MY PAGE</div>
+      <Link to="/MyPage" className="links">
+        <div>MY PAGE</div>
       </Link>
-      <Link to="/Auth">
-        <div className="links">LOG IN</div>
+      <Link to="/Auth" className="links">
+        <div>LOG IN</div>
       </Link>
     </div>
   );

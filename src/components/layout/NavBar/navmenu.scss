@@ -3,15 +3,18 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  width: 40%;
+  
   .links {
-    width: 6.5rem;
+    
+    
     // z-index: 1001;
     font-size: 1rem;
     color: rgba(245, 245, 245, 0.619);
     //margin-left: 1rem;
     @media only screen and (max-width: 600px) {
       font-size: 8px;
-      width: 4.5rem;
+      
     }
   }
   .links:hover {
