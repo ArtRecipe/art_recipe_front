@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
+import userReducer from "./user/index.js";
+import networkReducer from "./post/index.js";
 
 const rootReducer = combineReducers({
-   // userReducer,
-   //  postReducer
+  user: userReducer,
+  network: networkReducer,
 });
 
 export default rootReducer;
