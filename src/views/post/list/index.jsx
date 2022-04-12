@@ -17,8 +17,10 @@ const PostList = () => {
     }, []);
 
     console.log(postlist);
+    console.log('포스트 리스트페이지')
     return (
         <>
+        
             <PostBanner/>
             <PostListWrap>
                 {postlist.map((post)=><PostCard key={post.thumbnail} thumbnail={post.thumbnail} username={post.writer.username} profile={post.profile} />)}
