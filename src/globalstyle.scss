@@ -40,12 +40,15 @@ body{
 
 	// min-width: 1000px;
 
-	background-color: none;
+	
 	padding: 0;
 	margin: 0;
 	text-decoration: none;
 	text-decoration-line: none;
 	font-family: 'Noto Sans KR Regular';
-	.global-format {
+	.global {
+		height: 100%;
+		width: 100%;
+		.global-format{height: 100%;width: 100%;}
 	}
 }
