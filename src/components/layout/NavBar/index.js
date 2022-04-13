@@ -31,13 +31,13 @@ const Index = () => {
         />
       </div>
       <div className="menu">
-        <div className="links" id="listpage" onClick={togo}>
+        <div className="white-link" id="listpage" onClick={togo}>
           ART{"&"}RECIPE
         </div>
-        <div className="links" id="mypage" onClick={togo}>
+        <div className="white-link" id="mypage" onClick={togo}>
           MY PAGE
         </div>
-        <div className="links" id="loginpage" onClick={togo}>
+        <div className="white-link" id="loginpage" onClick={togo}>
           LOG IN
         </div>
       </div>
