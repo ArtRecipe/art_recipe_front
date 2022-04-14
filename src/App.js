@@ -17,20 +17,21 @@ function App() {
   return (
     <div className="global">
       <NavBar />
-      <Routes className="global-format">
-        <Route path="/" element={MainPage} exact={true} />
-        {/*<Route path="/:id" component={PostDetail} />*/}
-        <Route path="/myPage" element={AuthRoute}>
-          <Route path="/myPage" element={MyPage} />
-        </Route>
-        <Route path="/auth" element={Auth} />
-        <Route path="/create" element={AuthRoute}>
-          <Route path="/create" element={PostCreate} />
-        </Route>
-        <Route path="/list" element={PostList} />
-      </Routes>
-
-      <Footer />
+      <Auth />
+      <Footer>
+        <Routes className="global-format">
+          <Route path="/" element={MainPage} exact={true} />
+          {/*<Route path="/:id" component={PostDetail} />*/}
+          <Route path="/myPage" element={AuthRoute}>
+            <Route path="/myPage" element={MyPage} />
+          </Route>
+          <Route path="/auth" element={Auth} />
+          <Route path="/create" element={AuthRoute}>
+            <Route path="/create" element={PostCreate} />
+          </Route>
+          <Route path="/list" element={PostList} />
+        </Routes>
+      </Footer>
     </div>
   );
 }

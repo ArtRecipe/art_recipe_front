@@ -7,7 +7,7 @@ const Index = () => {
   return (
     <div className="auth-layout">
       <div className="auth-box">
-        <img src={logo} alt="ci" />
+        <img className="logo-img" src={logo} alt="ci" />
         <GoogleButton className="button" />
         <div className="hashtag-info">
           예술 작품 · material · 소통 · archive

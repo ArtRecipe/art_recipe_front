@@ -37,22 +37,22 @@ export default class SimpleSlider extends Component {
       // ),
     };
     return (
-      <div className="carousel-layout">
+      <div>
         <Slider {...settings}>
           <div>
-            <img src={SlideImg1} alt="slide img" />
+            <img src={SlideImg1} alt="slide img" className="carouse-img" />
             {/* <h3>1</h3> */}
           </div>
           <div>
-            <img src={SlideImg3} alt="slide img" />
+            <img src={SlideImg3} alt="slide img" className="carouse-img" />
             {/* <h3>2</h3> */}
           </div>
           <div>
-            <img src={SlideImg4} alt="slide img" />
+            <img src={SlideImg4} alt="slide img" className="carouse-img" />
             {/* <h3>3</h3> */}
           </div>
           <div>
-            <img src={SlideImg2} alt="slide img" />
+            <img src={SlideImg2} alt="slide img" className="carouse-img" />
             {/* <h3>4</h3> */}
           </div>
         </Slider>
