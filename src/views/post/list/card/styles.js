@@ -24,5 +24,6 @@ export const DefaultProfile = styled.div`
 
 export const UserName = styled.div`
   font-size: 1.2rem;
+  padding-left: 1rem;
   color: #2e2e2e;
 `;

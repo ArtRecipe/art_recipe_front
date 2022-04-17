@@ -11,19 +11,24 @@ const PostList = () => {
     useEffect(() => {
         const res = getData().then(function (res){
             setPostlist([...res.data]);
+            console.log('POST LIST GET SUCCESS')
+            console.log(res);
         }).catch(function (rej){
             console.log(rej);
+            
         });
     }, []);
 
-    console.log(postlist);
+    
     console.log('포스트 리스트페이지')
+    console.log(postlist);
+    console.log('--------')
     return (
         <>
         
             <PostBanner/>
             <PostListWrap>
-                {postlist.map((post)=><PostCard key={post.thumbnail} thumbnail={post.thumbnail} username={post.writer.username} profile={post.profile} />)}
+                {postlist.map((post)=><PostCard key={post} thumbnail={post.thumbnail} username={post.writer.username} profile={post.profile} />)}
             </PostListWrap>
         </>
     );

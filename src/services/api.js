@@ -1,25 +1,25 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const Axios = axios.create({
-    baseURL:"http://115.85.183.95:7002/api",
-    // withCredentials: true,
+  baseURL: "http://127.0.0.1:8000/api",
+  // withCredentials: true,
 });
 
 export const getData = async () => {
-    try {
-        return await Axios.get("/post/post/");
-    } catch (error) {
-        console.error(error);
-    }
-}
+  try {
+    return await Axios.get("/post/post/");
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const getDataOnly = async () => {
-    try {
-        return await Axios.get("post/post/");
-    } catch (error) {
-        console.error(error);
-    }
-}
+  try {
+    return await Axios.get("post/post/");
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 // export const postData = async () => {
 //     try {
@@ -34,9 +34,3 @@ export const getDataOnly = async () => {
 //         console.error(e);
 //     }
 // }
-
-
-
-
-
-

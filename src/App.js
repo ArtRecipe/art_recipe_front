@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="global">
       <NavBar />
-      <Auth />
+      <PostList />
       <Footer>
         <Routes className="global-format">
           <Route path="/" element={MainPage} exact={true} />
