@@ -28,7 +28,7 @@ const PostList = () => {
         
             <PostBanner/>
             <PostListWrap>
-                {postlist.map((post)=><PostCard key={post} thumbnail={post.thumbnail} username={post.writer.username} profile={post.profile} />)}
+                {postlist.map((post)=><PostCard post={post} thumbnail={post.thumbnail} username={post.writer.username} profile={post.profile} />)}
             </PostListWrap>
         </>
     );

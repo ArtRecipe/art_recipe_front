@@ -16,11 +16,13 @@ export const searchPost = (search: String) => {
   });
 };
 
-export const postDetail = () => {
+
+// 게시물 리스트 GET
+export const uploadPost = (data) => {
   return axios({
     method: "GET",
-    headers: { accesstoken },
-    url: "",
+    url: `/api/post/post`,
+    data
   });
 };
 
