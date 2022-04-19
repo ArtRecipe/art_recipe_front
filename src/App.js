@@ -17,11 +17,12 @@ function App() {
   return (
     <div className="global">
       <NavBar />
-      <PostList />
+      <PostDetail />
+      {/* <PostList /> */}
       <Footer>
         <Routes className="global-format">
           <Route path="/" element={MainPage} exact={true} />
-          {/*<Route path="/:id" component={PostDetail} />*/}
+          <Route path="/:id" component={PostDetail} />
           <Route path="/myPage" element={AuthRoute}>
             <Route path="/myPage" element={MyPage} />
           </Route>
