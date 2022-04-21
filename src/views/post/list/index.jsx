@@ -6,23 +6,35 @@ import PostCard from "./card";
 
 const PostList = () => {
     const [postlist,setPostlist] = useState([]);
-
+    const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(null);
 
     useEffect(() => {
+        setError(null);
+		setLoading(true);
         const res = getData().then(function (res){
             setPostlist([...res.data]);
             console.log('POST LIST GET SUCCESS')
             console.log(res);
         }).catch(function (rej){
             console.log(rej);
-            
+            setError(rej);
         });
+        setLoading(false);
     }, []);
-
     
     console.log('포스트 리스트페이지')
     console.log(postlist);
-    console.log('--------')
+    // 대기중일때
+	if (loading) {
+		return <div className="list-block">로딩 중</div>;
+	}
+	if (error) return <div>에러가 발생했습니다</div>;
+	// 아직 postlist값이 설정되지 않았을때
+	if (!postlist) {
+		console.log('아직 값이 설정되지 않음');
+		return null;
+	}
     return (
         <>
         
