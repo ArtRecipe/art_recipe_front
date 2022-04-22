@@ -34,25 +34,46 @@
 // 	font-weight: normal;
 // 	font-style: normal;
 // }
-body{
-	width: 100%;
-	height: 100%;
-	background-color: none;
-	padding: 0;
-	margin: 0;
-	// padding: 0;
-	// margin: 0;
-	// text-decoration: none;
-	// text-decoration-line: none;
-	// font-family: 'Noto Sans KR Regular';
-
+body {
+  width: 100%;
+  height: 100%;
+  background-color: none;
+  padding: 0;
+  margin: 0;
+  // padding: 0;
+  // margin: 0;
+  // text-decoration: none;
+  // text-decoration-line: none;
+  // font-family: 'Noto Sans KR Regular';
 }
 .global {
-	height: 100%;
-	width: 100%;
-	text-decoration: none;
-	text-decoration-line: none;
-	font-family: 'Noto Sans KR Regular';
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+  text-decoration-line: none;
+  font-family: "Noto Sans KR Regular";
+  font-size: 1.5rem;
 
-	.global-format{height: 100%;width: 100%;}
+  .global-form {
+    height: 100%;
+    width: 100%;
+    font-size: 2rem;
+
+    padding-bottom: 10%;
+    color: rgba(0, 0, 0, 0.596);
+    letter-spacing: 0.02rem;
+
+    font-weight: 300;
+    h2 {
+      font-weight: 300;
+    }
+    h4 {
+      font-weight: 400;
+    }
+    img {
+      //이미지 default setting
+      //   height: 70%;
+      //   width: 70%;
+    }
+  }
 }

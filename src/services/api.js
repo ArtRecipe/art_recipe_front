@@ -15,7 +15,7 @@ export const getData = async () => {
 
 export const getDataOnly = async () => {
   try {
-    return await Axios.get("post/1");
+    return await Axios.get("/post/post/1/");
   } catch (error) {
     console.error(error);
   }

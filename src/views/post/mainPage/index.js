@@ -1,5 +1,5 @@
 import React from "react";
-import MainCarousel from "../../../components/carousel/MainCarousel.js";
+import MainCarousel from "../../../components/carousel/index.js";
 import MainPlayer from "../../../components/videoPlayer/index.js";
 import "./main-page.scss";
 const index = () => {
