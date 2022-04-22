@@ -17,22 +17,25 @@ function App() {
   return (
     <div className="global">
       <NavBar />
-      <PostDetail />
+
+      {/* <div className="global-form"> */}
+      {/* <MainPage /> */}
+      {/* <PostDetail /> */}
       {/* <PostList /> */}
-      <Footer>
-        <Routes className="global-format">
-          <Route path="/" element={MainPage} exact={true} />
-          <Route path="/:id" component={PostDetail} />
-          <Route path="/myPage" element={AuthRoute}>
-            <Route path="/myPage" element={MyPage} />
-          </Route>
-          <Route path="/auth" element={Auth} />
-          <Route path="/create" element={AuthRoute}>
-            <Route path="/create" element={PostCreate} />
-          </Route>
-          <Route path="/list" element={PostList} />
-        </Routes>
-      </Footer>
+
+      <Routes className="global-form">
+        <Route path="/" element={<MainPage />} exact={true} />
+        <Route path="/detail/:id" element={<PostDetail />} />
+        <Route path="/myPage" element={<AuthRoute />}>
+          <Route path="/myPage" element={<MyPage />} />
+        </Route>
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/create" element={<Auth />}>
+          <Route path="/create" element={<PostCreate />} />
+        </Route>
+        <Route path="/list" element={<PostList />} />
+      </Routes>
+      {/* <Footer /> */}
     </div>
   );
 }

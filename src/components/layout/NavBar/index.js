@@ -29,8 +29,7 @@ const Index = () => {
           alt="logo"
           onClick={togo}
         />
-      </div>
-      <div className="menu">
+
         <div className="white-link" id="listpage" onClick={togo}>
           ART{"&"}RECIPE
         </div>

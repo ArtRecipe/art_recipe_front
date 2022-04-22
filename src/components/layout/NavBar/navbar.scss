@@ -3,7 +3,7 @@
   background-color: rgba(0, 0, 0, 0.427);
   width: 100%;
   color: rgba(245, 245, 245, 0.735);
-  height: 13%;
+  height: 9%;
   top: 0;
   z-index: 1000;
   position: fixed;
@@ -15,50 +15,41 @@
   .menu {
     display: flex;
     flex-direction: row;
-    justify-content:space-around;
+    justify-content: space-around;
     align-items: center;
-   // width: 30%;
-    cursor: pointer;
-    
-    
-    
-    .logo-img {
-      width: 18rem;
-      height: 5rem;
-    //   @media only screen and (max-width: 600px) {
-    //   width: 20%;
-    //   height: 15%;
 
-    // }      
-    .white-link {
-      
-        color:inherit;
+    cursor: pointer;
+
+    .logo-img {
+      width: 20%;
+      height: 10%;
+      //   @media only screen and (max-width: 600px) {
+      //   width: 20%;
+      //   height: 15%;
+
+      // }
+      .white-link {
         text-decoration: none;
         font-size: 1rem;
         color: rgba(245, 245, 245, 0.735);
-        
+
         @media only screen and (max-width: 600px) {
           font-size: 8px;
-          
         }
-    }
-    .white-link:hover {
-      font-weight: 700;
-      text-decoration: underline;
-      color: white;
-    }
-    // .links::after {
-    //   font-weight: 500;
-    //   color: white;
-    // }
-    .white-link:active {
-      font-weight: 500;
-      color: white;
-    }
-   
+      }
+      .white-link:hover {
+        font-weight: 700;
+        text-decoration: underline;
+        color: white;
+      }
+      // .links::after {
+      //   font-weight: 500;
+      //   color: white;
+      // }
+      .white-link:active {
+        font-weight: 500;
+        color: white;
+      }
     }
   }
-  
-
-
 }
