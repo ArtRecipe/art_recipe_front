@@ -17,12 +17,8 @@ function App() {
   return (
     <div className="global">
       <NavBar />
-
-      {/* <div className="global-form"> */}
-      {/* <MainPage /> */}
-      {/* <PostDetail /> */}
-      {/* <PostList /> */}
-
+      {/* Todo : AuthRoute이 제대로 작동 안함 */}
+      {/* Todo : Footer */}
       <Routes className="global-form">
         <Route path="/" element={<MainPage />} exact={true} />
         <Route path="/detail/:id" element={<PostDetail />} />
