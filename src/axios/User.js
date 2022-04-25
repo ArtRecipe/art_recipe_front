@@ -33,3 +33,14 @@ export const putReviseMyInfo = (accesstoken:String, objectData:Object)=>{
         data:objectData,
     });
 };
+
+export const logout = (accesstoken: String) => {
+	return axios(
+		{
+			method: '',
+			url: '',
+			headers: { accesstoken },
+		},
+		{ withCredentials: true }
+	);
+};
