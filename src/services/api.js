@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const Axios = axios.create({
-  baseURL: "http://127.0.0.1:8000/api",
+  baseURL: "http://localhost:8000/api", //"http://127.0.0.1:8000/api",
   // withCredentials: true,
 });
 
@@ -13,9 +13,9 @@ export const getData = async () => {
   }
 };
 
-export const getDataOnly = async () => {
+export const getDataOnly = async (postId: String) => {
   try {
-    return await Axios.get("/post/post/1/");
+    return await Axios.get(`/post/post/${postId}`);
   } catch (error) {
     console.error(error);
   }

@@ -31,7 +31,7 @@ function App() {
         </Route>
         <Route path="/list" element={<PostList />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }

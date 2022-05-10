@@ -10,64 +10,29 @@ const PostList = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false); // 데이터 로딩
-  const [target, setTarget] = useState(""); // target
-
-  const onIntersect = async ([entry], observer) => {
-    if (entry.isIntersecting && !isLoading) {
-      observer.unobserve(entry.target);
-      setIsLoading(true);
-      // 데이터를 가져오는 부분
-      setError(null);
-      setLoading(true);
-      const res = getData()
-        .then(function (res) {
-          setPostlist([...res.data]);
-          console.log("POST LIST GET SUCCESS");
-          console.log(res);
-        })
-        .catch(function (rej) {
-          console.log(rej);
-          setError(rej);
-        });
-      setIsLoading(false);
-      observer.observe(entry.target);
-    }
-  };
 
   useEffect(() => {
-    let observer;
-    if (target) {
-      // callback 함수, option
-      observer = new IntersectionObserver(onIntersect, {
-        threshold: 0.4,
+    setError(null);
+    setLoading(true);
+    const res = getData()
+      .then(function (res) {
+        setPostlist([...res.data]);
+        console.log("POST LIST GET SUCCESS");
+        console.log(res);
+      })
+      .catch(function (rej) {
+        console.log(rej);
+        setError(rej);
       });
-      observer.observe(target); // 타겟 엘리먼트 지정
-    }
-    return () => observer && observer.disconnect();
-  }, [target]);
-
-  // useEffect(() => {
-  //   setError(null);
-  //   setLoading(true);
-  //   const res = getData()
-  //     .then(function (res) {
-  //       setPostlist([...res.data]);
-  //       console.log("POST LIST GET SUCCESS");
-  //       console.log(res);
-  //     })
-  //     .catch(function (rej) {
-  //       console.log(rej);
-  //       setError(rej);
-  //     });
-  //   setLoading(false);
-  // }, []);
+    setLoading(false);
+  }, []);
 
   console.log("포스트 리스트페이지");
   console.log(postlist);
   // 대기중일때
-  // if (loading) {
-  //   return <div className="list-block">로딩 중</div>;
-  // }
+  if (loading) {
+    return <div className="list-block">로딩 중</div>;
+  }
   if (error) return <div>에러가 발생했습니다</div>;
   // 아직 postlist값이 설정되지 않았을때
   if (!postlist) {
@@ -94,7 +59,6 @@ const PostList = () => {
       ) : (
         ""
       )}
-      <div ref={setTarget}></div>
     </>
   );
 };

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getDataOnly } from "../../../services/api";
 import DefaultProfile from "../../../assets/images/profile.png";
+import { useParams } from "react-router-dom";
 import "./detail.scss";
 
 const PostDetail = () => {
-  // const id = match.params.id;
+  const { id } = useParams();
   const [details, setDetails] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
