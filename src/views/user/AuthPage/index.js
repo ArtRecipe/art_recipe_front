@@ -1,4 +1,5 @@
 import React from "react";
+
 import "./authpage.scss";
 import logo from "./logo_column.png";
 import GoogleButton from "../../../components/auth/GoogleButton";
