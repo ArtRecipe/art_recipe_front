@@ -2,9 +2,8 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./globalstyle.scss";
 
-import NavBar from "./components/layout/NavBar/index.js";
+import NavBar from "./components/NavBar/index.js";
 
-import Footer from "./components/layout/footer/Footer.js";
 import MainPage from "./views/post/mainPage/index.js";
 import Auth from "./views/user/authPage/index.js";
 import MyPage from "./views/user/myPage/index.js";
@@ -31,7 +30,6 @@ function App() {
         </Route>
         <Route path="/list" element={<PostList />} />
       </Routes>
-      {/* <Footer /> */}
     </div>
   );
 }

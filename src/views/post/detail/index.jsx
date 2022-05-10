@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getDataOnly } from "../../../services/api";
 import DefaultProfile from "../../../assets/images/profile.png";
+import { useParams } from "react-router-dom";
 import "./detail.scss";
 
 const PostDetail = () => {
-  // const id = match.params.id;
+  const { postid } = useParams();
   const [details, setDetails] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -18,7 +19,7 @@ const PostDetail = () => {
     setError(null);
     setDetails(null);
     setLoading(true);
-    getDataOnly()
+    getDataOnly(postid)
       .then((res) => {
         setDetails(res.data);
         setUpdateDate(res.data.updated_at);

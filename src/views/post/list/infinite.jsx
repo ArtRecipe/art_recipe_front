@@ -45,7 +45,6 @@ const PostList = () => {
       <PostListWrap>
         {postlist.map((post) => (
           <PostCard
-            key={post.id}
             post={post}
             thumbnail={post.thumbnail}
             username={post.writer.username}
