@@ -9,38 +9,44 @@ import axios from "axios";
 //     });
 // };
 
-
-export const login = (data) = >{
-    return axios ({
-        method: 'POST',
-        url: '',
-        data,
-    });
+export const userData = () => {
+  return axios({
+    method: "GET",
+    url: `http://localhost:8000/api/accounts/user/profile/`,
+  });
 };
 
-export const getMyInfo = (userId: String)=>{
-    return axios({
-        method:'GET',
-        url: '',
-    });
-};
+// export const login = (data) = >{
+//     return axios ({
+//         method: 'POST',
+//         url: '',
+//         data,
+//     });
+// };
 
-export const putReviseMyInfo = (accesstoken:String, objectData:Object)=>{
-    return axios({
-        method:'PUT',
-        url: '',
-        headers: {accesstoken},
-        data:objectData,
-    });
-};
+// export const getMyInfo = (userId: String)=>{
+//     return axios({
+//         method:'GET',
+//         url: '',
+//     });
+// };
 
-export const logout = (accesstoken: String) => {
-	return axios(
-		{
-			method: '',
-			url: '',
-			headers: { accesstoken },
-		},
-		{ withCredentials: true }
-	);
-};
+// export const putReviseMyInfo = (accesstoken:String, objectData:Object)=>{
+//     return axios({
+//         method:'PUT',
+//         url: '',
+//         headers: {accesstoken},
+//         data:objectData,
+//     });
+// };
+
+// export const logout = (accesstoken: String) => {
+// 	return axios(
+// 		{
+// 			method: '',
+// 			url: '',
+// 			headers: { accesstoken },
+// 		},
+// 		{ withCredentials: true }
+// 	);
+// };

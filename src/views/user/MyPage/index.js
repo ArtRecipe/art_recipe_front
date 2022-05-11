@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ci from "./smallestci.png";
 import button from "./sbutton.png";
 import edit from "./pen-square-solid.svg";
@@ -7,8 +7,30 @@ import "./mypage.scss";
 import axios from "axios";
 import usePromise from "react-use-promise";
 import defaultimg from "./example.png";
+import { userData } from "../../../axios/User";
 
 const Index = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [myinfo, setMyinfo] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setError(false);
+      setLoading(true);
+      setMyinfo(null);
+      try {
+        const res = await userData();
+        console.log(res);
+      } catch (err) {
+        console.log(err);
+        setError(err);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
   //   const [loading, response, error] = usePromise(() => {
   //     return axios.get(`http://127.0.0.1:8000/api`);
   //   });
