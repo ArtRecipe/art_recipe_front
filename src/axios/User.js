@@ -16,6 +16,12 @@ export const userData = () => {
   });
 };
 
+export const sociallogin = () => {
+  return axios({
+    url: `http://localhost:8000/api/oauth/google/login/ `,
+  });
+};
+
 // export const login = (data) = >{
 //     return axios ({
 //         method: 'POST',
