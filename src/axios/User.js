@@ -18,7 +18,8 @@ export const userData = () => {
 
 export const sociallogin = () => {
   return axios({
-    url: `http://localhost:8000/api/oauth/google/login/ `,
+    method: "POST",
+    url: `http://localhost:8000/api/oauth/google/login/`,
   });
 };
 
