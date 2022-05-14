@@ -1,30 +1,28 @@
-import styled from "styled-components";
-
-export const CreateWrap = styled.div`
+.createWrap {
   margin-top: 7rem;
-`;
+}
 
-export const CreateAdvice = styled.div`
+.createAdvice {
   margin-bottom: 4rem;
   text-align: center;
-`;
+}
 
-export const ContentWrap = styled.div`
+.contentWrap {
   // margin: 0 10rem 4rem;
-`;
+}
 
-export const Form = styled.form`
+.form {
   display: flex;
   justify-content: space-between;
-`;
+}
 
-// export const PostImageWrap = styled.div`
-//display: flex;
-//flex-direction: column;
-//width: 30%;
-// `;
+.postImageWrap {
+  //display: flex;
+  //flex-direction: column;
+  //width: 30%;
+}
 
-export const PostImage = styled.div`
+.postImage {
   width: 30%;
   height: 500px;
   border: 1px solid black;
@@ -39,27 +37,26 @@ export const PostImage = styled.div`
   &:hover {
     cursor: pointer;
   }
-`;
+}
 
-export const PlusImg = styled.img`
+.plusImg {
   width: 50%;
-`;
+}
 
-export const MinusImg = styled.img`
+.minusImg {
   width: 50%;
-`;
+}
 
-export const PostPreview = styled.img`
+.postPreview {
   width: 100%;
-`;
+}
 
-export const PostContent = styled.div`
+.postContent {
   width: 50%;
-`;
+}
 
-export const PostContentWrap = styled.div`
+.postContentWrap {
   width: 100%;
-
   & input {
     width: 100%;
     // padding: 1rem;
@@ -80,21 +77,19 @@ export const PostContentWrap = styled.div`
   &:not(:first-child) {
     margin-top: 2rem;
   }
-`;
+}
 
-export const Title = styled.label`
+.title {
   font-size: 1.5rem;
-`;
+}
 
-export const PostMaterialSubTitle = styled.div`
+.postMaterialSubTitle {
   font-weight: lighter;
   font-size: 0.9rem;
   margin-top: 0.5rem;
-`;
+}
 
-export const IngredientInputWrap = styled.div``;
-
-export const IngredientInputTop = styled.div`
+.ingredientInputWrap .ingredientInputTop {
   display: flex;
   justify-content: space-between;
 
@@ -105,9 +100,9 @@ export const IngredientInputTop = styled.div`
   & input:nth-child(2n) {
     width: 66%;
   }
-`;
+}
 
-export const IngredientPlusBtn = styled.div`
+.ingredientPlusBtn {
   width: 100%;
   height: 3rem;
   background-color: #c4c4c4;
@@ -120,15 +115,15 @@ export const IngredientPlusBtn = styled.div`
   &:hover {
     cursor: pointer;
   }
-`;
+}
 
-export const PostBtnWrap = styled.div`
+.postBtnWrap {
   margin: 5rem 2rem 0;
   display: flex;
   justify-content: space-between;
-`;
+}
 
-export const PostSaveBtn = styled.button`
+.postSaveBtn {
   width: 10rem;
   height: 3rem;
   background-color: #fff;
@@ -142,9 +137,9 @@ export const PostSaveBtn = styled.button`
     background-color: #c4c4c4;
     color: #ffff;
   }
-`;
+}
 
-export const PostCancelBtn = styled.button`
+.postCancelBtn {
   width: 10rem;
   height: 3rem;
   background-color: #fff;
@@ -158,4 +153,4 @@ export const PostCancelBtn = styled.button`
     background-color: #c4c4c4;
     color: #ffff;
   }
-`;
+}

@@ -1,24 +1,19 @@
 import React from "react";
-import {
-  BannerSubTitle,
-  BannerTitle,
-  BannerTitleWrap,
-  BannerWrap,
-} from "./styles";
+import styles from "./banner.module.scss";
 
 const PostBanner = () => {
   return (
     <>
-      <BannerWrap>
-        <BannerTitleWrap>
-          <BannerSubTitle>
+      <div className={styles.bannerWrap}>
+        <div className={styles.bannerTitleWrap}>
+          <div className={styles.bannerSubtitle}>
             Art Recipe _ 나만의 재료 · 예술작품을 공유하고 아카이브
-          </BannerSubTitle>
-          <BannerTitle>
+          </div>
+          <div className={styles.bannerTitle}>
             <h2>Everyday, Art Recipe</h2>
-          </BannerTitle>
-        </BannerTitleWrap>
-      </BannerWrap>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { getDetail } from "../../../axios/Post";
-import { getData } from "../../../axios/Post";
+import { getPost, getPostList } from "../../../axios/Post";
 import DefaultProfile from "../../../assets/images/profile.png";
 import { useParams } from "react-router-dom";
-import "./detail.scss";
+import styles from "./detail.module.scss";
 import BrushIcon from "../../../assets/images/paintbrush-solid.svg";
 import PaletteIcon from "../../../assets/images/palette-solid.svg";
 import BookmarkIcon from "../../../assets/images/bookmark-solid.svg";
 import UtubePlayer from "../../../components/videoPlayer/index.js";
 
 const PostDetail = () => {
-  const { id } = useParams();
+  const { postId } = useParams();
   const [details, setDetails] = useState(null);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   let date = [];
-  const postIdx = id - 1;
+  const postIdx = postId - 1;
   const [sideBarStatus, setSideBarStatus] = useState(0);
 
   // const [updateDate, setUpdateDate] = useState("");
 
   console.log("디테일페이지");
-  console.log(id);
+  console.log(postId);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +29,7 @@ const PostDetail = () => {
       setLoading(true);
       setDetails(null);
       try {
-        const res = await getData();
+        const res = await getPostList();
         setDetails(res.data[postIdx]);
 
         console.log(res.data[postIdx]);
@@ -46,7 +45,7 @@ const PostDetail = () => {
 
   // 대기중일때
   if (loading) {
-    return <div className="list-block">로딩 중</div>;
+    return <div className={styles.listBlock}>로딩 중</div>;
   }
   if (error) return <div>에러가 발생했습니다</div>;
   // 아직 디테일info값이 설정되지 않았을때
@@ -58,7 +57,7 @@ const PostDetail = () => {
   // console.log(date);
 
   return (
-    <div className="detail-form">
+    <div className={styles.detailForm}>
       {details.writer.profile ? (
         <div style={{ height: "2rem", width: "2rem", marginRight: "1rem" }}>
           {details.writer.profile}
@@ -77,7 +76,7 @@ const PostDetail = () => {
       {details.images.map((a, i) => {
         return (
           <div key={i} style={{ height: "70%", width: "70%" }}>
-            <img className="detail-img" src={a.image} alt="postedPhoto" />
+            <img className={styles.detailImg} src={a.image} alt="postedPhoto" />
           </div>
         );
       })}
@@ -92,10 +91,10 @@ const PostDetail = () => {
       {details.desc}
 
       {/* 하단 코드는 우측의 정보들(재료,컬러,북마크 등) */}
-      <div className="side-menubar">
-        <img className="side-logo" src={DefaultProfile} alt="CI" />
+      <div className={styles.sideMenuBar}>
+        <img className={styles.sideLogo} src={DefaultProfile} alt="CI" />
         <img
-          className="side-button"
+          className={styles.sideButton}
           onClick={() => {
             if (sideBarStatus == 1) {
               setSideBarStatus(0);
@@ -106,9 +105,9 @@ const PostDetail = () => {
           src={BrushIcon}
           alt="ButtonImg"
         />
-        <div className="side-button-title">재료</div>
+        <div className={styles.sideButtonTitle}>재료</div>
         <img
-          className="side-button"
+          className={styles.sideButton}
           onClick={() => {
             if (sideBarStatus == 2) {
               setSideBarStatus(0);
@@ -119,9 +118,9 @@ const PostDetail = () => {
           src={PaletteIcon}
           alt="ButtonImg"
         />
-        <div className="side-button-title">컬러</div>
+        <div className={styles.sideButtonTitle}>컬러</div>
         <img
-          className="side-button"
+          className={styles.sideButton}
           onClick={() => {
             if (sideBarStatus == 3) {
               setSideBarStatus(0);
@@ -132,29 +131,22 @@ const PostDetail = () => {
           src={BookmarkIcon}
           alt="ButtonImg"
         />
-        <div className="side-button-title"></div>
+        <div className={styles.sideButtonTitile}></div>
       </div>
-      {sideBarStatus ? (
-        <SideInfoModal sideBarStatus={sideBarStatus} details={details} />
-      ) : null}
+      {sideBarStatus ? <SideInfoModal sideBarStatus={sideBarStatus} details={details} /> : null}
     </div>
   );
 };
 
 function SideInfoModal(props) {
-  const sideMenuTitle = [
-    "Modal ERROR",
-    "MATERIAL",
-    "COLOR",
-    "북마크 서비스는 준비중입니다.",
-  ];
+  const sideMenuTitle = ["Modal ERROR", "MATERIAL", "COLOR", "북마크 서비스는 준비중입니다."];
 
   return (
-    <div className="detail-modal">
+    <div className={styles.detailModal}>
       <h6>{sideMenuTitle[props.sideBarStatus]}</h6>
       {props.sideBarStatus == 1 ? ( // Material재료 정보
         <>
-          <div className="modal-material-data">
+          <div className={styles.modalMaterialData}>
             {props.details.materials.map((a, i) => {
               return (
                 <div key={i}>
@@ -162,7 +154,7 @@ function SideInfoModal(props) {
                   <>
                     {a.url ? (
                       <span
-                        className="material-link"
+                        className={styles.materialLink}
                         onClick={() => window.open(a.url, "_blank")}
                       >
                         재료 링크
@@ -178,12 +170,8 @@ function SideInfoModal(props) {
         </>
       ) : null}
       {props.sideBarStatus == 2 ? (
-        <div className="modal-color-data">
-          {props.details.color ? (
-            <>{props.details.color}</>
-          ) : (
-            <>등록된 정보가 없습니다.</>
-          )}
+        <div className={styles.modalColorData}>
+          {props.details.color ? <>{props.details.color}</> : <>등록된 정보가 없습니다.</>}
         </div>
       ) : null}
     </div>

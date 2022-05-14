@@ -1,7 +1,7 @@
 import DefaultProfile from "../../../../assets/images/profile.png";
 import Bookmark from "../../../../assets/images/bookmark.png";
 import { useNavigate } from "react-router-dom";
-import "./listcard.scss";
+import styles from "./listcard.module.scss";
 import DefaultPhoto from "../../../../assets/images/defaultphoto.png";
 
 const PostCard = ({ post, thumbnail, username, profile }) => {
@@ -15,11 +15,11 @@ const PostCard = ({ post, thumbnail, username, profile }) => {
   // const bookmark = ()=> {
   // }
   return (
-    <div className="postCardWrap">
+    <div className={styles.postCardWrap}>
       {/* <img src={Bookmark} onClick={Bookmark} style={{height:'1.5rem', width:'1rem', opacity:'0.5'}} alt="icon"/> */}
       {thumbnail ? (
         <img
-          className="thumbnail"
+          className={styles.thumbnail}
           onClick={toDetail}
           style={{ height: "23rem", width: "23rem" }}
           src={thumbnail}
@@ -35,18 +35,14 @@ const PostCard = ({ post, thumbnail, username, profile }) => {
         src={thumbnail}
         alt={thumbnail}
       /> */}
-      <div className="userDetail">
+      <div className={styles.userDetail}>
         {profile ? (
           <img src={profile} alt={profile} />
         ) : (
-          <img
-            src={DefaultProfile}
-            style={{ height: "3rem", width: "3rem" }}
-            alt={profile}
-          />
+          <img src={DefaultProfile} style={{ height: "3rem", width: "3rem" }} alt={profile} />
         )}
 
-        <div className="userName">{username}</div>
+        <div className={styles.userName}>{username}</div>
       </div>
     </div>
   );

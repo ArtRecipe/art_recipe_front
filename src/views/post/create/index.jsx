@@ -1,21 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  ContentWrap,
-  CreateAdvice,
-  CreateWrap,
-  Form,
-  IngredientInputWrap,
-  IngredientPlusBtn,
-  PlusImg,
-  PostBtnWrap,
-  PostCancelBtn,
-  PostContent,
-  PostContentWrap,
-  PostImage,
-  PostMaterialSubTitle,
-  PostSaveBtn,
-  Title,
-} from "./styles";
+import styles from "./create.module.scss";
 
 import plusIcon from "../../../assets/images/plusBtn.svg";
 import minusIcon from "../../../assets/images/minBtn.svg";
@@ -96,14 +80,14 @@ const PostCreate = () => {
 
   return (
     <>
-      <PostBanner />
-      <CreateWrap>
-        <CreateAdvice>
+      <div className={styles.postBanner}></div>
+      <div className={styles.createWrap}>
+        <div className={styles.createAdvice}>
           나만의 재료와 미술작품을 공유하고, 작품에 스토리를 더하세요 !
-        </CreateAdvice>
-        <ContentWrap>
-          <Form action="#" method="post">
-            <PostImage onClick={onClickImageUpload} id={"post_image"}>
+        </div>
+        <div className={styles.contentWrap}>
+          <form className={styles.form} action="#" method="post">
+            <div className={styles.postImage} onClick={onClickImageUpload} id={"post_image"}>
               <img src={imageUrl} alt={imageUrl} />
               <input
                 type="file"
@@ -113,54 +97,55 @@ const PostCreate = () => {
                 ref={ref}
               />
               {file ? (
-                <PlusImg
+                <div
+                  className={styles.plusImg}
                   src={minusIcon}
                   alt="minusIcon"
                   onClick={onCLickMinusBtn}
-                />
+                ></div>
               ) : (
-                <PlusImg src={plusIcon} alt="plusIcon" />
+                <div className={styles.plusImg} src={plusIcon} alt="plusIcon"></div>
               )}
-            </PostImage>
-            <PostContent>
-              <PostContentWrap>
-                <Title htmlFor={"post_title"}>TITLE</Title>
-                <input
-                  type="text"
-                  placeholder={"작품 제목을 입력해주세요."}
-                  id={"post_title"}
-                />
-              </PostContentWrap>
-              <PostContentWrap>
-                <Title>MATERIAL</Title>
-                <PostMaterialSubTitle>
+            </div>
+            <div className={styles.postContent}>
+              <div className={styles.postContentWrap}>
+                <div className={styles.title} htmlFor={"post_title"}>
+                  TITLE
+                </div>
+                <input type="text" placeholder={"작품 제목을 입력해주세요."} id={"post_title"} />
+              </div>
+              <div className={styles.postContentWrap}>
+                <div className={styles.title}>MATERIAL</div>
+                <div className={styles.postMaterialSubTitle}>
                   작품에 사용된 재료를 입력해주세요.
-                </PostMaterialSubTitle>
-                <IngredientInputWrap>
+                </div>
+                <div className={styles.ingredientInputWrap}>
                   {inputarr.map((item) => (
                     <Plusinput />
                   ))}
-                  <IngredientPlusBtn onClick={onClickPlusBtn}>
+                  <div className={styles.ingredientPlusBtn} onClick={onClickPlusBtn}>
                     <img src={plusIcon} alt="plusIcon" />
-                  </IngredientPlusBtn>
-                </IngredientInputWrap>
-              </PostContentWrap>
-              <PostContentWrap>
-                <Title htmlFor={"post_color"}>COLOR</Title>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.postContentWrap}>
+                <div className={styles.title} htmlFor={"post_color"}>
+                  COLOR
+                </div>
                 <input
                   type="text"
                   placeholder={"작품의 색상들을 입력해주세요."}
                   id={"post_color"}
                 />
-              </PostContentWrap>
-              <PostBtnWrap>
-                <PostSaveBtn>저장</PostSaveBtn>
-                <PostCancelBtn>취소</PostCancelBtn>
-              </PostBtnWrap>
-            </PostContent>
-          </Form>
-        </ContentWrap>
-      </CreateWrap>
+              </div>
+              <div className={styles.postBtnWrap}>
+                <div className={styles.postSaveBtn}>저장</div>
+                <div className={styles.postCancelBtn}>취소</div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </>
   );
 };

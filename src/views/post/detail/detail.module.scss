@@ -1,4 +1,4 @@
-.detail-form {
+.detailForm {
   //   display: flex;
   //   flex-direction: column;
   //   align-items: center;
@@ -7,21 +7,21 @@
   align-items: center;
   color: rgba(0, 0, 0, 0.684);
 
-  .detail-date {
+  .detailDate {
     font-size: 1rem;
   }
-  .side-menubar {
+  .sideMenubar {
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
 
-    .side-logo {
+    .sideLogo {
       height: 8%;
       width: 8%;
     }
 
-    .side-button {
+    .sideButton {
       border: solid 2px gray;
       padding: 1%;
       border-radius: 100px;
@@ -30,38 +30,38 @@
       opacity: 0.3;
       margin-top: 2%;
     }
-    .side-button:hover {
+    .sideButton:hover {
       background-color: rgba(172, 164, 211, 1);
     }
-    .side-button:active {
+    .sideButton:active {
       background-color: rgba(172, 164, 211, 1);
     }
 
-    .side-button-title {
+    .sideButtonTitle {
       color: grey;
       font-size: 1.2rem;
     }
   }
 }
-.detail-modal {
+.detailModal {
   border: 1px;
   border-radius: 40px;
   width: 10rem;
   padding: 2rem;
   background-color: rgba(255, 212, 212, 0.25);
-  .modal-material-data {
+  .modalMaterialData {
     //모달창의 재료 데이터
-    .material-link {
+    .materialLink {
       border-bottom: solid 1px;
       font-size: 1rem;
       color: rgba(172, 164, 211, 1);
       cursor: pointer;
     }
-    .material-link:hover {
+    .materialLink:hover {
       font-weight: 700;
       color: rgb(109, 91, 198);
     }
-    .modal-color-data {
+    .modalColorData {
       //모달창의 색상 데이터
     }
   }
