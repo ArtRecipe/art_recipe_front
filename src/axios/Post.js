@@ -1,74 +1,46 @@
 import axios from "axios";
 
-export const Axios = axios.create({
-  baseURL: "http://localhost:8000/api", //"http://127.0.0.1:8000/api",
-  // withCredentials: true,
-});
-
-export const getData = async () => {
-  try {
-    return await Axios.get("/post/post/");
-  } catch (error) {
-    console.log(error);
-    console.error();
-  }
-};
-
-export const getDataOnly = (postid: String) => {
-  const getDetail = async () => {
-    try {
-      return await Axios.get(`/post/post/${postid}`);
-    } catch (error) {
-      console.error(error);
+export const getPostList = async () => {
+  return axios(
+    {
+      method: "GET",
+      url: "/api/post/post/",
+    },
+    {
+      withCredentials: true,
     }
-  };
+  );
 };
 
-export const getDetail = (postid: String) => {
-  return axios({
-    method: "GET",
-    url: `http://localhost:8000/api/post/post/${postid}/`,
-  });
+export const getPost = async (postId) => {
+  return axios(
+    {
+      method: "GET",
+      url: `/api/post/post/${postId}/`,
+    },
+    {
+      withCredentials: true,
+    }
+  );
 };
 
-// export const postData = async () => {
-//     try {
-//         return await Axios.post("post/post/",{
-//             title:'hi',
-//             thumbnail: '',
-//             material: 'hi',
-//             color: '#5dd',
-//             desc:"hee"
-//         })
-//     } catch (e){
-//         console.error(e);
-//     }
-// }
-
-// //1차 준비 완료
-// import axios from "axios";
-
-// export const getPostList = (data) => {
-//   return axios({
-//     method: "GET",
-//     url: "",
-//     data,
-//   });
-// };
+export const postPost = async (data) => {
+  return axios(
+    {
+      method: "POST",
+      url: "/api/post/post/",
+      data,
+    },
+    {
+      withCredentials: true,
+    }
+  );
+};
 
 // export const searchPost = (search: String) => {
 //   return axios({
 //     method: "GET",
 //     url: "",
-//   });
-// };
-
-// // 게시물 리스트 GET
-// export const uploadPost = (data) => {
-//   return axios({
-//     method: "GET",
-//     url: `/api/post/post`,
-//     data
 //   });
 // };
 
