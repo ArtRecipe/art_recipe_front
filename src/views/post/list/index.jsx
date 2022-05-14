@@ -4,6 +4,7 @@ import PostBanner from "../banner";
 import { PostListWrap, LoaderWrap } from "./styles";
 import PostCard from "./card";
 import ReactLoading from "react-loading";
+import DefaultPhoto from "../../../assets/images/defaultphoto.png";
 
 const PostList = () => {
   const [postlist, setPostlist] = useState([]);
@@ -19,6 +20,7 @@ const PostList = () => {
         setPostlist([...res.data]);
         console.log("POST LIST GET SUCCESS");
         console.log(res);
+        console.log(res.data[0].images.length);
       })
       .catch(function (rej) {
         console.log(rej);
@@ -28,6 +30,7 @@ const PostList = () => {
   }, []);
 
   console.log("포스트 리스트페이지");
+
   console.log(postlist);
   // 대기중일때
   if (loading) {
@@ -44,13 +47,32 @@ const PostList = () => {
       <PostBanner />
       <PostListWrap>
         {postlist.map((post) => (
-          <PostCard
-            key={post.id}
-            post={post}
-            thumbnail={post.images[0].image}
-            username={post.writer.username}
-            profile={post.profile}
-          />
+          <div key={post.id}>
+            {post.images.length == 0 ? (
+              <PostCard
+                key={post.id}
+                post={post}
+                thumbnail={DefaultPhoto}
+                username={post.writer.username}
+                profile={post.profile}
+              />
+            ) : (
+              <PostCard
+                key={post.id}
+                post={post}
+                thumbnail={post.images[0].image}
+                username={post.writer.username}
+                profile={post.profile}
+              />
+            )}
+          </div>
+          // <PostCard
+          //   key={post.id}
+          //   post={post}
+          //   thumbnail={post.images[0].image}
+          //   username={post.writer.username}
+          //   profile={post.profile}
+          // />
         ))}
       </PostListWrap>
       {isLoading ? (

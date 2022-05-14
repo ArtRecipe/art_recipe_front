@@ -2,6 +2,7 @@ import DefaultProfile from "../../../../assets/images/profile.png";
 import Bookmark from "../../../../assets/images/bookmark.png";
 import { useNavigate } from "react-router-dom";
 import "./listcard.scss";
+import DefaultPhoto from "../../../../assets/images/defaultphoto.png";
 
 const PostCard = ({ post, thumbnail, username, profile }) => {
   const navigate = useNavigate();
@@ -16,14 +17,24 @@ const PostCard = ({ post, thumbnail, username, profile }) => {
   return (
     <div className="postCardWrap">
       {/* <img src={Bookmark} onClick={Bookmark} style={{height:'1.5rem', width:'1rem', opacity:'0.5'}} alt="icon"/> */}
-
-      <img
+      {thumbnail ? (
+        <img
+          className="thumbnail"
+          onClick={toDetail}
+          style={{ height: "23rem", width: "23rem" }}
+          src={thumbnail}
+          alt={thumbnail}
+        />
+      ) : (
+        <DefaultPhoto />
+      )}
+      {/* <img
         className="thumbnail"
         onClick={toDetail}
         style={{ height: "23rem", width: "23rem" }}
         src={thumbnail}
         alt={thumbnail}
-      />
+      /> */}
       <div className="userDetail">
         {profile ? (
           <img src={profile} alt={profile} />
