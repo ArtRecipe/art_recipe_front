@@ -1,0 +1,33 @@
+import React from "react";
+import SocialAuth from "../../../components/auth/SocialAuth";
+import "./authpage.scss";
+import logo from "./logo_column.png";
+// import GoogleButton from "../../../components/auth/GoogleButton";
+import { GoogleLogin } from "react-google-login";
+
+const Index = () => {
+  const responseGoogle = (response) => {
+    console.log(response);
+  };
+  return (
+    <div className="auth-layout">
+      <div className="auth-box">
+        <img className="logo-img" src={logo} alt="ci" />
+        <SocialAuth />
+        {/* <GoogleButton className="button" /> */}
+        <GoogleLogin
+          clientId="1022881329351-g61719f230dt6lpt3cnn7lulua9i6b0u.apps.googleusercontent.com"
+          buttonText="Login"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+        />
+        <div className="hashtag-info">
+          예술 작품 · material · 소통 · archive
+        </div>
+        <p>로그인 없이도 ART RECIPE의</p>
+        <p>작품을 감상하실 수 있습니다.</p>
+      </div>
+    </div>
+  );
+};
+export default Index;

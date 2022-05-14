@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const BannerWrap = styled.div`
-  background: linear-gradient(#ACA4D3,#FFCED9);
-  height: 26rem;
+  background: linear-gradient(#aca4d3, #ffced9);
+  height: 30rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,15 +10,15 @@ export const BannerWrap = styled.div`
 `;
 
 export const BannerTitleWrap = styled.div`
-    margin-top: 4.5rem;
+  padding: 0% 5% 0% 5%;
+  margin-top: 10rem;
 `;
 
 export const BannerSubTitle = styled.div`
-    font-weight: lighter;
-  margin-top: 8rem;
+  font-weight: lighter;
 `;
 
 export const BannerTitle = styled.div`
-    font-size: 3rem;
+  font-size: 3rem;
+  font-weight: 400;
 `;
-

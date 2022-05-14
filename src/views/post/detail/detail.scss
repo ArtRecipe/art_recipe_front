@@ -1,0 +1,68 @@
+.detail-form {
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  margin-left: 20%;
+  padding-top: 9%;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.684);
+
+  .detail-date {
+    font-size: 1rem;
+  }
+  .side-menubar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+
+    .side-logo {
+      height: 8%;
+      width: 8%;
+    }
+
+    .side-button {
+      border: solid 2px gray;
+      padding: 1%;
+      border-radius: 100px;
+      height: 2.5rem;
+      width: 2.5rem;
+      opacity: 0.3;
+      margin-top: 2%;
+    }
+    .side-button:hover {
+      background-color: rgba(172, 164, 211, 1);
+    }
+    .side-button:active {
+      background-color: rgba(172, 164, 211, 1);
+    }
+
+    .side-button-title {
+      color: grey;
+      font-size: 1.2rem;
+    }
+  }
+}
+.detail-modal {
+  border: 1px;
+  border-radius: 40px;
+  width: 10rem;
+  padding: 2rem;
+  background-color: rgba(255, 212, 212, 0.25);
+  .modal-material-data {
+    //모달창의 재료 데이터
+    .material-link {
+      border-bottom: solid 1px;
+      font-size: 1rem;
+      color: rgba(172, 164, 211, 1);
+      cursor: pointer;
+    }
+    .material-link:hover {
+      font-weight: 700;
+      color: rgb(109, 91, 198);
+    }
+    .modal-color-data {
+      //모달창의 색상 데이터
+    }
+  }
+}
