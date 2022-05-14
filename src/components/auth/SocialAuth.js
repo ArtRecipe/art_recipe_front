@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
+
 import styled from "styled-components";
+import { sociallogin } from "../../axios/User";
 
 const SocialAuth = () => {
-  const GoogleBtn = () => {
+  const GoogleBtn = async () => {
     console.log("SocialAuth Page");
+    try {
+      const response = await sociallogin();
+      console.log(response);
+    } catch (err) {
+      console.log("Social Auth ERR");
+      console.error();
+    }
   };
   return (
     <>

@@ -20,7 +20,17 @@ function App() {
       {/* Todo : Footer */}
       <Routes className="global-form">
         <Route path="/" element={<MainPage />} exact={true} />
-        <Route path="/detail/:id" element={<PostDetail />} />
+        <Route
+          path="*"
+          element={
+            <div>
+              <h2 style={{ margin: "20%", color: "grey" }}>
+                없는 페이지 입니다.
+              </h2>
+            </div>
+          }
+        />
+        {/* <Route path="/detail/:id" element={<PostDetail />} /> */}
         <Route path="/myPage" element={<AuthRoute />}>
           <Route path="/myPage" element={<MyPage />} />
         </Route>
@@ -29,6 +39,7 @@ function App() {
           <Route path="/create" element={<PostCreate />} />
         </Route>
         <Route path="/list" element={<PostList />} />
+        <Route path="/detail/:id" element={<PostDetail />} />
       </Routes>
     </div>
   );

@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { getDetail } from "../../../axios/Post";
-import { getDataOnly } from "../../../axios/Post";
+import { getData } from "../../../axios/Post";
 import DefaultProfile from "../../../assets/images/profile.png";
 import { useParams } from "react-router-dom";
 import "./detail.scss";
+import BrushIcon from "../../../assets/images/paintbrush-solid.svg";
+import PaletteIcon from "../../../assets/images/palette-solid.svg";
+import BookmarkIcon from "../../../assets/images/bookmark-solid.svg";
 
 const PostDetail = () => {
   const { id } = useParams();
   const [details, setDetails] = useState(null);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   let date = [];
-  const [updateDate, setUpdateDate] = useState("");
+  const postIdx = id - 1;
+  const [sideBarStatus, setSideBarStatus] = useState(0);
+
+  // const [updateDate, setUpdateDate] = useState("");
 
   console.log("디테일페이지");
   console.log(id);
@@ -22,10 +29,11 @@ const PostDetail = () => {
       setLoading(true);
       setDetails(null);
       try {
-        const res = await getDetail(id);
-        setDetails(res.data);
-        console.log(res.data);
-        setUpdateDate(res.data.updated_at);
+        const res = await getData();
+        setDetails(res.data[postIdx]);
+
+        console.log(res.data[postIdx]);
+        // setUpdateDate(res.data[id].created_at);
       } catch (err) {
         console.log(err);
         setError(true);
@@ -34,21 +42,6 @@ const PostDetail = () => {
     };
     fetchData();
   }, []);
-
-  // useEffect(() => {
-  //   setError(null);
-  //   setLoading(true);
-  //   const res = getDataOnly(postid)
-  //     .then(function (res) {
-  //       setDetails(res.data);
-  //       console.log(res.data);
-  //     })
-  //     .catch(function (rej) {
-  //       console.log(rej);
-  //       setError(true);
-  //     });
-  //   setLoading(false);
-  // }, []);
 
   // 대기중일때
   if (loading) {
@@ -60,8 +53,8 @@ const PostDetail = () => {
     console.log("아직 값이 설정되지 않음");
     return null;
   }
-  date = updateDate.split("T");
-  console.log(date);
+  // date = updateDate.split("T");
+  // console.log(date);
 
   return (
     <div className="detail-form">
@@ -80,20 +73,94 @@ const PostDetail = () => {
       {details.writer.username}
 
       <h3>{details.title}</h3>
-      <img
-        className="detail-img"
-        src={details.thumbnail}
-        style={{ height: "70%", width: "70%" }}
-        alt="picture"
-      />
+      {details.images.map((a, i) => {
+        return (
+          <div key={i} style={{ height: "70%", width: "70%" }}>
+            <img className="detail-img" src={a.image} alt="postedPhoto" />
+          </div>
+        );
+      })}
       <br />
       <br />
       {details.desc}
-      <br />
-      <br />
-      <div className="detail-date">최신 업데이트 : {date[0]}</div>
+
+      {/* 하단 코드는 우측의 정보들(재료,컬러,북마크 등) */}
+      <div className="side-menubar">
+        <img className="side-logo" src={DefaultProfile} alt="CI" />
+        <img
+          className="side-button"
+          onClick={() => {
+            if (sideBarStatus == 1) {
+              setSideBarStatus(0);
+            } else {
+              setSideBarStatus(1);
+            }
+          }}
+          src={BrushIcon}
+          alt="ButtonImg"
+        />
+        <div className="side-button-title">재료</div>
+        <img
+          className="side-button"
+          onClick={() => {
+            if (sideBarStatus == 2) {
+              setSideBarStatus(0);
+            } else {
+              setSideBarStatus(2);
+            }
+          }}
+          src={PaletteIcon}
+          alt="ButtonImg"
+        />
+        <div className="side-button-title">컬러</div>
+        <img
+          className="side-button"
+          onClick={() => {
+            if (sideBarStatus == 3) {
+              setSideBarStatus(0);
+            } else {
+              setSideBarStatus(3);
+            }
+          }}
+          src={BookmarkIcon}
+          alt="ButtonImg"
+        />
+        <div className="side-button-title"></div>
+      </div>
+      {sideBarStatus ? (
+        <SideInfoModal sideBarStatus={sideBarStatus} details={details} />
+      ) : null}
     </div>
   );
 };
+
+function SideInfoModal(props) {
+  const sideMenuTitle = [
+    "Modal ERROR",
+    "MATERIAL",
+    "COLOR",
+    "북마크 서비스는 준비중입니다.",
+  ];
+
+  return (
+    <div>
+      <h6>{sideMenuTitle[props.sideBarStatus]}</h6>모달창 열림
+      {props.sideBarStatus == 1 ? (
+        <>
+          <div className="modal-material-data">
+            {props.details.materials.map((a, i) => {
+              return (
+                <div key={i}>
+                  <h7>{a.name}</h7>
+                  <a>{a.url}</a>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      ) : null}
+    </div>
+  );
+}
 
 export default PostDetail;

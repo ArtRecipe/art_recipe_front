@@ -47,7 +47,7 @@ const PostList = () => {
           <PostCard
             key={post.id}
             post={post}
-            thumbnail={post.thumbnail}
+            thumbnail={post.images[0].image}
             username={post.writer.username}
             profile={post.profile}
           />

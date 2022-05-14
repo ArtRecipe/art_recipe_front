@@ -2,7 +2,7 @@ import React from "react";
 import SocialAuth from "../../../components/auth/SocialAuth";
 import "./authpage.scss";
 import logo from "./logo_column.png";
-// import GoogleButton from "../../../components/auth/GoogleButton";
+import GoogleButton from "../../../components/auth/GoogleButton";
 
 const Index = () => {
   return (
@@ -10,7 +10,7 @@ const Index = () => {
       <div className="auth-box">
         <img className="logo-img" src={logo} alt="ci" />
         <SocialAuth />
-        {/* <GoogleButton className="button" />  */}
+        {/* <GoogleButton className="button" /> */}
         <div className="hashtag-info">
           예술 작품 · material · 소통 · archive
         </div>
