@@ -7,6 +7,7 @@ import "./detail.scss";
 import BrushIcon from "../../../assets/images/paintbrush-solid.svg";
 import PaletteIcon from "../../../assets/images/palette-solid.svg";
 import BookmarkIcon from "../../../assets/images/bookmark-solid.svg";
+import UtubePlayer from "../../../components/videoPlayer/index.js";
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -82,6 +83,12 @@ const PostDetail = () => {
       })}
       <br />
       <br />
+      {details.url ? (
+        <>
+          <UtubePlayer youtubeurl={details.url} />
+        </>
+      ) : null}
+
       {details.desc}
 
       {/* 하단 코드는 우측의 정보들(재료,컬러,북마크 등) */}
@@ -143,21 +150,41 @@ function SideInfoModal(props) {
   ];
 
   return (
-    <div>
-      <h6>{sideMenuTitle[props.sideBarStatus]}</h6>모달창 열림
-      {props.sideBarStatus == 1 ? (
+    <div className="detail-modal">
+      <h6>{sideMenuTitle[props.sideBarStatus]}</h6>
+      {props.sideBarStatus == 1 ? ( // Material재료 정보
         <>
           <div className="modal-material-data">
             {props.details.materials.map((a, i) => {
               return (
                 <div key={i}>
-                  <h7>{a.name}</h7>
-                  <a>{a.url}</a>
+                  <h6>{a.name}</h6>
+                  <>
+                    {a.url ? (
+                      <span
+                        className="material-link"
+                        onClick={() => window.open(a.url, "_blank")}
+                      >
+                        재료 링크
+                      </span>
+                    ) : (
+                      <span>재료 정보 없음</span>
+                    )}
+                  </>
                 </div>
               );
             })}
           </div>
         </>
+      ) : null}
+      {props.sideBarStatus == 2 ? (
+        <div className="modal-color-data">
+          {props.details.color ? (
+            <>{props.details.color}</>
+          ) : (
+            <>등록된 정보가 없습니다.</>
+          )}
+        </div>
       ) : null}
     </div>
   );

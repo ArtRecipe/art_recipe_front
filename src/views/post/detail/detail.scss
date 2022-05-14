@@ -43,6 +43,26 @@
     }
   }
 }
-.modal-material-data {
-  //모달창의 재료 데이터
+.detail-modal {
+  border: 1px;
+  border-radius: 40px;
+  width: 10rem;
+  padding: 2rem;
+  background-color: rgba(255, 212, 212, 0.25);
+  .modal-material-data {
+    //모달창의 재료 데이터
+    .material-link {
+      border-bottom: solid 1px;
+      font-size: 1rem;
+      color: rgba(172, 164, 211, 1);
+      cursor: pointer;
+    }
+    .material-link:hover {
+      font-weight: 700;
+      color: rgb(109, 91, 198);
+    }
+    .modal-color-data {
+      //모달창의 색상 데이터
+    }
+  }
 }
