@@ -1,0 +1,156 @@
+.createWrap {
+  margin-top: 7rem;
+}
+
+.createAdvice {
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.contentWrap {
+  // margin: 0 10rem 4rem;
+}
+
+.form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.postImageWrap {
+  //display: flex;
+  //flex-direction: column;
+  //width: 30%;
+}
+
+.postImage {
+  width: 30%;
+  height: 500px;
+  border: 1px solid black;
+  & input {
+    display: none;
+  }
+  background-color: #6c6c6c;
+
+  text-align: center;
+  line-height: 12rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.plusImg {
+  width: 50%;
+}
+
+.minusImg {
+  width: 50%;
+}
+
+.postPreview {
+  width: 100%;
+}
+
+.postContent {
+  width: 50%;
+}
+
+.postContentWrap {
+  width: 100%;
+  & input {
+    width: 100%;
+    // padding: 1rem;
+    background-color: #c4c4c4;
+    border: none;
+    border-radius: 0.35rem;
+    margin-top: 1rem;
+  }
+
+  & input:focus {
+    outline: none;
+  }
+
+  & input::placeholder {
+    color: #fff;
+  }
+
+  &:not(:first-child) {
+    margin-top: 2rem;
+  }
+}
+
+.title {
+  font-size: 1.5rem;
+}
+
+.postMaterialSubTitle {
+  font-weight: lighter;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.ingredientInputWrap .ingredientInputTop {
+  display: flex;
+  justify-content: space-between;
+
+  & input:nth-child(2n-1) {
+    width: 33%;
+  }
+
+  & input:nth-child(2n) {
+    width: 66%;
+  }
+}
+
+.ingredientPlusBtn {
+  width: 100%;
+  height: 3rem;
+  background-color: #c4c4c4;
+  border-radius: 0.35rem;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.postBtnWrap {
+  margin: 5rem 2rem 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.postSaveBtn {
+  width: 10rem;
+  height: 3rem;
+  background-color: #fff;
+  border: 1px solid #c4c4c4;
+  color: #c4c4c4;
+  border-radius: 0.35rem;
+  font-size: 1.3rem;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #c4c4c4;
+    color: #ffff;
+  }
+}
+
+.postCancelBtn {
+  width: 10rem;
+  height: 3rem;
+  background-color: #fff;
+  border: 1px solid #c4c4c4;
+  color: #c4c4c4;
+  border-radius: 0.35rem;
+  font-size: 1.3rem;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #c4c4c4;
+    color: #ffff;
+  }
+}
