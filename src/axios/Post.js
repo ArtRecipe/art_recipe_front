@@ -9,7 +9,8 @@ export const getData = async () => {
   try {
     return await Axios.get("/post/post/");
   } catch (error) {
-    console.error(error);
+    console.log(error);
+    console.error();
   }
 };
 
