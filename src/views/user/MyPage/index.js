@@ -7,7 +7,7 @@ import "./mypage.scss";
 import axios from "axios";
 import usePromise from "react-use-promise";
 import defaultimg from "./example.png";
-import { userData } from "../../../axios/User";
+import { getUserProfile } from "../../../axios/User";
 
 const Index = () => {
   const [loading, setLoading] = useState(false);
@@ -20,7 +20,7 @@ const Index = () => {
       setLoading(true);
       setMyinfo(null);
       try {
-        const res = await userData();
+        const res = await getUserProfile();
         console.log(res);
       } catch (err) {
         console.log(err);
@@ -57,9 +57,7 @@ const Index = () => {
             </div>
             <div className="make-row">
               <div className="contents">소개</div>
-              <div className="contents">
-                안녕하세요 ! 아트레시피 개발자입니다 .
-              </div>
+              <div className="contents">안녕하세요 ! 아트레시피 개발자입니다 .</div>
             </div>
             {/* <div className="make-row">
               <img src={edit} />

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getData } from "../../../axios/Post";
+import { getPostList } from "../../../axios/Post";
 import PostBanner from "../banner";
-import { PostListWrap, LoaderWrap } from "./styles";
 import PostCard from "./card";
 import ReactLoading from "react-loading";
 import DefaultPhoto from "../../../assets/images/defaultphoto.png";
@@ -15,7 +14,7 @@ const PostList = () => {
   useEffect(() => {
     setError(null);
     setLoading(true);
-    const res = getData()
+    const res = getPostList()
       .then(function (res) {
         setPostlist([...res.data]);
         console.log("POST LIST GET SUCCESS");
@@ -45,10 +44,10 @@ const PostList = () => {
   return (
     <>
       <PostBanner />
-      <PostListWrap>
+      <div>
         {postlist.map((post) => (
           <div key={post.id}>
-            {post.images.length == 0 ? (
+            {post.images.length === 0 ? (
               <PostCard
                 key={post.id}
                 post={post}
@@ -66,19 +65,12 @@ const PostList = () => {
               />
             )}
           </div>
-          // <PostCard
-          //   key={post.id}
-          //   post={post}
-          //   thumbnail={post.images[0].image}
-          //   username={post.writer.username}
-          //   profile={post.profile}
-          // />
         ))}
-      </PostListWrap>
+      </div>
       {isLoading ? (
-        <LoaderWrap>
+        <div>
           <ReactLoading type="spin" color="#A593E0" />
-        </LoaderWrap>
+        </div>
       ) : (
         ""
       )}

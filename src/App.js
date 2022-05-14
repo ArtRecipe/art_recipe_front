@@ -3,14 +3,14 @@ import { Route, Routes } from "react-router-dom";
 import "./globalstyle.scss";
 
 import NavBar from "./components/NavBar/index.js";
+import AuthRoute from "./components/routing/authRoute";
 
-import MainPage from "./views/post/mainPage/index.js";
-import Auth from "./views/user/authPage/index.js";
-import MyPage from "./views/user/myPage/index.js";
+import PostMainPage from "./views/post/mainPage";
 import PostList from "./views/post/list";
 import PostCreate from "./views/post/create";
 import PostDetail from "./views/post/detail";
-import AuthRoute from "./components/routing/authRoute";
+import AuthPage from "./views/user/AuthPage";
+import MyPage from "./views/user/MyPage";
 
 function App() {
   return (
@@ -19,14 +19,12 @@ function App() {
       {/* Todo : AuthRoute이 제대로 작동 안함 */}
       {/* Todo : Footer */}
       <Routes className="global-form">
-        <Route path="/" element={<MainPage />} exact={true} />
+        <Route path="/" element={<PostMainPage />} exact={true} />
         <Route
           path="*"
           element={
             <div>
-              <h2 style={{ margin: "20%", color: "grey" }}>
-                없는 페이지 입니다.
-              </h2>
+              <h2 style={{ margin: "20%", color: "grey" }}>없는 페이지 입니다.</h2>
             </div>
           }
         />
@@ -34,12 +32,12 @@ function App() {
         <Route path="/myPage" element={<AuthRoute />}>
           <Route path="/myPage" element={<MyPage />} />
         </Route>
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/create" element={<Auth />}>
+        <Route path="/auth" element={<AuthPage />} />
+        <Route path="/create" element={<AuthPage />}>
           <Route path="/create" element={<PostCreate />} />
         </Route>
         <Route path="/list" element={<PostList />} />
-        <Route path="/detail/:id" element={<PostDetail />} />
+        <Route path="/detail/:postId" element={<PostDetail />} />
       </Routes>
     </div>
   );
