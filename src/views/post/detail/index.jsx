@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { getDataOnly } from "../../../services/api";
+import { getDetail } from "../../../axios/Post";
+import { getDataOnly } from "../../../axios/Post";
 import DefaultProfile from "../../../assets/images/profile.png";
 import { useParams } from "react-router-dom";
 import "./detail.scss";
 
 const PostDetail = () => {
-  const { postid } = useParams();
+  const { id } = useParams();
   const [details, setDetails] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -13,25 +14,42 @@ const PostDetail = () => {
   const [updateDate, setUpdateDate] = useState("");
 
   console.log("디테일페이지");
-  console.log(window.location.href);
+  console.log(id);
 
   useEffect(() => {
-    setError(null);
-    setDetails(null);
-    setLoading(true);
-    getDataOnly(postid)
-      .then((res) => {
+    const fetchData = async () => {
+      setError(null);
+      setLoading(true);
+      setDetails(null);
+      try {
+        const res = await getDetail(id);
         setDetails(res.data);
-        setUpdateDate(res.data.updated_at);
-        console.log("Data Load SUCCESS: DETAIL PAGE");
         console.log(res.data);
-      })
-      .then((rej) => {
-        console.error(rej);
-        setError(rej);
-      });
-    setLoading(false);
+        setUpdateDate(res.data.updated_at);
+      } catch (err) {
+        console.log(err);
+        setError(true);
+      }
+      setLoading(false);
+    };
+    fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   setError(null);
+  //   setLoading(true);
+  //   const res = getDataOnly(postid)
+  //     .then(function (res) {
+  //       setDetails(res.data);
+  //       console.log(res.data);
+  //     })
+  //     .catch(function (rej) {
+  //       console.log(rej);
+  //       setError(true);
+  //     });
+  //   setLoading(false);
+  // }, []);
+
   // 대기중일때
   if (loading) {
     return <div className="list-block">로딩 중</div>;
@@ -48,13 +66,13 @@ const PostDetail = () => {
   return (
     <div className="detail-form">
       {details.writer.profile ? (
-        <div style={{ height: "3rem", width: "3rem", marginRight: "1rem" }}>
+        <div style={{ height: "2rem", width: "2rem", marginRight: "1rem" }}>
           {details.writer.profile}
         </div>
       ) : (
         <img
           src={DefaultProfile}
-          style={{ height: "3rem", width: "3rem", marginRight: "1rem" }}
+          style={{ height: "2rem", width: "2rem", marginRight: "1rem" }}
           alt="Profile"
         />
       )}
@@ -62,7 +80,12 @@ const PostDetail = () => {
       {details.writer.username}
 
       <h3>{details.title}</h3>
-      <img className="detail-img" src={details.thumbnail} alt="picture" />
+      <img
+        className="detail-img"
+        src={details.thumbnail}
+        style={{ height: "70%", width: "70%" }}
+        alt="picture"
+      />
       <br />
       <br />
       {details.desc}

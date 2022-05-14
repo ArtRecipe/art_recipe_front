@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getData } from "../../../services/api";
+import { getData } from "../../../axios/Post";
 import PostBanner from "../banner";
 import { PostListWrap, LoaderWrap } from "./styles";
 import PostCard from "./card";
