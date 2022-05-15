@@ -3,30 +3,33 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import Glogo from "../../assets/images/googlelogo.png";
+import { getUserProfile } from "../../axios/User";
+
+// TODO : 버튼 디자인- 테두리 없애기
 
 const Index = () => {
   const navigation = useNavigate();
-  const [isLogin, setIsLogin] = useState(false);
 
   const GoogleBtn = async () => {
     console.log("SocialAuth Page");
     try {
       window.open("/api/oauth/google/login/", "_blank");
-      setIsLogin(true);
     } catch (err) {
-      console.log("Social Auth ERR");
+      console.log("ERROR");
       console.error();
+      alert("로그인에 실패했습니다. ");
     }
     navigation("/");
-    axios
-      .get("/api/accounts/user/profile/")
-      .then((res) => {
+    const res = getUserProfile()
+      .then(function (res) {
         console.log(res);
+        console.log("login success");
+        // TODO : 여기에 로그인 성공 처리 (1)리덕스로 개인정보 저장 (2)로그인 버튼 로그아웃으로 바꾸기
       })
-      .catch((err) => {
+      .catch(function (err) {
         console.log(err);
+        alert("로그인에 실패했습니다. ");
       });
-    setIsLogin(true);
   };
 
   return (
@@ -35,6 +38,7 @@ const Index = () => {
         <img
           src={Glogo}
           style={{ width: "2rem", height: "2rem", margin: "0px" }}
+          alt="logo"
         />{" "}
         Login
       </Bbutton>
