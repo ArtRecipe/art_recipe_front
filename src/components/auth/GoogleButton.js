@@ -26,7 +26,7 @@ const GoogleButton = ({ onSocial }) => {
     <div>
       <GoogleLogin
         clientId={
-          "1022881329351-g1q59sac5emo0asq0ron571ocbch4rll.apps.googleusercontent.com"
+          "1022881329351-g61719f230dt6lpt3cnn7lulua9i6b0u.apps.googleusercontent.com"
         }
         responseType={"id_token"}
         onSuccess={onSuccess}
