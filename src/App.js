@@ -2,15 +2,15 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./globalstyle.scss";
 
-import NavBar from "./components/NavBar/index.js";
-import AuthRoute from "./components/routing/authRoute";
+import NavBar from "./components/NavBar/index";
+import AuthRoute from "./components/routing/AuthRoute";
 
 import PostMainPage from "./views/post/mainPage";
 import PostList from "./views/post/list";
 import PostCreate from "./views/post/create";
 import PostDetail from "./views/post/detail";
-import AuthPage from "./views/user/AuthPage";
-import MyPage from "./views/user/MyPage";
+import AuthPage from "./views/user/authPage/index";
+import MyPage from "./views/user/myPage/index";
 
 function App() {
   return (
@@ -24,7 +24,9 @@ function App() {
           path="*"
           element={
             <div>
-              <h2 style={{ margin: "20%", color: "grey" }}>없는 페이지 입니다.</h2>
+              <h2 style={{ margin: "20%", color: "grey" }}>
+                없는 페이지 입니다.
+              </h2>
             </div>
           }
         />
