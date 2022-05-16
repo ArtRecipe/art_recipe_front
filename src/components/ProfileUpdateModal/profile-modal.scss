@@ -3,10 +3,8 @@
   border: solid white;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.176);
   padding: 2% 30% 2% 30%;
+  background-color: white;
   .profile-input {
     width: 20rem;
-  }
-  input::placeholder {
-    color: #ccc;
   }
 }

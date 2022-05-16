@@ -12,6 +12,27 @@ export const getUserProfile = async () => {
   );
 };
 
+export const postUserProfile = async (formData: Object) => {
+  return axios(
+    {
+      method: "POST",
+      url: `/api/accounts/profile/`,
+      data: formData,
+    },
+    { withCredentials: true }
+  );
+};
+
+export const putUserProfile = async (formData: Object) => {
+  return axios(
+    {
+      method: "PUT",
+      url: `/api/post/post/`,
+      data: formData,
+    },
+    { withCredentials: true }
+  );
+};
 // export const putReviseMyInfo = (accesstoken:String, objectData:Object)=>{
 //     return axios({
 //         method:'PUT',

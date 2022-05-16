@@ -70,7 +70,7 @@ export const getUser = () => {
 export const userLogout = async (dispatch, getState) => {
   try {
     dispatch(removeUser());
-    // TODO : 서버 로그아웃 처리 필요
+    // TODO : 서버 로그아웃 처리 필요 + 리듀서의 데이터 저장상태 확인 필요
   } catch (err) {
     console.log(err);
     alert("로그아웃 에러입니다. ");

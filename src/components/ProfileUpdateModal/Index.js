@@ -1,25 +1,26 @@
-import React, { useEffect, useState } from "react";
 // 나의 프로필 정보(sns 와 내 소개)를 수정하는 모달창 입니다.
+import React, { useEffect, useState } from "react";
 import "./profile-modal.scss";
+import { postUserProfile, putUserProfile } from "../../axios/User";
+
 const Index = ({ isModalOpen, profile }) => {
   const preProfile = { profile };
   const [newProfileData, setNewProfileData] = useState({
     id: "1",
-    sns: "등록된 SNS가 없습니다.",
+    sns: "",
     desc: "",
   });
-  const [modalOpen, setModalOpen] = useState(false);
-  console.log(profile);
-
-  useEffect(() => {
-    setModalOpen(isModalOpen);
-  }, []);
+  const [modalOpen, setModalOpen] = useState(isModalOpen);
+  // console.log(profile); //작업용 콘솔 log
 
   const inputChange = (e) => {
+    const value = e.target.value;
     if (e.target.id == "sns") {
-      console.log("sns");
+      setNewProfileData({ ...newProfileData, sns: value });
+      console.log(newProfileData.sns);
     } else {
-      console.log("intro");
+      setNewProfileData({ ...newProfileData, desc: value });
+      console.log(newProfileData.desc);
     }
   };
 
@@ -29,18 +30,35 @@ const Index = ({ isModalOpen, profile }) => {
       if (profile) {
         submitUpdate();
       } else {
-        submitUpdate();
+        submitCreate();
       }
     } else {
       setModalOpen(true);
     }
   };
 
-  const submitCreate = () => {
-    console.log(" profile create");
+  //TODO : submitCreate
+  const submitCreate = async () => {
+    await postUserProfile(newProfileData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-  const submitUpdate = () => {
+  //TODO : submitUpdate
+  const submitUpdate = async () => {
     console.log(" profile update (not create)");
+    try {
+      const res = await putUserProfile(newProfileData);
+      console.log("profile update - response" + res);
+    } catch (err) {
+      console.error();
+      console.log(err);
+      alert("프로필 수정 실패");
+    }
+    setModalOpen(false);
   };
 
   if (modalOpen) {
@@ -67,13 +85,13 @@ const Index = ({ isModalOpen, profile }) => {
           )}
 
           <h6>Intro.</h6>
-          {profile.dec ? (
+          {profile ? (
             <input
               className="profile-input"
               type="text"
               onChange={inputChange}
               id="intro"
-              placeholder={profile.dec}
+              placeholder={profile.desc}
             />
           ) : (
             <input
