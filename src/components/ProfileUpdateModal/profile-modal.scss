@@ -1,0 +1,12 @@
+.profile-modal-container {
+  //z-index 로 (원래 내용 가려지게) 가장 앞에 띄우면 될듯!!!!
+  border: solid white;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.176);
+  padding: 2% 30% 2% 30%;
+  .profile-input {
+    width: 20rem;
+  }
+  input::placeholder {
+    color: #ccc;
+  }
+}

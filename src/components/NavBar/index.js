@@ -10,6 +10,7 @@ import { userLogout } from "../../reducer/User";
 const Index = () => {
   const navigate = useNavigate();
   const logindata = useSelector((state) => state.user.isLoggedin);
+  const testdata = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const togo = (e) => {
@@ -24,7 +25,6 @@ const Index = () => {
       navigate("/");
     } else if (id === "logout") {
       dispatch(userLogout);
-      console.log(logindata);
       navigate("/");
       alert("로그아웃 성공");
       console.log("로그아웃 추가 작업 필요: 리듀서에서 서버 로그아웃 처리");
