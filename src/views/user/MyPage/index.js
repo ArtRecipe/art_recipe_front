@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 const Index = () => {
   const myData = useSelector((state) => state.user);
-
+  console.log("MY PAGE");
   console.log(myData);
 
   return (

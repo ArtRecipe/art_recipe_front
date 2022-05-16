@@ -3,12 +3,14 @@ import NavSearch from "./NavSearch";
 import "./navbar.scss";
 import { useNavigate } from "react-router-dom";
 import logo_main from "./logo_main.png";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { userLogout } from "../../reducer/User";
 // TODO : [후순위] Navbar 디자인 수정 작업 필요 + 검색추가 및 화면 축소시 자동으로 햄버거 버튼화
 
 const Index = () => {
   const navigate = useNavigate();
   const logindata = useSelector((state) => state.user.isLoggedin);
+  const dispatch = useDispatch();
 
   const togo = (e) => {
     const id = e.target.id;
@@ -21,7 +23,11 @@ const Index = () => {
     } else if (id === "mainpage") {
       navigate("/");
     } else if (id === "logout") {
-      alert("로그아웃 준비중");
+      dispatch(userLogout);
+      console.log(logindata);
+      navigate("/");
+      alert("로그아웃 성공");
+      console.log("로그아웃 추가 작업 필요: 리듀서에서 서버 로그아웃 처리");
     }
   };
   return (

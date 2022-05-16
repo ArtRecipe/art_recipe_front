@@ -25,6 +25,7 @@ const Index = () => {
     const res = getUserProfile()
       .then(function (res) {
         console.log("login 상태로 전환중");
+        console.log(res.data);
         dispatch(getUser());
       })
       .catch(function (err) {

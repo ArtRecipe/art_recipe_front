@@ -6,7 +6,7 @@ import { getUserProfile } from "../axios/User";
 // 액션 타입
 export const SET_USER = "user/setUser";
 export const GET_USER = "user/getUser"; // export const SET_ACCESSTOKEN = "user/index/setAccesstoken";  ==> setIsLoggedin
-// export const REMOVE_USER = "user/index/removeUser";
+export const REMOVE_USER = "user/removeUser";
 // export const REMOVE_ACCESSTOKEN = "user/index/removeAccestoken";
 
 // Initial State
@@ -24,6 +24,10 @@ const initialState = {
 export const setUser = (user) => ({
   type: SET_USER,
   payload: user,
+});
+export const removeUser = () => ({
+  type: REMOVE_USER,
+  //payload: user,
 });
 
 // export const removeUser = () => ({
@@ -52,8 +56,9 @@ export const getUser = () => {
     const id = getState().user;
     const res = await getUserProfile()
       .then((res) => {
-        dispatch(setUser(res));
-        console.log(res);
+        dispatch(setUser(res.data));
+        console.log("리덕스");
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -62,18 +67,15 @@ export const getUser = () => {
   };
 };
 
-// export const userLogout = async (dispatch, getState) => {
-//   try {
-//     const accesstoken = getState().user.accesstoken;
-//     const res = await Logout(accesstoken);
-//     alert(res.data.message);
-//     dispatch(removeAccesstoken);
-//     dispatch(removeUser());
-//   } catch (err) {
-//     console.log(err);
-//     alert("로그아웃 에러입니다. ");
-//   }
-// };
+export const userLogout = async (dispatch, getState) => {
+  try {
+    dispatch(removeUser());
+    // TODO : 서버 로그아웃 처리 필요
+  } catch (err) {
+    console.log(err);
+    alert("로그아웃 에러입니다. ");
+  }
+};
 
 // // Reducer
 const reducer = (state = initialState, action) => {
@@ -115,14 +117,15 @@ const reducer = (state = initialState, action) => {
     //     accesstoken: action.payload,
     //   };
     // }
-    // case REMOVE_USER: {
-    //   return {
-    //     ...state,
-    //     user: undefined,
-    //     login: undefined,
-    //     status: undefined,
-    //   };
-    // }
+    case REMOVE_USER: {
+      return {
+        ...state,
+        isLoggedin: false,
+        user: undefined,
+        login: undefined,
+        status: undefined,
+      };
+    }
     // case REMOVE_ACCESSTOKEN: {
     //   return {
     //     ...state,
