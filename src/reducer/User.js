@@ -49,15 +49,16 @@ export const setUser = (user) => ({
 
 export const getUser = () => {
   return async function getUserThunk(dispatch, getState) {
-    try {
-      const id = getState().user;
-      const res = await getUserProfile();
-      dispatch(setUser(res.data.user));
-      console.log(res);
-    } catch (err) {
-      console.error(err);
-      alert("로그인 실패");
-    }
+    const id = getState().user;
+    const res = await getUserProfile()
+      .then((res) => {
+        dispatch(setUser(res));
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("사용자 데이터 로딩 실패");
+      });
   };
 };
 
@@ -78,6 +79,21 @@ export const getUser = () => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER: {
+      return {
+        ...state,
+        isLoggedin: true,
+        user: action.payload,
+        login: {
+          status: "SUCCESS",
+        },
+        status: {
+          ...state.status,
+          isLoading: true,
+          currentUser: action.user,
+        },
+      };
+    }
+    case GET_USER: {
       return {
         ...state,
         isLoggedin: true,

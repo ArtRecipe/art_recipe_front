@@ -4,15 +4,12 @@ import button from "./sbutton.png";
 import edit from "./pen-square-solid.svg";
 import palette from "./palette.svg";
 import "./mypage.scss";
-import axios from "axios";
-import usePromise from "react-use-promise";
 import defaultimg from "./example.png";
-import { getUserProfile } from "../../../axios/User";
+import { useSelector } from "react-redux";
 
 const Index = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [myinfo, setMyinfo] = useState(null);
+  const myData = useSelector((state) => state.user);
+  console.log(myData);
 
   return (
     <div className="my-layout">
