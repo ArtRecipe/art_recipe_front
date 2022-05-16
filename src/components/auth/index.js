@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 import Glogo from "../../assets/images/googlelogo.png";
 import { getUserProfile } from "../../axios/User";
+import { useSelector, useDispatch } from "react-redux";
+import { getUser } from "../../reducer/User";
 
 // TODO : 버튼 디자인- 테두리 없애기
 
 const Index = () => {
   const navigation = useNavigate();
+  const logindata = useSelector((state) => state.user.isLoggedin);
+  const dispatch = useDispatch();
 
   const GoogleBtn = async () => {
     console.log("SocialAuth Page");
@@ -25,6 +28,9 @@ const Index = () => {
         console.log(res);
         console.log("login success");
         // TODO : 여기에 로그인 성공 처리 (1)리덕스로 개인정보 저장 (2)로그인 버튼 로그아웃으로 바꾸기
+        // dispatch(login());
+        dispatch(getUser());
+        console.log(logindata);
       })
       .catch(function (err) {
         console.log(err);

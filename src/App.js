@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import "./globalstyle.scss";
 
 import NavBar from "./components/NavBar/index";
-import AuthRoute from "./components/routing/authRoute";
+import AuthRoute from "./components/routing/AuthRoute";
 
 import PostMainPage from "./views/post/mainPage";
 import PostList from "./views/post/list";
