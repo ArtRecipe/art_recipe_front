@@ -1,5 +1,5 @@
 import React from "react";
-import SocialAuth from "../../../components/auth/Index";
+import SocialAuth from "../../../components/auth/index";
 import "./authpage.scss";
 import logo from "./logo_column.png";
 

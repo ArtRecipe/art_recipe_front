@@ -20,7 +20,6 @@ const Index = () => {
     } catch (err) {
       console.log("ERROR");
       console.error();
-      alert("다시 로그인을 시도해주세요. ");
     }
     navigation("/");
     const res = getUserProfile()
@@ -30,7 +29,7 @@ const Index = () => {
       })
       .catch(function (err) {
         console.log(err);
-        alert("로그인에 실패했습니다. ");
+        alert("다시 로그인을 시도해주세요. ");
       });
   };
 
