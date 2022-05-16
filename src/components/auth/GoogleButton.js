@@ -1,6 +1,8 @@
 import React from "react";
 import GoogleLogin from "react-google-login";
 
+// component library 이용한 로그인 : 현재 사용되지 않는 구글 버튼(비상용)
+
 const GoogleButton = ({ onSocial }) => {
   const onSuccess = async (response) => {
     console.log(response);
@@ -25,9 +27,7 @@ const GoogleButton = ({ onSocial }) => {
   return (
     <div>
       <GoogleLogin
-        clientId={
-          "1022881329351-g61719f230dt6lpt3cnn7lulua9i6b0u.apps.googleusercontent.com"
-        }
+        clientId={"-"}
         responseType={"id_token"}
         onSuccess={onSuccess}
         onFailure={onFailure}

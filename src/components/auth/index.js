@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import Glogo from "../../assets/images/googlelogo.png";
 import { getUserProfile } from "../../axios/User";
 import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "../../reducer/User";
+import "./google-button.scss";
 
-// TODO : 버튼 디자인- 테두리 없애기
+// TODO : [후순위] 버튼 디자인 다시 작업 필요
 
 const Index = () => {
   const navigation = useNavigate();
@@ -25,12 +25,8 @@ const Index = () => {
     navigation("/");
     const res = getUserProfile()
       .then(function (res) {
-        console.log(res);
-        console.log("login success");
-        // TODO : 여기에 로그인 성공 처리 (1)리덕스로 개인정보 저장 (2)로그인 버튼 로그아웃으로 바꾸기
-        // dispatch(login());
+        console.log("login 상태로 전환중");
         dispatch(getUser());
-        console.log(logindata);
       })
       .catch(function (err) {
         console.log(err);
@@ -40,30 +36,16 @@ const Index = () => {
 
   return (
     <>
-      <Bbutton onClick={GoogleBtn} bg="white">
+      <div className="g-button" onClick={GoogleBtn}>
         <img
           src={Glogo}
           style={{ width: "2rem", height: "2rem", margin: "0px" }}
           alt="logo"
         />{" "}
         Login
-      </Bbutton>
+      </div>
     </>
   );
 };
-
-let Bbutton = styled.button`
-  background: ${(props) => props.bg};
-  text-align:center;
-  line-height:center;
-  // padding: 1px 25px 1px 25px;
-  width: 30%;
-  height:30%
-  border: none;
-  color: ${(props) => (props.bg == "black" ? "white" : "gray")};
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.176);
-  border-radius: 10px;
-  cursor: pointer;
-`;
 
 export default Index;

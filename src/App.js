@@ -16,7 +16,6 @@ function App() {
   return (
     <div className="global">
       <NavBar />
-      {/* Todo : AuthRoute이 제대로 작동 안함 */}
       {/* Todo : Footer */}
       <Routes className="global-form">
         <Route path="/" element={<PostMainPage />} exact={true} />
@@ -25,12 +24,11 @@ function App() {
           element={
             <div>
               <h2 style={{ margin: "20%", color: "grey" }}>
-                없는 페이지 입니다.
+                ERROR : 없는 페이지 입니다.
               </h2>
             </div>
           }
         />
-        {/* <Route path="/detail/:id" element={<PostDetail />} /> */}
         <Route path="/myPage" element={<AuthRoute />}>
           <Route path="/myPage" element={<MyPage />} />
         </Route>

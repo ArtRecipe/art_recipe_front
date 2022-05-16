@@ -14,36 +14,6 @@ const Index = () => {
   const [error, setError] = useState(false);
   const [myinfo, setMyinfo] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setError(false);
-      setLoading(true);
-      setMyinfo(null);
-      try {
-        const res = await getUserProfile();
-        console.log(res);
-      } catch (err) {
-        console.log(err);
-        setError(err);
-      }
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
-
-  //   const [loading, response, error] = usePromise(() => {
-  //     return axios.get(`http://127.0.0.1:8000/api`);
-  //   });
-  //   ////if(loading){return<div></div>};
-  //   if (!response) {
-  //     return null;
-  //   }
-  //   if (error) {
-  //     console.log("Error");
-  //     return <div></div>;
-  //   }
-  //   const { myinfo } = response.data;
-
   return (
     <div className="my-layout">
       <div className="my-center">
@@ -57,7 +27,9 @@ const Index = () => {
             </div>
             <div className="make-row">
               <div className="contents">소개</div>
-              <div className="contents">안녕하세요 ! 아트레시피 개발자입니다 .</div>
+              <div className="contents">
+                안녕하세요 ! 아트레시피 개발자입니다 .
+              </div>
             </div>
             {/* <div className="make-row">
               <img src={edit} />
@@ -69,7 +41,7 @@ const Index = () => {
           <h3>내 게시물 3 개</h3>
         </div>
         <hr />
-        <div class="image-box">
+        <div className="image-box">
           <img src={defaultimg} alt="sample img" />
           <img src={defaultimg} alt="sample img" />
           <img src={defaultimg} alt="sample img" />

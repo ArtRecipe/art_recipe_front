@@ -11,6 +11,7 @@ export const GET_USER = "user/getUser"; // export const SET_ACCESSTOKEN = "user/
 
 // Initial State
 const initialState = {
+  isLoggedin: false,
   // date_joined: "2022-05-14T22:09:04.626584+09:00"
   // email: "helloking1234567890@gmail.com"
   // id: 3
@@ -52,6 +53,7 @@ export const getUser = () => {
       const id = getState().user;
       const res = await getUserProfile();
       dispatch(setUser(res.data.user));
+      console.log(res);
     } catch (err) {
       console.error(err);
       alert("로그인 실패");
@@ -78,6 +80,7 @@ const reducer = (state = initialState, action) => {
     case SET_USER: {
       return {
         ...state,
+        isLoggedin: true,
         user: action.payload,
         login: {
           status: "SUCCESS",
