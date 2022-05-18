@@ -1,4 +1,5 @@
 // 나의 프로필 정보(sns 와 내 소개)를 수정하는 모달창 입니다.
+//TODO : submitCreate, submitUpdate
 import React, { useDebugValue, useEffect, useState } from "react";
 import "./profile-modal.scss";
 import { postUserProfile, putUserProfile } from "../../axios/User";

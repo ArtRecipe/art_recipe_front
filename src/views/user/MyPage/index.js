@@ -8,10 +8,12 @@ import defaultimg from "./example.png";
 import { useSelector } from "react-redux";
 import ProfileUpdateModal from "../../../components/ProfileUpdateModal/Index";
 import { postUserProfile } from "../../../axios/User";
+import PostCardList from "./postCardList/Index";
 
 const Index = () => {
   const state = useSelector((state) => state.user);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [myGallery, setMyGallery] = useState(true);
 
   console.log("MY PAGE");
   console.log(state);
@@ -73,14 +75,16 @@ const Index = () => {
           </div>
         </div>
         <div className="row">
-          <img className="icon" src={palette} alt="icon" />
-          <h3>내 게시물 3 개</h3>
+          <div className="tab-button" onClick={() => setMyGallery(true)}>
+            내 게시물
+          </div>
+          <div className="tab-button" onClick={() => setMyGallery(false)}>
+            저장한 게시물
+          </div>
         </div>
         <hr />
         <div className="image-box">
-          {/* <img src={defaultimg} alt="sample img" />
-          <img src={defaultimg} alt="sample img" />
-          <img src={defaultimg} alt="sample img" /> */}
+          <PostCardList myGallery={myGallery} />
         </div>
       </div>
     </div>

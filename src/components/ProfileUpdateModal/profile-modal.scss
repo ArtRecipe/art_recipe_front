@@ -29,6 +29,10 @@
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.176);
     border-radius: 20px;
   }
+  .modal-button:hover {
+    color: white;
+    background-color: #bec6c6;
+  }
 }
 
 .modal-button {
@@ -40,4 +44,8 @@
   color: gray;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.176);
   border-radius: 20px;
+}
+.modal-button:hover {
+  color: white;
+  background-color: #bec6c6;
 }
