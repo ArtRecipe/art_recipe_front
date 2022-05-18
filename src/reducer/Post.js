@@ -5,6 +5,8 @@
 //     //id
 // };
 
+// 액션 타입
+
 // export const SET_POSTDETAIL = 'post/setPostDetail';
 
 // // action creator

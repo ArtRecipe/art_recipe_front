@@ -8,7 +8,7 @@ import defaultimg from "./example.png";
 import { useSelector } from "react-redux";
 import ProfileUpdateModal from "../../../components/ProfileUpdateModal/Index";
 import { postUserProfile } from "../../../axios/User";
-import PostCardList from "./postCardList/Index";
+import PostCardList from "../../../components/MyPosts/postCardList/Index";
 
 const Index = () => {
   const state = useSelector((state) => state.user);
