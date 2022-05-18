@@ -6,17 +6,14 @@ import palette from "./palette.svg";
 import "./mypage.scss";
 import defaultimg from "./example.png";
 import { useSelector } from "react-redux";
-import ProfileUpdateModal from "../../../components/ProfileUpdateModal/Index";
+import ProfileUpdateModal from "../../../components/profileUpdateModal/Index";
 import { postUserProfile } from "../../../axios/User";
-import PostCardList from "../../../components/MyPosts/postCardList/Index";
+import PostCardList from "../../../components/myPosts/postCardList/Index";
+import GalleryViewBtn from "../../../components/galleryViewBtn/Index";
 
 const Index = () => {
   const state = useSelector((state) => state.user);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [myGallery, setMyGallery] = useState(true);
-
-  console.log("MY PAGE");
-  console.log(state);
   if (!state.isLoggedin) {
     // isLoggedin 값이 false 일때
     return (
@@ -68,10 +65,7 @@ const Index = () => {
               )}
             </div>
 
-            <ProfileUpdateModal
-              isModalOpen={isModalOpen}
-              profile={state.user.profile}
-            />
+            <ProfileUpdateModal profile={state.user.profile} />
           </div>
         </div>
         <div className="row">
@@ -87,6 +81,7 @@ const Index = () => {
           <PostCardList myGallery={myGallery} />
         </div>
       </div>
+      <GalleryViewBtn />
     </div>
   );
 };

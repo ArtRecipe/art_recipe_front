@@ -8,7 +8,6 @@ const Index = ({ myGallery }) => {
   const [postlist, setPostlist] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false); // 데이터 로딩
   const userId = useSelector((state) => state.user.user.id);
 
   useEffect(() => {
@@ -18,24 +17,16 @@ const Index = ({ myGallery }) => {
       const res = getPostList()
         .then(function (res) {
           setPostlist([...res.data]);
-          console.log("POST LIST GET SUCCESS");
-          console.log("길이");
-          console.log(postlist.length);
         })
         .catch(function (rej) {
-          console.log(rej);
           setError(rej);
         });
     } else {
       const res = myBookmarkedGet(userId)
         .then(function (res) {
           setPostlist([...res.data]);
-          console.log("내가 북마크한 게시글 GET SUCCESS");
-          console.log(res);
-          console.log(res.data[0].images.length);
         })
         .catch(function (rej) {
-          console.log(rej);
           setError(rej);
         });
     }
@@ -45,7 +36,9 @@ const Index = ({ myGallery }) => {
   if (loading) {
     return <h5>로딩중 입니다.</h5>;
   }
-
+  if (error) {
+    return <h5> ERROR </h5>;
+  }
   if (!postlist) {
     console.log("아직 값이 설정되지 않음");
     return null;

@@ -6,12 +6,12 @@ import { postUserProfile, putUserProfile } from "../../axios/User";
 import { getUser } from "../../reducer/User";
 import { useDispatch, useSelector } from "react-redux";
 
-const Index = ({ isModalOpen }) => {
+const Index = () => {
   const [newProfileData, setNewProfileData] = useState({
-    sns: "hello",
-    desc: "hello",
+    sns: "",
+    desc: "",
   });
-  const [modalOpen, setModalOpen] = useState(isModalOpen);
+  const [modalOpen, setModalOpen] = useState(false);
   const profile = useSelector((state) => state.user.user.profile);
   let putData = { id: 0, sns: "", desc: "" };
 
@@ -32,7 +32,7 @@ const Index = ({ isModalOpen }) => {
     if (profile === undefined) {
       submitCreate();
     } else if (newProfileData.sns || newProfileData.desc) {
-      putData.sns = newProfileData.id;
+      putData.id = newProfileData.id;
       putData.sns = newProfileData.sns;
       putData.desc = newProfileData.desc;
       submitUpdate();
