@@ -14,26 +14,30 @@ export const getUserProfile = async () => {
   );
 };
 
-export const postUserProfile = (jdata: JSON) => {
+export const postUserProfile = async (jdata) => {
   return axios(
     {
       method: "POST",
-      url: `/api/accounts/profile/`,
+      url: "/api/accounts/profile/",
       data: jdata,
     },
-    { withCredentials: true }
+    {
+      withCredentials: true,
+    }
   );
 };
 
-export const putUserProfile = async (jdata: JSON) => {
+export const putUserProfile = async (jdata) => {
   return axios(
     {
       method: "PUT",
-      url: `/api/accounts/profile/`,
+      url: "/api/accounts/profile/",
       data: jdata,
       // headers: { accesstoken },
     },
-    { withCredentials: true }
+    {
+      withCredentials: true,
+    }
   );
 };
 // export const putReviseMyInfo = (accesstoken:String, objectData:Object)=>{
