@@ -42,8 +42,8 @@
       img {
         // margin: 10px;
         padding-right: 1rem;
-        width: 5rem;
-        height: 4rem;
+        width: 15%;
+        height: 15%;
         margin-bottom: 1rem;
 
         @media only screen and (max-width: 600px) {
@@ -61,19 +61,20 @@
         }
       }
       h3 {
-        padding-left: 0rem;
+        padding: 0 10% 0 0;
 
         color: rgba(29, 29, 29, 0.612);
         font-size: 1.2rem;
       }
       .icon {
-        height: 3rem;
-        width: 3rem;
+        height: 5%;
+        width: 5%;
         opacity: 0.3;
-        // margin-right: 0rem;
+        margin-right: 0rem;
       }
       .my-box {
         border: solid 0.01rem #bec6c6;
+        padding: 3%;
         // padding: 0.5rem 0.5rem 0.5rem 0.5rem;
         border-radius: 3px;
         width: 30rem;
@@ -84,8 +85,8 @@
         align-items: center;
         //margin-left: 3rem;
         img {
-          height: 3rem;
-          width: 3rem;
+          height: 3%;
+          width: 3%;
           opacity: 0.1;
           margin-bottom: 0;
         }

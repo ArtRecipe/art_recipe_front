@@ -9,7 +9,6 @@ const index = () => {
     <div className={styles.mainPageFormat}>
       {/* <MainPlayer /> */}
       <MainCarousel />
-      <div>Landing</div>
       <Footer />
     </div>
   );

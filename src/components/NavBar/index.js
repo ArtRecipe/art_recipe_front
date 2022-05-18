@@ -5,12 +5,13 @@ import { useNavigate } from "react-router-dom";
 import logo_main from "./logo_main.png";
 import { useSelector, useDispatch } from "react-redux";
 import { userLogout } from "../../reducer/User";
+import { Dispatch } from "react";
+import { getUser } from "../../reducer/User";
 // TODO : [후순위] Navbar 디자인 수정 작업 필요 + 검색추가 및 화면 축소시 자동으로 햄버거 버튼화
 
 const Index = () => {
   const navigate = useNavigate();
   const logindata = useSelector((state) => state.user.isLoggedin);
-  const testdata = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const togo = (e) => {
@@ -18,7 +19,10 @@ const Index = () => {
     if (id === "listpage") {
       navigate("/list");
     } else if (id === "mypage") {
+      const res = dispatch(getUser());
       navigate("/myPage");
+    } else if (id === "create") {
+      navigate("/create");
     } else if (id === "loginpage") {
       navigate("/auth");
     } else if (id === "mainpage") {
@@ -43,6 +47,9 @@ const Index = () => {
 
         <div className="white-link" id="listpage" onClick={togo}>
           ART{"&"}RECIPE
+        </div>
+        <div className="white-link" id="create" onClick={togo}>
+          WRITE
         </div>
         <div className="white-link" id="mypage" onClick={togo}>
           MY PAGE

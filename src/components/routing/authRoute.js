@@ -9,7 +9,7 @@ const AuthRoute = () => {
   console.log("로그인 상태 확인중....");
   isLoggedin
     ? console.log("로그인 상태 " + isLoggedin + " : 로그인 성공")
-    : console.log("로그인이 되지 않았습니다.");
+    : console.log("로그인 실패");
   return isLoggedin ? <Outlet /> : <Navigate to="/auth" element={Login} />;
 };
 

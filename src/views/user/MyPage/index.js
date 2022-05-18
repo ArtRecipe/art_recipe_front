@@ -7,18 +7,11 @@ import "./mypage.scss";
 import defaultimg from "./example.png";
 import { useSelector } from "react-redux";
 import ProfileUpdateModal from "../../../components/ProfileUpdateModal/Index";
+import { postUserProfile } from "../../../axios/User";
 
 const Index = () => {
   const state = useSelector((state) => state.user);
-  const [profile, setProfile] = useState({ id: "", sns: "", des: "" });
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    if (state.user.profile) {
-      setIsModalOpen(false);
-      setProfile(state.user.profile);
-    }
-  }, [state]);
 
   console.log("MY PAGE");
   console.log(state);
@@ -85,9 +78,9 @@ const Index = () => {
         </div>
         <hr />
         <div className="image-box">
+          {/* <img src={defaultimg} alt="sample img" />
           <img src={defaultimg} alt="sample img" />
-          <img src={defaultimg} alt="sample img" />
-          <img src={defaultimg} alt="sample img" />
+          <img src={defaultimg} alt="sample img" /> */}
         </div>
       </div>
     </div>
