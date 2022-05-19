@@ -1,6 +1,6 @@
 import React from "react";
-import MainCarousel from "../../../components/Carousel/index.js";
-import Footer from "../../../components/Footer/index.js";
+import MainCarousel from "../../../components/Carousel";
+import Footer from "../../../components/Footer";
 import styles from "./mainPage.module.scss";
 {
   /* Todo : Footer */

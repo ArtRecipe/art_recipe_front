@@ -1,5 +1,5 @@
 import React from "react";
-import NavSearch from "./NavSearch/index";
+import NavSearch from "./NavSearch";
 import "./navbar.scss";
 import { useNavigate } from "react-router-dom";
 import logo_main from "./logo_main.png";
@@ -38,13 +38,7 @@ const Index = () => {
   return (
     <div className="nav-layout">
       <div className="menu">
-        <img
-          className="logo-img"
-          id="mainpage"
-          src={logo_main}
-          alt="logo"
-          onClick={togo}
-        />
+        <img className="logo-img" id="mainpage" src={logo_main} alt="logo" onClick={togo} />
 
         <div className="white-link" id="listpage" onClick={togo}>
           ART{"&"}RECIPE

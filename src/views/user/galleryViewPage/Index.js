@@ -3,7 +3,7 @@ import "./gallery-page.scss";
 import { useParams } from "react-router-dom";
 import { getMyPost, getMyBookmarkPost } from "../../../axios/Post";
 import { useSelector } from "react-redux";
-import GalleryViewList from "../../../components/galleryViewList/index";
+import GalleryViewList from "../../../components/GalleryViewList";
 
 const Index = () => {
   const userId = useSelector((state) => {
@@ -12,12 +12,7 @@ const Index = () => {
 
   const { galleryId } = useParams(); // 1은 내가 업데이트한 이미지 갤러리 // 2는 내가 북마크한 이미지 갤러리
 
-  const colorIndex = [
-    "linear-gradient(#aca4d3, #ffced9)",
-    "white",
-    "black",
-    "lightGray",
-  ];
+  const colorIndex = ["linear-gradient(#aca4d3, #ffced9)", "white", "black", "lightGray"];
   const [currentStatus, setCurrentStatus] = useState("Loading");
   const [data, setData] = useState(null);
   const [idx, setIdx] = useState(0);
@@ -82,11 +77,7 @@ const Index = () => {
       <div className="round-button" onClick={changeBg} name={"gy"} id="gy">
         gy
       </div>
-      {currentStatus ? (
-        currentStatus
-      ) : (
-        <GalleryViewList galleryId={galleryId} data={data} />
-      )}
+      {currentStatus ? currentStatus : <GalleryViewList galleryId={galleryId} data={data} />}
     </div>
   );
 };

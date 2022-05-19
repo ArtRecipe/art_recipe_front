@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Login from "../../views/user/authPage/index";
+import Login from "../../views/user/authPage";
 
 const AuthRoute = () => {
   const isLoggedin = useSelector((state) => state.user.isLoggedin);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import PostCard from "./card/index";
-import DefaultPhoto from "../../assets/images/defaultphoto.png";
+import PostCard from "./card";
+import DefaultPhoto from "../../assets/images/default_photo.png";
 import { getMyPost, getMyBookmarkPost } from "../../axios/Post";
 import { useSelector } from "react-redux";
 

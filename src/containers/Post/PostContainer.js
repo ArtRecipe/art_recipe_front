@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./post.module.scss";
 
-import YTubePlayer from "../../components/videoPlayer/index";
+import YTubePlayer from "../../components/VideoPlayer";
 import { SideBarContainer } from "./SideBarContainer";
 
 import defaultLogo from "../../assets/images/logo/logo_1.png";

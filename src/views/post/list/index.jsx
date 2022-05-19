@@ -3,7 +3,7 @@ import { getPostList } from "../../../axios/Post";
 import PostBanner from "../banner";
 import PostCard from "./card";
 import ReactLoading from "react-loading";
-import DefaultPhoto from "../../../assets/images/defaultphoto.png";
+import DefaultPhoto from "../../../assets/images/default_photo.png";
 
 const PostList = () => {
   const [postlist, setPostlist] = useState([]);

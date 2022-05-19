@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import ci from "./smallestci.png";
 import "./mypage.scss";
 import { useSelector } from "react-redux";
-import ProfileUpdateModal from "../../../components/profileUpdateModal/index";
-import PostCardList from "../../../components/MypostCardList/Index";
-import GalleryViewBtn from "../../../components/galleryViewBtn";
+import ProfileUpdateModal from "../../../components/ProfileUpdateModal";
+import PostCardList from "../../../components/MypostCardList";
+import GalleryViewBtn from "../../../components/GalleryViewBtn";
 import { useNavigate } from "react-router-dom";
 
 const Index = () => {
@@ -12,8 +12,7 @@ const Index = () => {
   const navigate = useNavigate();
   const [myGallery, setMyGallery] = useState(true);
   const [snsContents, setSnsContents] = useState("등록된 SNS가 없습니다.");
-  const [descContents, setDescContents] =
-    useState("등록된 작가소개가 없습니다.");
+  const [descContents, setDescContents] = useState("등록된 작가소개가 없습니다.");
   useEffect(() => {
     if (state.user.profile) {
       if (state.user.profile.sns) {

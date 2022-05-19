@@ -1,6 +1,6 @@
 import styles from "../create.module.scss";
 
-const Plusinput = () => {
+const PlusInput = () => {
   return (
     <div className={styles.ingredientInputTop}>
       <input type="text" placeholder={"OO 아트붓 세트"} />
@@ -9,4 +9,4 @@ const Plusinput = () => {
   );
 };
 
-export default Plusinput;
+export default PlusInput;

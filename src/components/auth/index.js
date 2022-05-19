@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Glogo from "../../assets/images/googlelogo.png";
+import Glogo from "../../assets/images/google_logo.png";
 import { getUserProfile } from "../../axios/User";
 import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "../../reducer/User";
@@ -36,11 +36,7 @@ const Index = () => {
   return (
     <>
       <div className="g-button" onClick={GoogleBtn}>
-        <img
-          src={Glogo}
-          style={{ width: "2rem", height: "2rem", margin: "0px" }}
-          alt="logo"
-        />{" "}
+        <img src={Glogo} style={{ width: "2rem", height: "2rem", margin: "0px" }} alt="logo" />{" "}
         Login
       </div>
     </>

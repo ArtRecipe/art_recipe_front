@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./create.module.scss";
 
-import plusIcon from "../../../assets/images/plusBtn.svg";
-import minusIcon from "../../../assets/images/minBtn.svg";
-import Plusinput from "./plusinput";
+import plusIcon from "../../../assets/images/plus_btn.svg";
+import minusIcon from "../../../assets/images/min_btn.svg";
+import PlusInput from "./plusInput";
 import PostBanner from "../banner";
 
 const PostCreate = () => {
@@ -121,7 +121,7 @@ const PostCreate = () => {
                 </div>
                 <div className={styles.ingredientInputWrap}>
                   {inputarr.map((item) => (
-                    <Plusinput />
+                    <PlusInput />
                   ))}
                   <div className={styles.ingredientPlusBtn} onClick={onClickPlusBtn}>
                     <img src={plusIcon} alt="plusIcon" />

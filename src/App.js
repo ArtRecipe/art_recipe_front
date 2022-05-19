@@ -1,15 +1,15 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./globalstyle.scss";
-import NavBar from "./components/NavBar/index";
-import AuthRoute from "./components/routing/AuthRoute";
+import NavBar from "./components/NavBar";
+import AuthRoute from "./components/Routing/AuthRoute";
 import PostMainPage from "./views/post/mainPage";
 import PostList from "./views/post/list";
-import PostCreate from "./views/post/create/index";
+import PostCreate from "./views/post/create";
 import PostDetail from "./views/post/detail";
-import AuthPage from "./views/user/authPage/index";
-import MyPage from "./views/user/myPage/index";
-import GalleryPage from "./views/user/galleryViewPage/index";
+import AuthPage from "./views/user/authPage";
+import MyPage from "./views/user/myPage";
+import GalleryPage from "./views/user/galleryViewPage";
 
 function App() {
   return (
