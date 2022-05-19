@@ -1,16 +1,17 @@
 import React from "react";
-import MainCarousel from "../../../components/carousel/index.js";
-import MainPlayer from "../../../components/videoPlayer/index.js";
-import Footer from "../../../components/footer/Footer.js";
+import MainCarousel from "../../../components/Carousel/index.js";
+import Footer from "../../../components/Footer/index.js";
 import styles from "./mainPage.module.scss";
-const index = () => {
+{
+  /* Todo : Footer */
+}
+const Index = () => {
   console.log("랜딩페이지");
   return (
     <div className={styles.mainPageFormat}>
-      {/* <MainPlayer /> */}
       <MainCarousel />
       <Footer />
     </div>
   );
 };
-export default index;
+export default Index;
