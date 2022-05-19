@@ -1,0 +1,14 @@
+.postCardWrap {
+  margin-top: 3rem;
+  // padding: 3%;
+
+  .myBookmarkPhoto {
+    width: 60%;
+    height: 60%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  .myBookmarkPhoto:hover {
+    filter: brightness(50%);
+  }
+}

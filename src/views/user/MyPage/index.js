@@ -4,25 +4,39 @@ import "./mypage.scss";
 import { useSelector } from "react-redux";
 import ProfileUpdateModal from "../../../components/profileUpdateModal/index";
 import PostCardList from "../../../components/MypostCardList/Index";
-import GalleryViewBtn from "../../../components/galleryViewBtn/Index";
+import GalleryViewBtn from "../../../components/galleryViewBtn";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const state = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const [myGallery, setMyGallery] = useState(true);
   const [snsContents, setSnsContents] = useState("등록된 SNS가 없습니다.");
   const [descContents, setDescContents] =
     useState("등록된 작가소개가 없습니다.");
+  useEffect(() => {
+    if (state.user.profile) {
+      if (state.user.profile.sns) {
+        setSnsContents(state.user.profile.sns);
+      }
+    }
+    if (state.user.profile) {
+      if (state.user.profile.desc) {
+        setDescContents(state.user.profile.desc);
+      }
+    }
+  }, []);
 
-  if (state.user.profile) {
-    if (state.user.profile.sns) {
-      setSnsContents(state.user.profile.sns);
-    }
-  }
-  if (state.user.profile) {
-    if (state.user.profile.desc) {
-      setDescContents(state.user.profile.desc);
-    }
-  }
+  // if (state.user.profile) {
+  //   if (state.user.profile.sns) {
+  //     setSnsContents(state.user.profile.sns);
+  //   }
+  // }
+  // if (state.user.profile) {
+  //   if (state.user.profile.desc) {
+  //     setDescContents(state.user.profile.desc);
+  //   }
+  // }
 
   if (!state.isLoggedin) {
     // isLoggedin 값이 false 일때
@@ -64,7 +78,7 @@ const Index = () => {
           <PostCardList myGallery={myGallery} />
         </div>
       </div>
-      <GalleryViewBtn />
+      <GalleryViewBtn myGallery={myGallery} />
     </div>
   );
 };

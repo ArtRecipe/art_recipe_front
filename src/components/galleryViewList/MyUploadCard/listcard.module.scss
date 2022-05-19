@@ -1,0 +1,15 @@
+.postCardWrap {
+  margin-top: 3rem;
+  // padding: 3%;
+  align-items: center;
+
+  .myGalleryPhoto {
+    width: 60%;
+    height: 60%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  .myGalleryPhoto:hover {
+    filter: brightness(50%);
+  }
+}

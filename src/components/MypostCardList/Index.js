@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PostCard from "./card/index";
 import DefaultPhoto from "../../assets/images/defaultphoto.png";
-import { getPostList, getMyBookmarkPost } from "../../axios/Post";
+import { getMyPost, getMyBookmarkPost } from "../../axios/Post";
 import { useSelector } from "react-redux";
 
 const Index = ({ myGallery }) => {
@@ -14,7 +14,7 @@ const Index = ({ myGallery }) => {
     setError(null);
     setLoading(true);
     if (myGallery) {
-      const res = getPostList()
+      const res = getMyPost(userId)
         .then(function (res) {
           setPostlist([...res.data]);
         })

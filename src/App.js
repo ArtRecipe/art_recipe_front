@@ -9,6 +9,7 @@ import PostCreate from "./views/post/create/index";
 import PostDetail from "./views/post/detail";
 import AuthPage from "./views/user/authPage/index";
 import MyPage from "./views/user/myPage/index";
+import GalleryPage from "./views/user/galleryViewPage/index";
 
 function App() {
   return (
@@ -22,6 +23,10 @@ function App() {
         </Route>
         <Route path="/myPage" element={<AuthRoute />}>
           <Route path="/myPage" element={<MyPage />} />
+        </Route>
+        <Route path="/gallery/:galleryId" element={<AuthRoute />}>
+          <Route path="/gallery/:galleryId" element={<GalleryPage />} />
+          <Route path="/gallery/:galleryId" element={<GalleryPage />} />
         </Route>
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/create" element={<AuthRoute />}>
