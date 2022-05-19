@@ -14,7 +14,6 @@ function App() {
   return (
     <div className="global">
       <NavBar />
-      {/* Todo : Footer */}
       <Routes className="global-form">
         <Route path="/" element={<PostMainPage />} exact={true} />
         <Route
