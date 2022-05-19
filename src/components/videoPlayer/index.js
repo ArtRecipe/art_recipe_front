@@ -1,13 +1,13 @@
 import React from "react";
 import ReactPlayer from "react-player";
 
-const Video = ({ youtubeurl, playList, index }) => {
+const Video = ({ url, playList, index }) => {
   return (
     <>
       <div className="player-wrapper">
         <ReactPlayer
           className="react-player"
-          url={youtubeurl} // 플레이어 url
+          url={url} // 플레이어 url
           width="100%" // 플레이어 크기 (가로)
           height="100%" // 플레이어 크기 (세로)
           playing={true} // 자동 재생 on
