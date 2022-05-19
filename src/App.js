@@ -16,16 +16,7 @@ function App() {
       <NavBar />
       <Routes className="global-form">
         <Route path="/" element={<PostMainPage />} exact={true} />
-        <Route
-          path="*"
-          element={
-            <div>
-              <h2 style={{ margin: "20%", color: "grey" }}>
-                ERROR : 없는 페이지 입니다.
-              </h2>
-            </div>
-          }
-        />
+        <Route path="*" element={<h2>ERROR : 없는 페이지 입니다.</h2>} />
         <Route path="/write" element={<AuthRoute />}>
           <Route path="/write" element={<MyPage />} />
         </Route>
