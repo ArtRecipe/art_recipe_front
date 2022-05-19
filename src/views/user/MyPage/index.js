@@ -1,80 +1,84 @@
 import React, { useEffect, useState } from "react";
 import ci from "./smallestci.png";
-import button from "./sbutton.png";
-import edit from "./pen-square-solid.svg";
-import palette from "./palette.svg";
 import "./mypage.scss";
-import axios from "axios";
-import usePromise from "react-use-promise";
-import defaultimg from "./example.png";
-import { getUserProfile } from "../../../axios/User";
+import { useSelector } from "react-redux";
+import ProfileUpdateModal from "../../../components/profileUpdateModal/index";
+import PostCardList from "../../../components/MypostCardList/Index";
+import GalleryViewBtn from "../../../components/galleryViewBtn";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [myinfo, setMyinfo] = useState(null);
-
+  const state = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const [myGallery, setMyGallery] = useState(true);
+  const [snsContents, setSnsContents] = useState("등록된 SNS가 없습니다.");
+  const [descContents, setDescContents] =
+    useState("등록된 작가소개가 없습니다.");
   useEffect(() => {
-    const fetchData = async () => {
-      setError(false);
-      setLoading(true);
-      setMyinfo(null);
-      try {
-        const res = await getUserProfile();
-        console.log(res);
-      } catch (err) {
-        console.log(err);
-        setError(err);
+    if (state.user.profile) {
+      if (state.user.profile.sns) {
+        setSnsContents(state.user.profile.sns);
       }
-      setLoading(false);
-    };
-    fetchData();
+    }
+    if (state.user.profile) {
+      if (state.user.profile.desc) {
+        setDescContents(state.user.profile.desc);
+      }
+    }
   }, []);
 
-  //   const [loading, response, error] = usePromise(() => {
-  //     return axios.get(`http://127.0.0.1:8000/api`);
-  //   });
-  //   ////if(loading){return<div></div>};
-  //   if (!response) {
-  //     return null;
+  // if (state.user.profile) {
+  //   if (state.user.profile.sns) {
+  //     setSnsContents(state.user.profile.sns);
   //   }
-  //   if (error) {
-  //     console.log("Error");
-  //     return <div></div>;
+  // }
+  // if (state.user.profile) {
+  //   if (state.user.profile.desc) {
+  //     setDescContents(state.user.profile.desc);
   //   }
-  //   const { myinfo } = response.data;
+  // }
+
+  if (!state.isLoggedin) {
+    // isLoggedin 값이 false 일때
+    return (
+      <div>
+        <h2>ERROR</h2>
+      </div>
+    );
+  }
 
   return (
     <div className="my-layout">
       <div className="my-center">
         <div className="row">
           <img src={ci} alt="default profile img" />
-          <h3>ArtChef</h3>
+          <h3>{state.user.username}</h3>
           <div className="my-box">
             <div className="make-row">
-              <div className="contents">SNS</div>
-              <div className="contents">@seolday_</div>
+              <div className="contents">SNS.</div>
+              <div className="contents">{snsContents}</div>
             </div>
             <div className="make-row">
-              <div className="contents">소개</div>
-              <div className="contents">안녕하세요 ! 아트레시피 개발자입니다 .</div>
+              <div className="contents">Intro.</div>
+              <div className="contents">{descContents}</div>
             </div>
-            {/* <div className="make-row">
-              <img src={edit} />
-            </div> */}
+            <ProfileUpdateModal profile={state.user.profile} />
           </div>
         </div>
         <div className="row">
-          <img className="icon" src={palette} alt="icon" />
-          <h3>내 게시물 3 개</h3>
+          <div className="tab-button" onClick={() => setMyGallery(true)}>
+            내 게시물
+          </div>
+          <div className="tab-button" onClick={() => setMyGallery(false)}>
+            저장한 게시물
+          </div>
         </div>
         <hr />
-        <div class="image-box">
-          <img src={defaultimg} alt="sample img" />
-          <img src={defaultimg} alt="sample img" />
-          <img src={defaultimg} alt="sample img" />
+        <div className="image-box">
+          <PostCardList myGallery={myGallery} />
         </div>
       </div>
+      <GalleryViewBtn myGallery={myGallery} />
     </div>
   );
 };

@@ -5,6 +5,9 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import configureStore from "./store/index.js";
+import axios from "axios";
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 
 const { store, persistor } = configureStore();
 

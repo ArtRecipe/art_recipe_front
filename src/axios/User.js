@@ -1,4 +1,6 @@
 import axios from "axios";
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 
 export const getUserProfile = async () => {
   return axios(
@@ -12,6 +14,32 @@ export const getUserProfile = async () => {
   );
 };
 
+export const postUserProfile = async (jdata) => {
+  return axios(
+    {
+      method: "POST",
+      url: "/api/accounts/profile/",
+      data: jdata,
+    },
+    {
+      withCredentials: true,
+    }
+  );
+};
+
+export const putUserProfile = async (jdata) => {
+  return axios(
+    {
+      method: "PUT",
+      url: "/api/accounts/profile/",
+      data: jdata,
+      // headers: { accesstoken },
+    },
+    {
+      withCredentials: true,
+    }
+  );
+};
 // export const putReviseMyInfo = (accesstoken:String, objectData:Object)=>{
 //     return axios({
 //         method:'PUT',

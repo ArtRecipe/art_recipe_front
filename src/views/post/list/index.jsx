@@ -9,7 +9,7 @@ const PostList = () => {
   const [postlist, setPostlist] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false); // 데이터 로딩
+  const [isLoading, setisLoading] = useState(false); // 데이터 로딩
 
   useEffect(() => {
     setError(null);
@@ -17,12 +17,9 @@ const PostList = () => {
     const res = getPostList()
       .then(function (res) {
         setPostlist([...res.data]);
-        console.log("POST LIST GET SUCCESS");
-        console.log(res);
-        console.log(res.data[0].images.length);
       })
       .catch(function (rej) {
-        console.log(rej);
+        console.error();
         setError(rej);
       });
     setLoading(false);
