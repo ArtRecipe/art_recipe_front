@@ -1,0 +1,149 @@
+.modalForm {
+  position: absolute;
+  margin-top: 12%;
+  right: 18%;
+
+  .modalInfo {
+    width: 450px;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.9);
+    mix-blend-mode: normal;
+    box-shadow: 0px 0px 3px 1px rgba(113, 119, 153, 0.5);
+    border-radius: 10px;
+    opacity: 90%;
+    margin-bottom: 20px;
+
+    p {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: #787878;
+    }
+
+    .material {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(
+        -90deg,
+        rgba(172, 164, 211, 0.5) 0%,
+        rgba(255, 206, 217, 0.5) 100%
+      );
+      mix-blend-mode: normal;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      padding: 0 10px;
+
+      .materialName {
+        display: flex;
+
+        img {
+          width: 30px;
+          object-fit: cover;
+          margin-right: 10px;
+        }
+        p {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 18px;
+          color: #000a40;
+        }
+      }
+
+      .materialUrl {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 19px;
+        color: rgba(0, 6, 51, 0.5);
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+
+    .color {
+      background: linear-gradient(
+        -90deg,
+        rgba(172, 164, 211, 0.5) 0%,
+        rgba(255, 206, 217, 0.5) 100%
+      );
+      mix-blend-mode: normal;
+      border-radius: 10px;
+      padding: 0 10px;
+
+      .colorName {
+        display: flex;
+
+        img {
+          width: 30px;
+          object-fit: cover;
+          margin-right: 10px;
+        }
+        p {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 18px;
+          color: #000a40;
+        }
+      }
+    }
+  }
+  .modalMargin {
+    margin-top: 30%;
+  }
+}
+
+.sideBarForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  margin: 12% 0%;
+  padding-left: 4%;
+
+  .logoInfo {
+    width: 56px;
+    height: 56px;
+    border-radius: 100%;
+    object-fit: cover;
+    margin-bottom: 20px;
+  }
+
+  .buttonInfo {
+    margin-bottom: 20px;
+
+    .buttonImage {
+      width: 52px;
+      height: 52px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 100%;
+      background: #ffffff;
+      border: 1px solid #c4c4c4;
+      margin-bottom: 10px;
+      cursor: pointer;
+
+      svg {
+        width: 40%;
+        fill: #c4c4c4;
+      }
+    }
+
+    .active,
+    .buttonImage:hover {
+      box-shadow: 0px 0px 5px 1px rgba(113, 119, 153, 0.8);
+
+      svg {
+        fill: #717799;
+      }
+    }
+
+    .buttonTitle {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 25px;
+      text-align: center;
+      color: #2e2e2e;
+    }
+  }
+}
