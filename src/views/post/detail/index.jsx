@@ -133,13 +133,20 @@ const PostDetail = () => {
         />
         <div className={styles.sideButtonTitile}></div>
       </div>
-      {sideBarStatus ? <SideInfoModal sideBarStatus={sideBarStatus} details={details} /> : null}
+      {sideBarStatus ? (
+        <SideInfoModal sideBarStatus={sideBarStatus} details={details} />
+      ) : null}
     </div>
   );
 };
 
 function SideInfoModal(props) {
-  const sideMenuTitle = ["Modal ERROR", "MATERIAL", "COLOR", "북마크 서비스는 준비중입니다."];
+  const sideMenuTitle = [
+    "Modal ERROR",
+    "MATERIAL",
+    "COLOR",
+    "북마크 서비스는 준비중입니다.",
+  ];
 
   return (
     <div className={styles.detailModal}>
@@ -171,7 +178,11 @@ function SideInfoModal(props) {
       ) : null}
       {props.sideBarStatus == 2 ? (
         <div className={styles.modalColorData}>
-          {props.details.color ? <>{props.details.color}</> : <>등록된 정보가 없습니다.</>}
+          {props.details.color ? (
+            <>{props.details.color}</>
+          ) : (
+            <>등록된 정보가 없습니다.</>
+          )}
         </div>
       ) : null}
     </div>

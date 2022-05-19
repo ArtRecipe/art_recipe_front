@@ -9,7 +9,7 @@ const Index = () => {
   const userId = useSelector((state) => {
     return state.user.user.id;
   });
-  console.log(userId);
+
   const { galleryId } = useParams(); // 1은 내가 업데이트한 이미지 갤러리 // 2는 내가 북마크한 이미지 갤러리
 
   const colorIndex = [
@@ -21,8 +21,7 @@ const Index = () => {
   const [currentStatus, setCurrentStatus] = useState("Loading");
   const [data, setData] = useState(null);
   const [idx, setIdx] = useState(0);
-  console.log("flag");
-  console.log(galleryId);
+
   const changeBg = (e) => {
     const id = e.target.id;
     if (id === "pk") {
@@ -45,7 +44,6 @@ const Index = () => {
             setCurrentStatus("업데이트한 작품이 없습니다.");
           } else {
             setData(res.data);
-            console.log(res.data);
             setCurrentStatus(null);
           }
         })
@@ -56,7 +54,6 @@ const Index = () => {
     } else if (galleryId == 2) {
       const response = getMyBookmarkPost(userId)
         .then((res) => {
-          console.log("Mybookmark");
           if (res.data.length === 0) {
             setCurrentStatus("북마크한 작품이 없습니다.");
           } else {
@@ -85,7 +82,11 @@ const Index = () => {
       <div className="round-button" onClick={changeBg} name={"gy"} id="gy">
         gy
       </div>
-      <GalleryViewList galleryId={galleryId} data={data} />
+      {currentStatus ? (
+        currentStatus
+      ) : (
+        <GalleryViewList galleryId={galleryId} data={data} />
+      )}
     </div>
   );
 };
