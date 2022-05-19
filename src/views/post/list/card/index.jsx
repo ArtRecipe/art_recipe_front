@@ -1,4 +1,4 @@
-import DefaultProfile from "../../../../assets/images/profile.png";
+import DefaultProfile from "../../../../assets/images/logo/logo_1.png";
 import Bookmark from "../../../../assets/images/bookmark.png";
 import { useNavigate } from "react-router-dom";
 import styles from "./listcard.module.scss";
