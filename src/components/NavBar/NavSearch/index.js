@@ -1,6 +1,6 @@
 import React from "react";
 
-const NavSearch = () => {
+const Index = () => {
   return <div></div>;
 };
-export default NavSearch;
+export default Index;

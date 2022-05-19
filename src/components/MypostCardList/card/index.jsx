@@ -1,7 +1,7 @@
-import DefaultProfile from "../../../../assets/images/profile.png";
+import DefaultProfile from "../../../assets/images/profile.png";
 import { useNavigate } from "react-router-dom";
 import styles from "./listcard.module.scss";
-import DefaultPhoto from "../../../../assets/images/defaultphoto.png";
+import DefaultPhoto from "../../../assets/images/defaultphoto.png";
 
 const PostCard = ({ myGallery, post, thumbnail, title, profile }) => {
   const navigate = useNavigate();

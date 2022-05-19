@@ -6,9 +6,9 @@ import palette from "./palette.svg";
 import "./mypage.scss";
 import defaultimg from "./example.png";
 import { useSelector } from "react-redux";
-import ProfileUpdateModal from "../../../components/profileUpdateModal/Index";
+import ProfileUpdateModal from "../../../components/profileUpdateModal/index";
 import { postUserProfile } from "../../../axios/User";
-import PostCardList from "../../../components/myPosts/postCardList/Index";
+import PostCardList from "../../../components/MypostCardList/Index";
 import GalleryViewBtn from "../../../components/galleryViewBtn/Index";
 
 const Index = () => {

@@ -1,5 +1,5 @@
 import React from "react";
-import NavSearch from "./NavSearch";
+import NavSearch from "./NavSearch/index";
 import "./navbar.scss";
 import { useNavigate } from "react-router-dom";
 import logo_main from "./logo_main.png";
@@ -20,6 +20,7 @@ const Index = () => {
       navigate("/list");
     } else if (id === "mypage") {
       const res = dispatch(getUser());
+      console.log("REFETCH USER in Navbar");
       navigate("/myPage");
     } else if (id === "create") {
       navigate("/create");
