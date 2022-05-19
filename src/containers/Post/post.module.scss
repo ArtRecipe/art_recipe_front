@@ -1,0 +1,71 @@
+.detailForm {
+  display: flex;
+  justify-content: space-between;
+  margin: 10%;
+
+  .userInfo {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 100%;
+      object-fit: cover;
+      margin-right: 20px;
+    }
+    p {
+      font-weight: 400;
+      font-size: 18px;
+      color: #000000;
+    }
+  }
+
+  .upperInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    p {
+      font-weight: 400;
+      font-size: 22px;
+      color: #000000;
+    }
+
+    .buttonInfo {
+      display: flex;
+
+      .button {
+        border: 1px solid #c4c4c4;
+        border-radius: 4px;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #888888;
+        width: 88px;
+        height: 30px;
+        margin-left: 12px;
+      }
+    }
+  }
+
+  .imageInfo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    img {
+      width: 100%;
+      margin-bottom: 2%;
+    }
+  }
+
+  .descInfo {
+    margin-top: 2%;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    color: #000000;
+  }
+}
