@@ -1,19 +1,18 @@
 // 나의 프로필 정보(sns 와 내 소개)를 수정하는 모달창 입니다.
-//TODO : submitCreate, submitUpdate
-import React, { useDebugValue, useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./profile-modal.scss";
 import { postUserProfile, putUserProfile } from "../../axios/User";
 import { getUser } from "../../reducer/User";
 import { useDispatch, useSelector } from "react-redux";
 
 const Index = () => {
+  const profile = useSelector((state) => state.user.user.profile);
   const [newProfileData, setNewProfileData] = useState({
-    sns: "",
-    desc: "",
+    sns: profile.sns,
+    desc: profile.desc,
   });
   const [modalOpen, setModalOpen] = useState(false);
-  const profile = useSelector((state) => state.user.user.profile);
-  let putData = { id: 0, sns: "", desc: "" };
+  const dispatch = useDispatch();
 
   const inputChange = (e) => {
     const value = e.target.value;
@@ -31,24 +30,22 @@ const Index = () => {
   const submit = () => {
     if (profile === undefined) {
       submitCreate();
-    } else if (newProfileData.sns || newProfileData.desc) {
-      putData.id = newProfileData.id;
-      putData.sns = newProfileData.sns;
-      putData.desc = newProfileData.desc;
-      submitUpdate();
+    } else if (
+      newProfileData.sns === profile.sns &&
+      newProfileData.desc === profile.desc
+    ) {
+      alert("수정된 내용이 없습니다.");
     } else {
-      alert("업데이트된 내용이 없습니다.");
+      submitUpdate();
     }
     setModalOpen(!modalOpen);
   };
 
-  //TODO : submitCreate
   const submitCreate = async () => {
-    console.log(" profile create");
-    console.log(JSON.stringify(newProfileData));
     try {
-      const res = await postUserProfile(JSON.stringify(newProfileData));
-      console.log("profile update - response" + res.data);
+      const res = await postUserProfile(newProfileData);
+      dispatch(getUser);
+      window.location.reload();
     } catch (err) {
       console.error();
       console.log(err);
@@ -58,11 +55,11 @@ const Index = () => {
   };
   //TODO : submitUpdate
   const submitUpdate = async () => {
-    console.log(" profile update (not create)");
-    console.log(newProfileData);
     try {
-      const res = await putUserProfile(JSON.stringify(newProfileData)); //JSON.stringify(putData)
-      console.log("profile update - response" + res);
+      const res = await putUserProfile(newProfileData, profile.id);
+      console.log(res);
+      dispatch(getUser);
+      window.location.reload();
     } catch (err) {
       console.error();
       console.log(err);

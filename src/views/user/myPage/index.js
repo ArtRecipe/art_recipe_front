@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
 import ci from "./smallestci.png";
 import "./mypage.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProfileUpdateModal from "../../../components/ProfileUpdateModal";
 import PostCardList from "../../../components/MypostCardList";
 import GalleryViewBtn from "../../../components/GalleryViewBtn";
 import { useNavigate } from "react-router-dom";
+import { getUser } from "../../../reducer/User";
 
 const Index = () => {
-  const state = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  let state = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [myGallery, setMyGallery] = useState(true);
   const [snsContents, setSnsContents] = useState("등록된 SNS가 없습니다.");
-  const [descContents, setDescContents] = useState("등록된 작가소개가 없습니다.");
+  const [descContents, setDescContents] =
+    useState("등록된 작가소개가 없습니다.");
+  dispatch(getUser);
   useEffect(() => {
     if (state.user.profile) {
       if (state.user.profile.sns) {
@@ -25,17 +29,6 @@ const Index = () => {
       }
     }
   }, []);
-
-  // if (state.user.profile) {
-  //   if (state.user.profile.sns) {
-  //     setSnsContents(state.user.profile.sns);
-  //   }
-  // }
-  // if (state.user.profile) {
-  //   if (state.user.profile.desc) {
-  //     setDescContents(state.user.profile.desc);
-  //   }
-  // }
 
   if (!state.isLoggedin) {
     // isLoggedin 값이 false 일때
