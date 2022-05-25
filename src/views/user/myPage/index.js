@@ -48,7 +48,19 @@ const Index = () => {
           <div className="my-box">
             <div className="make-row">
               <div className="contents">SNS.</div>
-              <div className="contents">{snsContents}</div>
+              {state.user.profile.sns ? (
+                <div
+                  className="contents"
+                  onClick={() => {
+                    window.open(snsContents, "_blank");
+                  }}
+                  style={{ textDecoration: "underline", cursor: "pointer" }}
+                >
+                  {snsContents}
+                </div>
+              ) : (
+                <div className="contents">{snsContents}</div>
+              )}
             </div>
             <div className="make-row">
               <div className="contents">Intro.</div>

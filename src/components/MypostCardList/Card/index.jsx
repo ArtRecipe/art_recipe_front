@@ -27,7 +27,11 @@ const PostCard = ({ myGallery, post, thumbnail, title, profile }) => {
         {profile ? (
           <img src={profile} alt={profile} />
         ) : (
-          <img src={DefaultProfile} style={{ height: "3rem", width: "3rem" }} alt={profile} />
+          <img
+            src={DefaultProfile}
+            style={{ height: "3rem", width: "3rem", margin: "0" }}
+            alt={profile}
+          />
         )}
         {title ? (
           <div className={styles.userName}>{title}</div>

@@ -4,10 +4,8 @@ import "./profile-modal.scss";
 import { postUserProfile, putUserProfile } from "../../axios/User";
 import { getUser } from "../../reducer/User";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 const Index = () => {
-  const naviagate = useNavigate();
   const profile = useSelector((state) => state.user.user.profile);
   const [newProfileData, setNewProfileData] = useState({
     sns: profile.sns,
@@ -58,7 +56,6 @@ const Index = () => {
   const submitUpdate = async () => {
     try {
       const res = await putUserProfile(newProfileData, profile.id);
-      console.log(res);
       dispatch(getUser);
     } catch (err) {
       console.error();
