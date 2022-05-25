@@ -27,11 +27,11 @@ export const postUserProfile = async (jdata) => {
   );
 };
 
-export const putUserProfile = async (jdata) => {
+export const putUserProfile = async (jdata, id) => {
   return axios(
     {
       method: "PUT",
-      url: "/api/accounts/profile/",
+      url: `/api/accounts/profile/${id}/`,
       data: jdata,
       // headers: { accesstoken },
     },
