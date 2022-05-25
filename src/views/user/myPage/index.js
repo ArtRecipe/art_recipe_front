@@ -10,14 +10,14 @@ import { getUser } from "../../../reducer/User";
 
 const Index = () => {
   const dispatch = useDispatch();
-  let state = useSelector((state) => state.user);
-  const navigate = useNavigate();
+  const state = useSelector((state) => state.user);
   const [myGallery, setMyGallery] = useState(true);
   const [snsContents, setSnsContents] = useState("등록된 SNS가 없습니다.");
   const [descContents, setDescContents] =
     useState("등록된 작가소개가 없습니다.");
   dispatch(getUser);
   useEffect(() => {
+    dispatch(getUser);
     if (state.user.profile) {
       if (state.user.profile.sns) {
         setSnsContents(state.user.profile.sns);
@@ -28,7 +28,7 @@ const Index = () => {
         setDescContents(state.user.profile.desc);
       }
     }
-  }, []);
+  }, [state]);
 
   if (!state.isLoggedin) {
     // isLoggedin 값이 false 일때
