@@ -1,8 +1,10 @@
 .createWrap {
-  margin-top: 7rem;
+  margin: 0rem;
+  //background-image: url("../../../assets/images/banner_img.png");
 }
 
 .createAdvice {
+  margin-top: 7rem;
   margin-bottom: 4rem;
   text-align: center;
 }
@@ -57,9 +59,10 @@
 
 .postContentWrap {
   width: 100%;
+  margin-top: 3rem;
   & input {
     width: 100%;
-    // padding: 1rem;
+    padding: 0.5rem;
     background-color: #c4c4c4;
     border: none;
     border-radius: 0.35rem;
@@ -124,13 +127,13 @@
 }
 
 .postSaveBtn {
-  width: 10rem;
-  height: 3rem;
+  padding: 0.5rem 4rem;
   background-color: #fff;
   border: 1px solid #c4c4c4;
   color: #c4c4c4;
   border-radius: 0.35rem;
-  font-size: 1.3rem;
+  font-size: 1rem;
+  text-align: center;
 
   &:hover {
     cursor: pointer;
@@ -140,13 +143,13 @@
 }
 
 .postCancelBtn {
-  width: 10rem;
-  height: 3rem;
+  padding: 0.5rem 4rem;
   background-color: #fff;
   border: 1px solid #c4c4c4;
   color: #c4c4c4;
   border-radius: 0.35rem;
-  font-size: 1.3rem;
+  font-size: 1rem;
+  text-align: center;
 
   &:hover {
     cursor: pointer;

@@ -87,7 +87,11 @@ const PostCreate = () => {
         </div>
         <div className={styles.contentWrap}>
           <form className={styles.form} action="#" method="post">
-            <div className={styles.postImage} onClick={onClickImageUpload} id={"post_image"}>
+            <div
+              className={styles.postImage}
+              onClick={onClickImageUpload}
+              id={"post_image"}
+            >
               <img src={imageUrl} alt={imageUrl} />
               <input
                 type="file"
@@ -104,7 +108,11 @@ const PostCreate = () => {
                   onClick={onCLickMinusBtn}
                 ></div>
               ) : (
-                <div className={styles.plusImg} src={plusIcon} alt="plusIcon"></div>
+                <div
+                  className={styles.plusImg}
+                  src={plusIcon}
+                  alt="plusIcon"
+                ></div>
               )}
             </div>
             <div className={styles.postContent}>
@@ -112,7 +120,11 @@ const PostCreate = () => {
                 <div className={styles.title} htmlFor={"post_title"}>
                   TITLE
                 </div>
-                <input type="text" placeholder={"작품 제목을 입력해주세요."} id={"post_title"} />
+                <input
+                  type="text"
+                  placeholder={"작품 제목을 입력해주세요."}
+                  id={"post_title"}
+                />
               </div>
               <div className={styles.postContentWrap}>
                 <div className={styles.title}>MATERIAL</div>
@@ -123,7 +135,10 @@ const PostCreate = () => {
                   {inputarr.map((item) => (
                     <PlusInput />
                   ))}
-                  <div className={styles.ingredientPlusBtn} onClick={onClickPlusBtn}>
+                  <div
+                    className={styles.ingredientPlusBtn}
+                    onClick={onClickPlusBtn}
+                  >
                     <img src={plusIcon} alt="plusIcon" />
                   </div>
                 </div>
