@@ -6,9 +6,12 @@ import minusIcon from "../../../assets/images/min_btn.svg";
 import PlusInput from "./plusInput";
 import PostBanner from "../banner";
 
+import { useNavigate } from "react-router-dom";
+
 // /api/post/post/ POST : 게시글 생성. 여러 개의 image 및 material 생성 가능 json nested하게 보내면 됨.
 const PostCreate = () => {
   const ref = useRef(null);
+  const navigate = useNavigate();
 
   const [utubeUrl, setUtubeUrl] = useState("");
   const [imageUrl, setImageUrl] = useState(null);
@@ -251,7 +254,14 @@ const PostCreate = () => {
               </div>
               <div className={styles.postBtnWrap}>
                 <div className={styles.postSaveBtn}>저장</div>
-                <div className={styles.postCancelBtn}>취소</div>
+                <div
+                  className={styles.postCancelBtn}
+                  onClick={() => {
+                    navigate("/list");
+                  }}
+                >
+                  취소
+                </div>
               </div>
             </div>
           </form>
