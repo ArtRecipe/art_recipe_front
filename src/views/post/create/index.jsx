@@ -3,7 +3,8 @@ import styles from "./create.module.scss";
 
 import plusIcon from "../../../assets/images/plus_btn.svg";
 import minusIcon from "../../../assets/images/min_btn.svg";
-// import PlusInput from "./plusInput";
+import minusIconB from "../../../assets/images/min_btn_b.svg";
+import PlusInput from "./plusInput"; //Materials 파트
 import PostBanner from "../banner";
 
 import { useNavigate } from "react-router-dom";
@@ -22,9 +23,7 @@ const PostCreate = () => {
   });
   let midx = 0;
 
-  const [utubeUrl, setUtubeUrl] = useState("");
-  const [imageUrl, setImageUrl] = useState(null);
-  const [inputarr, setInputarr] = useState([{ name: "", url: "" }]);
+  const [imageUrl, setImageUrl] = useState(null); //전에 진희의 작업사항
   const [imgUrl, setImgUrl] = useState([{ image: "" }]); //[{ image: "" }]
   const [imgCount, setImgCount] = useState([1]);
 
@@ -41,7 +40,7 @@ const PostCreate = () => {
     } else if (eid === "mt") {
       let copy = postForm.materials;
       if (copy.length === midx || copy.length > midx) {
-        if (copy.length > 0) {
+        if (copy.length > midx) {
           copy[midx].name = val;
         } else {
           copy.push({ name: val, url: "" });
@@ -51,7 +50,17 @@ const PostCreate = () => {
       }
       setPostForm({ ...postForm, materials: copy });
     } else if (eid === "murl") {
-      alert(midx);
+      let copy = postForm.materials;
+      if (copy.length === midx || copy.length > midx) {
+        if (copy.length > midx) {
+          copy[midx].url = val;
+        } else {
+          copy.push({ name: "", url: val });
+        }
+      } else {
+        copy.push({ name: "", url: val });
+      }
+      setPostForm({ ...postForm, materials: copy });
     } else if (eid === "post_color") {
       setPostForm({ ...postForm, color: val });
     }
@@ -60,7 +69,7 @@ const PostCreate = () => {
   useEffect(() => {
     if (file) {
       const PostImage = document.querySelector("#post_image");
-      // post_preview = <PostPreview src={previewURL} />
+      // post_preview = <PostPreview src={previewURL} />;
       PostImage.style.background = `url(${previewURL}) no-repeat center #6C6C6C`;
       PostImage.style.opacity = 0.5;
     }
@@ -100,6 +109,7 @@ const PostCreate = () => {
   };
 
   const onClickPlusImgInput = () => {
+    //이미지 추가
     if (imgCount.length + 1 == imgUrl.length) {
       setImgCount([...imgCount, 1]);
     }
@@ -116,7 +126,7 @@ const PostCreate = () => {
     }
   };
 
-  const onClickPlusBtn = (e) => {
+  const onClickPlusM = (e) => {
     //재료 input 칸 추가
     console.log(postForm);
     let copy = postForm.materials;
@@ -125,9 +135,17 @@ const PostCreate = () => {
     if (name === "" && url === "") {
       alert("Materials의 빈칸을 먼저 채워주세요.");
     } else {
-      // materials 한줄추가
       copy.push({ name: "", url: "" });
       setPostForm({ ...postForm, materials: copy });
+    }
+  };
+  const onClickMinusM = (e) => {
+    //재료 input 칸 삭제
+    if (postForm.materials.length === 1) {
+      //한 칸 밖에 없는데 삭제 누를 경우
+      setPostForm({ ...postForm, materials: [{ name: "", url: "" }] }); //칸만 비워줌
+    } else {
+      //midx로 materials의 인덱스를 알아낼 수 있음
     }
   };
 
@@ -154,12 +172,7 @@ const PostCreate = () => {
   return (
     <>
       <div className={styles.postBanner}>
-        <PostBanner
-          style={{
-            background:
-              "url('../../../assets/images/banner_img.png') no-repeat center",
-          }}
-        />
+        <PostBanner />
       </div>
       <div className={styles.createWrap}>
         <div className={styles.createAdvice}>
@@ -200,20 +213,7 @@ const PostCreate = () => {
                     </div>
                   </>
                 ))}
-                {/* {imgUrl
-                  ? imgUrl.map((a, i) => (
-                      <img
-                        className={styles.postImage}
-                        key={i}
-                        style={{
-                          background:
-                            "url(" + a.image + ") no-repeat center #6C6C6C",
-                        }}
-                        id={"img_id" + i}
-                        alt={imageUrl}
-                      />
-                    ))
-                  : null} */}
+
                 <div
                   className={styles.ingredientPlusBtn}
                   onClick={onClickPlusImgInput}
@@ -295,11 +295,20 @@ const PostCreate = () => {
                         placeholder={"재료 구매처의 링크를 입력해주세요."}
                         id={"murl"}
                       />
+                      <img
+                        className={styles.minusImg}
+                        onClick={(e) => {
+                          midx = i;
+                          onClickMinusM(e);
+                        }}
+                        src={minusIconB}
+                        alt="minusImg"
+                      />
                     </div>
                   ))}
                   <div
                     className={styles.ingredientPlusBtn}
-                    onClick={onClickPlusBtn}
+                    onClick={onClickPlusM}
                   >
                     <img src={plusIcon} alt="plusIcon" />
                   </div>
