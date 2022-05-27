@@ -3,7 +3,7 @@ import styles from "./create.module.scss";
 
 import plusIcon from "../../../assets/images/plus_btn.svg";
 import minusIcon from "../../../assets/images/min_btn.svg";
-import PlusInput from "./plusInput";
+// import PlusInput from "./plusInput";
 import PostBanner from "../banner";
 
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,15 @@ const PostCreate = () => {
   const ref = useRef(null);
   const navigate = useNavigate();
 
+  const [postForm, setPostForm] = useState({
+    title: "",
+    color: "",
+    desc: "",
+    url: "",
+    materials: [{ name: "", url: "" }],
+  });
+  let midx = 0;
+
   const [utubeUrl, setUtubeUrl] = useState("");
   const [imageUrl, setImageUrl] = useState(null);
   const [inputarr, setInputarr] = useState([{ name: "", url: "" }]);
@@ -21,6 +30,32 @@ const PostCreate = () => {
 
   const [file, setFile] = useState("");
   const [previewURL, setPreviewURL] = useState(null);
+
+  const onChangeInput = (e) => {
+    const val = e.target.value;
+    const eid = e.target.id;
+    if (eid === "post_youtube") {
+      setPostForm({ ...postForm, url: val });
+    } else if (eid === "post_title") {
+      setPostForm({ ...postForm, title: val });
+    } else if (eid === "mt") {
+      let copy = postForm.materials;
+      if (copy.length === midx || copy.length > midx) {
+        if (copy.length > 0) {
+          copy[midx].name = val;
+        } else {
+          copy.push({ name: val, url: "" });
+        }
+      } else {
+        copy.push({ name: val, url: "" });
+      }
+      setPostForm({ ...postForm, materials: copy });
+    } else if (eid === "murl") {
+      alert(midx);
+    } else if (eid === "post_color") {
+      setPostForm({ ...postForm, color: val });
+    }
+  };
 
   useEffect(() => {
     if (file) {
@@ -71,7 +106,6 @@ const PostCreate = () => {
   };
 
   const onClickMinusImgInput = (idx) => {
-    alert(idx);
     if (imgCount.length > 2) {
       // setImageUrl(imgUrl.pop());
       setImgCount(imgCount.pop());
@@ -84,13 +118,16 @@ const PostCreate = () => {
 
   const onClickPlusBtn = (e) => {
     //재료 input 칸 추가
-    if (
-      inputarr[inputarr.length - 1].name == "" &&
-      inputarr[inputarr.length - 1].url == ""
-    ) {
+    console.log(postForm);
+    let copy = postForm.materials;
+    const name = postForm.materials[postForm.materials.length - 1].name;
+    const url = postForm.materials[postForm.materials.length - 1].url;
+    if (name === "" && url === "") {
       alert("Materials의 빈칸을 먼저 채워주세요.");
     } else {
-      setInputarr([...inputarr, { name: "", url: "" }]);
+      // materials 한줄추가
+      copy.push({ name: "", url: "" });
+      setPostForm({ ...postForm, materials: copy });
     }
   };
 
@@ -214,7 +251,7 @@ const PostCreate = () => {
                 <input
                   type="url"
                   placeholder={"영상의 유투브 URL을 입력해주세요."}
-                  id={"post_title"}
+                  id={"post_youtube"}
                 />
                 <div className={styles.title} htmlFor={"post_title"}>
                   TITLE
@@ -231,8 +268,27 @@ const PostCreate = () => {
                   작품에 사용된 재료를 입력해주세요.
                 </div>
                 <div className={styles.ingredientInputWrap}>
-                  {inputarr.map((item) => (
-                    <PlusInput />
+                  {postForm.materials.map((item, i) => (
+                    <div className={styles.ingredientInputTop}>
+                      <input
+                        onChange={(e) => {
+                          midx = i;
+                          onChangeInput(e);
+                        }}
+                        type="text"
+                        placeholder={"OO 아트붓 세트"}
+                        id={"mt"}
+                      />
+                      <input
+                        onChange={(e) => {
+                          midx = i;
+                          onChangeInput(e);
+                        }}
+                        type="url"
+                        placeholder={"재료 구매처의 링크를 입력해주세요."}
+                        id={"murl"}
+                      />
+                    </div>
                   ))}
                   <div
                     className={styles.ingredientPlusBtn}
@@ -270,4 +326,5 @@ const PostCreate = () => {
     </>
   );
 };
+
 export default PostCreate;
