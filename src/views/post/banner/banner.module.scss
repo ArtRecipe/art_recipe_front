@@ -1,5 +1,9 @@
 .bannerWrap {
-  background: linear-gradient(#aca4d3, #ffced9);
+  //background: linear-gradient(#aca4d3, #ffced9);
+
+  background: url("../../../assets/images/slide2_bb.jpg") no-repeat center
+    #050505;
+
   height: 30rem;
   display: flex;
   flex-direction: column;

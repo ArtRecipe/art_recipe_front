@@ -153,7 +153,14 @@ const PostCreate = () => {
 
   return (
     <>
-      <div className={styles.postBanner}></div>
+      <div className={styles.postBanner}>
+        <PostBanner
+          style={{
+            background:
+              "url('../../../assets/images/banner_img.png') no-repeat center",
+          }}
+        />
+      </div>
       <div className={styles.createWrap}>
         <div className={styles.createAdvice}>
           나만의 재료와 미술작품을 공유하고, 작품에 스토리를 더하세요 !
