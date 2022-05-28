@@ -144,8 +144,16 @@ const PostCreate = () => {
     if (postForm.materials.length === 1) {
       //한 칸 밖에 없는데 삭제 누를 경우
       setPostForm({ ...postForm, materials: [{ name: "", url: "" }] }); //칸만 비워줌
+      const inputT = document.getElementById("mt");
+      const inputURL = document.getElementById("murl");
+      inputT.value = null;
+      inputURL.value = null;
     } else {
       //midx로 materials의 인덱스를 알아낼 수 있음
+      console.log(midx);
+      let copy = postForm.materials;
+      copy.splice(midx, 1);
+      setPostForm({ ...postForm, materials: copy });
     }
   };
 
@@ -275,11 +283,11 @@ const PostCreate = () => {
                   작품에 사용된 재료를 입력해주세요.
                 </div>
                 <div className={styles.ingredientInputWrap}>
-                  {postForm.materials.map((item, i) => (
+                  {postForm.materials.map((item, index) => (
                     <div className={styles.ingredientInputTop}>
                       <input
                         onChange={(e) => {
-                          midx = i;
+                          midx = index;
                           onChangeInput(e);
                         }}
                         type="text"
@@ -288,7 +296,7 @@ const PostCreate = () => {
                       />
                       <input
                         onChange={(e) => {
-                          midx = i;
+                          midx = index;
                           onChangeInput(e);
                         }}
                         type="url"
@@ -298,7 +306,7 @@ const PostCreate = () => {
                       <img
                         className={styles.minusImg}
                         onClick={(e) => {
-                          midx = i;
+                          midx = index;
                           onClickMinusM(e);
                         }}
                         src={minusIconB}
