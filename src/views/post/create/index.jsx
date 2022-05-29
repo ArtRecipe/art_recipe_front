@@ -21,6 +21,7 @@ const PostCreate = () => {
     url: "",
     materials: [{ name: "", url: "" }],
   });
+  const [materials, setMaterials] = useState([{ id: 0, name: "", url: "" }]); // materials의 id는 삭제 기능을 위한 것으로 서버에 보낼 시 mateirals의 id를 제외하고 postForm materials 에 저장해야함
   let midx = 0;
 
   const [imageUrl, setImageUrl] = useState(null); //전에 진희의 작업사항
@@ -38,29 +39,35 @@ const PostCreate = () => {
     } else if (eid === "post_title") {
       setPostForm({ ...postForm, title: val });
     } else if (eid === "mt") {
-      let copy = postForm.materials;
-      if (copy.length === midx || copy.length > midx) {
-        if (copy.length > midx) {
-          copy[midx].name = val;
-        } else {
-          copy.push({ name: val, url: "" });
-        }
-      } else {
-        copy.push({ name: val, url: "" });
-      }
-      setPostForm({ ...postForm, materials: copy });
+      // let copy = materials;
+      // if (copy.length === midx || copy.length > midx) {
+      //   if (copy.length > midx) {
+      //     copy[midx].name = val;
+      //   } else {
+      //     copy.push({ name: val, url: "" });
+      //   }
+      // } else {
+      //   copy.push({ name: val, url: "" });
+      // }
+      // setPostForm({ ...postForm, materials: copy });
+      let copy = materials;
+      copy[midx].name = val;
+      setMaterials(copy);
     } else if (eid === "murl") {
-      let copy = postForm.materials;
-      if (copy.length === midx || copy.length > midx) {
-        if (copy.length > midx) {
-          copy[midx].url = val;
-        } else {
-          copy.push({ name: "", url: val });
-        }
-      } else {
-        copy.push({ name: "", url: val });
-      }
-      setPostForm({ ...postForm, materials: copy });
+      // let copy = postForm.materials;
+      // if (copy.length === midx || copy.length > midx) {
+      //   if (copy.length > midx) {
+      //     copy[midx].url = val;
+      //   } else {
+      //     copy.push({ name: "", url: val });
+      //   }
+      // } else {
+      //   copy.push({ name: "", url: val });
+      // }
+      // setPostForm({ ...postForm, materials: copy });
+      let copy = materials;
+      copy[midx].url = val;
+      setMaterials(copy);
     } else if (eid === "post_color") {
       setPostForm({ ...postForm, color: val });
     }
@@ -127,23 +134,26 @@ const PostCreate = () => {
   };
 
   const onClickPlusM = (e) => {
+    //수정 필요 postForm materials --> mateirals로 바꿔서 작업
     //재료 input 칸 추가
-    console.log(postForm);
-    let copy = postForm.materials;
-    const name = postForm.materials[postForm.materials.length - 1].name;
-    const url = postForm.materials[postForm.materials.length - 1].url;
+
+    let copy = materials;
+    const name = materials[materials.length - 1].name;
+    const url = materials[materials.length - 1].url;
     if (name === "" && url === "") {
       alert("Materials의 빈칸을 먼저 채워주세요.");
     } else {
-      copy.push({ name: "", url: "" });
-      setPostForm({ ...postForm, materials: copy });
+      const newid = materials.length;
+      copy.push({ id: newid, name: "", url: "" });
+      setPostForm([...materials, copy]);
     }
   };
   const onClickMinusM = (e) => {
+    //수정 필요 postForm.materials --> mateirals로 바꿔서 작업
     //재료 input 칸 삭제
-    if (postForm.materials.length === 1) {
+    if (materials.length === 1) {
       //한 칸 밖에 없는데 삭제 누를 경우
-      setPostForm({ ...postForm, materials: [{ name: "", url: "" }] }); //칸만 비워줌
+      setMaterials([{ id: 0, name: "", url: "" }]); //칸만 비워줌
       const inputT = document.getElementById("mt");
       const inputURL = document.getElementById("murl");
       inputT.value = null;
@@ -151,9 +161,7 @@ const PostCreate = () => {
     } else {
       //midx로 materials의 인덱스를 알아낼 수 있음
       console.log(midx);
-      let copy = postForm.materials;
-      copy.splice(midx, 1);
-      setPostForm({ ...postForm, materials: copy });
+      setMaterials(materials.filter((material) => material.id !== midx));
     }
   };
 
@@ -164,6 +172,7 @@ const PostCreate = () => {
   };
 
   const onCLickMinusBtn = (e) => {
+    //이미지 삭제
     setFile("");
     setPreviewURL("");
 
@@ -283,11 +292,11 @@ const PostCreate = () => {
                   작품에 사용된 재료를 입력해주세요.
                 </div>
                 <div className={styles.ingredientInputWrap}>
-                  {postForm.materials.map((item, index) => (
+                  {materials.map((item, index) => (
                     <div className={styles.ingredientInputTop}>
                       <input
                         onChange={(e) => {
-                          midx = index;
+                          midx = item.id;
                           onChangeInput(e);
                         }}
                         type="text"
@@ -296,7 +305,7 @@ const PostCreate = () => {
                       />
                       <input
                         onChange={(e) => {
-                          midx = index;
+                          midx = item.id;
                           onChangeInput(e);
                         }}
                         type="url"
@@ -306,8 +315,8 @@ const PostCreate = () => {
                       <img
                         className={styles.minusImg}
                         onClick={(e) => {
-                          midx = index;
-                          onClickMinusM(e);
+                          midx = item.id;
+                          onClickMinusM(item.id);
                         }}
                         src={minusIconB}
                         alt="minusImg"
