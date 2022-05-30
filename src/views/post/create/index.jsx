@@ -8,7 +8,7 @@ import PlusInput from "./plusInput"; //Materials 파트
 import PostBanner from "../banner";
 
 import { useNavigate } from "react-router-dom";
-
+//Todo : postForm을 jsonNested 하기 전에 postForm.materials에 materials에서 id를 제외하고 입력해야함
 // /api/post/post/ POST : 게시글 생성. 여러 개의 image 및 material 생성 가능 json nested하게 보내면 됨.
 const PostCreate = () => {
   const ref = useRef(null);
@@ -31,6 +31,8 @@ const PostCreate = () => {
   const [file, setFile] = useState("");
   const [previewURL, setPreviewURL] = useState(null);
 
+  let nextId = useRef(0);
+
   const onChangeInput = (e) => {
     const val = e.target.value;
     const eid = e.target.id;
@@ -39,35 +41,34 @@ const PostCreate = () => {
     } else if (eid === "post_title") {
       setPostForm({ ...postForm, title: val });
     } else if (eid === "mt") {
-      // let copy = materials;
-      // if (copy.length === midx || copy.length > midx) {
-      //   if (copy.length > midx) {
-      //     copy[midx].name = val;
-      //   } else {
-      //     copy.push({ name: val, url: "" });
-      //   }
-      // } else {
-      //   copy.push({ name: val, url: "" });
-      // }
-      // setPostForm({ ...postForm, materials: copy });
       let copy = materials;
-      copy[midx].name = val;
-      setMaterials(copy);
+      let obj = copy.find((a) => {
+        if (a.id === midx) {
+          return true;
+        }
+      });
+      const index = copy.indexOf(obj);
+      if (index === -1) {
+        alert("에러");
+      } else {
+        copy[index].name = val;
+        setMaterials(copy);
+      }
     } else if (eid === "murl") {
-      // let copy = postForm.materials;
-      // if (copy.length === midx || copy.length > midx) {
-      //   if (copy.length > midx) {
-      //     copy[midx].url = val;
-      //   } else {
-      //     copy.push({ name: "", url: val });
-      //   }
-      // } else {
-      //   copy.push({ name: "", url: val });
-      // }
-      // setPostForm({ ...postForm, materials: copy });
       let copy = materials;
-      copy[midx].url = val;
-      setMaterials(copy);
+      let obj = copy.find((a) => {
+        if (a.id === midx) {
+          return true;
+        }
+      });
+      const index = copy.indexOf(obj);
+      if (index === -1) {
+        alert("에러");
+      } else {
+        copy[index].url = val;
+        setMaterials(copy);
+        console.log(copy);
+      }
     } else if (eid === "post_color") {
       setPostForm({ ...postForm, color: val });
     }
@@ -141,27 +142,28 @@ const PostCreate = () => {
     const name = materials[materials.length - 1].name;
     const url = materials[materials.length - 1].url;
     if (name === "" && url === "") {
+      console.log(name);
       alert("Materials의 빈칸을 먼저 채워주세요.");
     } else {
-      const newid = materials.length;
-      copy.push({ id: newid, name: "", url: "" });
-      setPostForm([...materials, copy]);
+      nextId.current += 1;
+      setMaterials([...materials, { id: nextId.current, name: "", url: "" }]);
     }
   };
-  const onClickMinusM = (e) => {
+  const onClickMinusM = (e, index) => {
     //수정 필요 postForm.materials --> mateirals로 바꿔서 작업
     //재료 input 칸 삭제
+    console.log(materials);
     if (materials.length === 1) {
       //한 칸 밖에 없는데 삭제 누를 경우
-      setMaterials([{ id: 0, name: "", url: "" }]); //칸만 비워줌
+      setMaterials([{ id: "0", name: "", url: "" }]); //칸만 비워줌
       const inputT = document.getElementById("mt");
       const inputURL = document.getElementById("murl");
       inputT.value = null;
       inputURL.value = null;
     } else {
-      //midx로 materials의 인덱스를 알아낼 수 있음
-      console.log(midx);
-      setMaterials(materials.filter((material) => material.id !== midx));
+      //idx로 materials의 인덱스를 알아낼 수 있음
+      console.log(index);
+      setMaterials(materials.filter((material) => material.id !== index));
     }
   };
 
@@ -293,14 +295,14 @@ const PostCreate = () => {
                 </div>
                 <div className={styles.ingredientInputWrap}>
                   {materials.map((item, index) => (
-                    <div className={styles.ingredientInputTop}>
+                    <div className={styles.ingredientInputTop} key={item.id}>
                       <input
                         onChange={(e) => {
                           midx = item.id;
                           onChangeInput(e);
                         }}
                         type="text"
-                        placeholder={"OO 아트붓 세트"}
+                        placeholder={item.name}
                         id={"mt"}
                       />
                       <input
@@ -309,14 +311,13 @@ const PostCreate = () => {
                           onChangeInput(e);
                         }}
                         type="url"
-                        placeholder={"재료 구매처의 링크를 입력해주세요."}
+                        placeholder={item.url}
                         id={"murl"}
                       />
                       <img
                         className={styles.minusImg}
                         onClick={(e) => {
-                          midx = item.id;
-                          onClickMinusM(item.id);
+                          onClickMinusM(e, index);
                         }}
                         src={minusIconB}
                         alt="minusImg"
