@@ -5,10 +5,11 @@ import plusIcon from "../../../assets/images/plus_btn.svg";
 import minusIcon from "../../../assets/images/min_btn.svg";
 import minusIconB from "../../../assets/images/min_btn_b.svg";
 import PlusInput from "./plusInput"; //Materials 파트
-import PostBanner from "../banner";
+import CreateBanner from "../../../components/CreateBanner";
 
 import { useNavigate } from "react-router-dom";
 //Todo : postForm을 jsonNested 하기 전에 postForm.materials에 materials에서 id를 제외하고 입력해야함
+//Todo : postForm을 jsonNested 하기 전에 postForm 이미지배열에 imgUrl에서 id를 제외하고 입력해야함
 // /api/post/post/ POST : 게시글 생성. 여러 개의 image 및 material 생성 가능 json nested하게 보내면 됨.
 const PostCreate = () => {
   const ref = useRef(null);
@@ -25,14 +26,101 @@ const PostCreate = () => {
   let midx = 0;
 
   const [imageUrl, setImageUrl] = useState(null); //전에 진희의 작업사항
-  const [imgUrl, setImgUrl] = useState([{ image: "" }]); //[{ image: "" }]
-  const [imgCount, setImgCount] = useState([1]);
+  const [imgUrl, setImgUrl] = useState([{ id: 0, image: PlusInput }]); //[{ image: "" }]
 
   const [file, setFile] = useState("");
   const [previewURL, setPreviewURL] = useState(null);
 
-  let nextId = useRef(0);
+  let nextId = useRef(1);
+  let imgId = useRef(0);
 
+  useEffect(() => {
+    if (file) {
+      const PostImage = document.querySelector("#post_image");
+      // post_preview = <PostPreview src={previewURL} />;
+      PostImage.style.background = `url(${previewURL}) no-repeat center #6C6C6C`;
+      PostImage.style.opacity = 0.5;
+    }
+    // else {
+    //   const PostImage = document.querySelector("#post_image");
+    //   // post_preview = <PostPreview src={previewURL} />
+    //   PostImage.style.background = "#6C6C6C";
+    //   PostImage.style.opacity = 1;
+    // }
+  }, [file]);
+
+  let post_preview = null;
+
+  // if (file) {
+  //   const PostImage = document.querySelector("#post_image");
+  //   // post_preview = <PostPreview src={previewURL} />;
+  //   PostImage.style.background = `url(${previewURL}) no-repeat center #6C6C6C`;
+  //   // PostImage.style.opacity = 0.5;
+  // }
+
+  const onChangeFile = (e, img_id) => {
+    e.preventDefault();
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    reader.onloadend = () => {
+      setFile(file);
+      //setPreviewURL(reader.result);
+
+      let copy = imgUrl;
+      let obj = copy.find((a) => {
+        if (a.id === img_id) {
+          return true;
+        }
+      });
+      const index = copy.indexOf(obj);
+      if (index === -1) {
+        alert("에러");
+      } else {
+        copy[index].image = reader.result;
+        setImgUrl(copy);
+      }
+
+      // setImgUrl([...imgUrl, { name: file }]);
+      // setPreviewURL(reader.result);
+      //setPreviewURL(reader.result);
+    };
+    reader.readAsDataURL(file);
+    if (e.target.files[0]) {
+      const img = new FormData();
+      img.append("file", e.target.files[0]);
+    }
+  };
+
+  const onClickPlusImgInput = () => {
+    //이미지 추가
+    if (imgUrl[imgUrl.length - 1].image === PlusInput) {
+      alert("이미지를 먼저 업로드해주세요.");
+    } else {
+      imgId.current += 1;
+      setImgUrl([...imgUrl, { id: imgId.current, image: PlusInput }]);
+    }
+  };
+
+  const onClickMinusImgInput = (idx) => {};
+
+  const onClickImageUpload = (e) => {
+    if (!file) {
+      ref.current.click();
+    }
+  };
+
+  const onClickMinusBtn = (e) => {
+    //이미지 삭제
+    setFile("");
+    setPreviewURL("");
+
+    const PostImage = document.querySelector("#post_image");
+    // post_preview = <PostPreview src={previewURL} />;
+    PostImage.style.background = "#6C6C6C";
+    PostImage.style.opacity = 1;
+  };
+
+  //input Texts and URLS 값 관리
   const onChangeInput = (e) => {
     const val = e.target.value;
     const eid = e.target.id;
@@ -67,92 +155,23 @@ const PostCreate = () => {
       } else {
         copy[index].url = val;
         setMaterials(copy);
-        console.log(copy);
       }
     } else if (eid === "post_color") {
       setPostForm({ ...postForm, color: val });
     }
   };
 
-  useEffect(() => {
-    if (file) {
-      const PostImage = document.querySelector("#post_image");
-      // post_preview = <PostPreview src={previewURL} />;
-      PostImage.style.background = `url(${previewURL}) no-repeat center #6C6C6C`;
-      PostImage.style.opacity = 0.5;
-    }
-    // else {
-    //   const PostImage = document.querySelector("#post_image");
-    //   // post_preview = <PostPreview src={previewURL} />
-    //   PostImage.style.background = "#6C6C6C";
-    //   PostImage.style.opacity = 1;
-    // }
-  }, [file]);
-
-  let post_preview = null;
-
-  if (file) {
-    const PostImage = document.querySelector("#post_image");
-    // post_preview = <PostPreview src={previewURL} />;
-    PostImage.style.background = `url(${previewURL}) no-repeat center #6C6C6C`;
-    // PostImage.style.opacity = 0.5;
-  }
-
-  const onChangeFile = (e) => {
-    e.preventDefault();
-    let reader = new FileReader();
-    let file = e.target.files[0];
-    reader.onloadend = () => {
-      setFile(file);
-      setPreviewURL(reader.result);
-      setImgUrl([...imgUrl, { image: reader.result }]);
-      // setImgUrl([...imgUrl, { name: file }]);
-      setPreviewURL(reader.result);
-    };
-    reader.readAsDataURL(file);
-    if (e.target.files[0]) {
-      const img = new FormData();
-      img.append("file", e.target.files[0]);
-    }
-  };
-
-  const onClickPlusImgInput = () => {
-    //이미지 추가
-    if (imgCount.length + 1 == imgUrl.length) {
-      setImgCount([...imgCount, 1]);
-    }
-  };
-
-  const onClickMinusImgInput = (idx) => {
-    if (imgCount.length > 2) {
-      // setImageUrl(imgUrl.pop());
-      setImgCount(imgCount.pop());
-
-      let copy = imgUrl.splice(idx + 1);
-      copy = imgUrl.splice(0, idx).join(copy);
-      console.log(copy);
-    }
-  };
-
   const onClickPlusM = (e) => {
-    //수정 필요 postForm materials --> mateirals로 바꿔서 작업
-    //재료 input 칸 추가
-
-    let copy = materials;
     const name = materials[materials.length - 1].name;
     const url = materials[materials.length - 1].url;
     if (name === "" && url === "") {
-      console.log(name);
       alert("Materials의 빈칸을 먼저 채워주세요.");
     } else {
-      nextId.current += 1;
       setMaterials([...materials, { id: nextId.current, name: "", url: "" }]);
+      nextId.current += 1;
     }
   };
   const onClickMinusM = (e, index) => {
-    //수정 필요 postForm.materials --> mateirals로 바꿔서 작업
-    //재료 input 칸 삭제
-    console.log(materials);
     if (materials.length === 1) {
       //한 칸 밖에 없는데 삭제 누를 경우
       setMaterials([{ id: "0", name: "", url: "" }]); //칸만 비워줌
@@ -161,27 +180,8 @@ const PostCreate = () => {
       inputT.value = null;
       inputURL.value = null;
     } else {
-      //idx로 materials의 인덱스를 알아낼 수 있음
-      console.log(index);
       setMaterials(materials.filter((material) => material.id !== index));
     }
-  };
-
-  const onClickImageUpload = (e) => {
-    if (!file) {
-      ref.current.click();
-    }
-  };
-
-  const onCLickMinusBtn = (e) => {
-    //이미지 삭제
-    setFile("");
-    setPreviewURL("");
-
-    const PostImage = document.querySelector("#post_image");
-    // post_preview = <PostPreview src={previewURL} />;
-    PostImage.style.background = "#6C6C6C";
-    PostImage.style.opacity = 1;
   };
 
   const onSubmitPost = () => {
@@ -191,7 +191,7 @@ const PostCreate = () => {
   return (
     <>
       <div className={styles.postBanner}>
-        <PostBanner />
+        <CreateBanner />
       </div>
       <div className={styles.createWrap}>
         <div className={styles.createAdvice}>
@@ -201,16 +201,20 @@ const PostCreate = () => {
           <form className={styles.form} action="#" method="post">
             <div className={styles.postContent}>
               <div className={styles.postContentWrap}>
-                {imgCount.map((a, i) => (
+                {imgUrl.map((a, i) => (
                   <>
                     <div
+                      key={a.id}
                       className={styles.ingredientPlusBtn}
                       onClick={() => {
-                        onClickMinusImgInput(i);
+                        onClickMinusImgInput(a.id);
                       }}
-                      id={i}
+                      id={a.id}
                     >
                       <img
+                        onClick={() => {
+                          onClickMinusBtn(a.id);
+                        }}
                         src={minusIcon}
                         style={{ height: "50%", width: "50%" }}
                         alt="minusIcon"
@@ -219,6 +223,9 @@ const PostCreate = () => {
                     <div
                       className={styles.imgBtn}
                       onClick={onClickImageUpload}
+                      style={{
+                        background: `url(${a.image}) no-repeat center #6C6C6C`,
+                      }}
                       id={"post_image"}
                       key={i}
                     >
@@ -226,7 +233,9 @@ const PostCreate = () => {
                         type="file"
                         name={"post_img"}
                         accept="image/*"
-                        onChange={onChangeFile}
+                        onChange={(e) => {
+                          onChangeFile(e, a.id);
+                        }}
                         ref={ref}
                       />
                     </div>
