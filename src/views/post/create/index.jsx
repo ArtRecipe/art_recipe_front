@@ -8,18 +8,25 @@ import PlusInput from "./plusInput"; //Materials 파트
 import { PostCreateBanner } from "../../../components/Banner/postCreateBanner";
 
 import { useNavigate } from "react-router-dom";
+import { postPost } from "../../../axios/Post";
+
+import { useSelector } from "react-redux";
 //Todo : postForm을 jsonNested 하기 전에 postForm.materials에 materials에서 id를 제외하고 입력해야함
-//Todo : postForm을 jsonNested 하기 전에 postForm 이미지배열에 imgUrl에서 id를 제외하고 입력해야함
+//Todo : postForm을 jsonNested 하기 전에 postForm 이미지배열에 imgUrl에서 id를 제외하고 입력해야함 + submit할때
 // /api/post/post/ POST : 게시글 생성. 여러 개의 image 및 material 생성 가능 json nested하게 보내면 됨.
 const PostCreate = () => {
   const ref = useRef(null);
   const navigate = useNavigate();
+  const user = useSelector((user) => user.user.user);
+  console.log(user);
 
   const [postForm, setPostForm] = useState({
+    writer: user,
     title: "",
     color: "",
     desc: "",
     url: "",
+    images: [],
     materials: [{ name: "", url: "" }],
   });
   const [materials, setMaterials] = useState([{ id: 0, name: "", url: "" }]); // materials의 id는 삭제 기능을 위한 것으로 서버에 보낼 시 mateirals의 id를 제외하고 postForm materials 에 저장해야함
@@ -28,26 +35,26 @@ const PostCreate = () => {
   const [imageUrl, setImageUrl] = useState(null); //전에 진희의 작업사항
   const [imgUrl, setImgUrl] = useState([{ id: 0, image: PlusInput }]); //[{ image: "" }]
 
-  const [file, setFile] = useState("");
+  const [imgFile, setImgFile] = useState([]);
   const [previewURL, setPreviewURL] = useState(null);
 
-  let nextId = useRef(1);
-  let imgId = useRef(0);
+  let nextId = 1;
+  let imgId = 0;
 
-  useEffect(() => {
-    if (file) {
-      const PostImage = document.querySelector("#post_image");
-      // post_preview = <PostPreview src={previewURL} />;
-      PostImage.style.background = `url(${previewURL}) no-repeat center #6C6C6C`;
-      PostImage.style.opacity = 0.5;
-    }
-    // else {
-    //   const PostImage = document.querySelector("#post_image");
-    //   // post_preview = <PostPreview src={previewURL} />
-    //   PostImage.style.background = "#6C6C6C";
-    //   PostImage.style.opacity = 1;
-    // }
-  }, [file]);
+  // useEffect(() => {
+  //   if (imgFile) {
+  //     const PostImage = document.querySelector("#post_image");
+  //     // post_preview = <PostPreview src={previewURL} />;
+  //     PostImage.style.background = `url(${previewURL}) no-repeat center #6C6C6C`;
+  //     PostImage.style.opacity = 0.5;
+  //   }
+  //   // else {
+  //   //   const PostImage = document.querySelector("#post_image");
+  //   //   // post_preview = <PostPreview src={previewURL} />
+  //   //   PostImage.style.background = "#6C6C6C";
+  //   //   PostImage.style.opacity = 1;
+  //   // }
+  // }, [imgFile]);
 
   let post_preview = null;
 
@@ -63,10 +70,10 @@ const PostCreate = () => {
     let reader = new FileReader();
     let file = e.target.files[0];
     reader.onloadend = () => {
-      setFile(file);
+      setImgFile([...imgFile, file]);
       //setPreviewURL(reader.result);
 
-      let copy = imgUrl;
+      let copy = [...imgUrl];
       let obj = copy.find((a) => {
         if (a.id === img_id) {
           return true;
@@ -79,39 +86,55 @@ const PostCreate = () => {
         copy[index].image = reader.result;
         setImgUrl(copy);
       }
-
       // setImgUrl([...imgUrl, { name: file }]);
       // setPreviewURL(reader.result);
       //setPreviewURL(reader.result);
     };
-    reader.readAsDataURL(file);
-    if (e.target.files[0]) {
-      const img = new FormData();
-      img.append("file", e.target.files[0]);
+    if (file) {
+      reader.readAsDataURL(file);
+      if (e.target.files[0]) {
+        const img_formD = new FormData();
+        img_formD.append("file", e.target.files[0]);
+      }
     }
   };
 
   const onClickPlusImgInput = () => {
-    //이미지 추가
+    //이미지 입력칸 추가
     if (imgUrl[imgUrl.length - 1].image === PlusInput) {
       alert("이미지를 먼저 업로드해주세요.");
     } else {
-      imgId.current += 1;
-      setImgUrl([...imgUrl, { id: imgId.current, image: PlusInput }]);
+      imgId += 1;
+      setImgUrl([...imgUrl, { id: imgId, image: PlusInput }]);
     }
   };
 
-  const onClickMinusImgInput = (idx) => {};
+  const onClickMinusImgInput = (imgid) => {
+    console.log(imgid);
+    if (imgUrl.length === 1) {
+      //업로드한 이미지가 하나일때
+      setImgFile([]);
+      setImgUrl([{ id: 0, image: PlusInput }]);
+      imgId = 0;
+      const inputImg = document.getElementById("imgInput");
+      inputImg.value = null;
+    } else {
+      setImgUrl(imgUrl.filter((image) => image.id !== imgid));
+    }
+    console.log(imgUrl);
+  };
 
-  const onClickImageUpload = (e) => {
-    if (!file) {
-      ref.current.click();
+  const onClickImageUpload = (e, idx) => {
+    if (imgFile.length === 0) {
+      // ref.current.click();
+    } else if (!imgFile[idx]) {
+      // ref.current.click();
     }
   };
 
   const onClickMinusBtn = (e) => {
-    //이미지 삭제
-    setFile("");
+    //이미지 삭제 ---진희
+    setImgFile("");
     setPreviewURL("");
 
     const PostImage = document.querySelector("#post_image");
@@ -158,7 +181,10 @@ const PostCreate = () => {
       }
     } else if (eid === "post_color") {
       setPostForm({ ...postForm, color: val });
+    } else if (eid === "post_desc") {
+      setPostForm({ ...postForm, desc: val });
     }
+    console.log(postForm);
   };
 
   const onClickPlusM = (e) => {
@@ -167,8 +193,8 @@ const PostCreate = () => {
     if (name === "" && url === "") {
       alert("Materials의 빈칸을 먼저 채워주세요.");
     } else {
-      setMaterials([...materials, { id: nextId.current, name: "", url: "" }]);
-      nextId.current += 1;
+      setMaterials([...materials, { id: nextId, name: "", url: "" }]);
+      nextId += 1;
     }
   };
   const onClickMinusM = (e, index) => {
@@ -179,13 +205,29 @@ const PostCreate = () => {
       const inputURL = document.getElementById("murl");
       inputT.value = null;
       inputURL.value = null;
+      nextId = 1;
     } else {
       setMaterials(materials.filter((material) => material.id !== index));
     }
   };
 
-  const onSubmitPost = () => {
+  const onSubmitPost = async () => {
     // const response = postData();
+    delete materials.id;
+    let postSubmit = { ...postForm };
+    // postSubmit.materials = [...materials];
+    delete imgUrl.id;
+
+    // postSubmit = { ...postSubmit, images: imgUrl };
+    postSubmit = JSON.stringify(postSubmit);
+    console.log(postSubmit);
+    try {
+      const res = await postPost(postSubmit);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+      alert("게시물 업로드 실패");
+    }
   };
 
   return (
@@ -194,13 +236,16 @@ const PostCreate = () => {
         <PostCreateBanner />
       </div>
       <div className={styles.createWrap}>
-        <div className={styles.createAdvice}>
+        {/* <div className={styles.createAdvice}>
           나만의 재료와 미술작품을 공유하고, 작품에 스토리를 더하세요 !
-        </div>
+        </div> */}
         <div className={styles.contentWrap}>
           <form className={styles.form} action="#" method="post">
             <div className={styles.postContent}>
               <div className={styles.postContentWrap}>
+                <div className={styles.title} htmlFor={"post_title"}>
+                  Image
+                </div>
                 {imgUrl.map((a, i) => (
                   <>
                     <div
@@ -212,33 +257,27 @@ const PostCreate = () => {
                       id={a.id}
                     >
                       <img
-                        onClick={() => {
-                          onClickMinusBtn(a.id);
-                        }}
+                        // onClick={() => {
+                        //   // onClickMinusBtn(a.id);
+                        //   onClickMinusImgInput(a.id);
+                        // }}
                         src={minusIcon}
                         style={{ height: "50%", width: "50%" }}
                         alt="minusIcon"
                       />
                     </div>
-                    <div
-                      className={styles.imgBtn}
-                      onClick={onClickImageUpload}
-                      style={{
-                        background: `url(${a.image}) no-repeat center #6C6C6C`,
+
+                    <input
+                      className={styles.fileUpload}
+                      type="file"
+                      name={"post_img"}
+                      accept="image/*"
+                      onChange={(e) => {
+                        onChangeFile(e, a.id);
                       }}
-                      id={"post_image"}
-                      key={i}
-                    >
-                      <input
-                        type="file"
-                        name={"post_img"}
-                        accept="image/*"
-                        onChange={(e) => {
-                          onChangeFile(e, a.id);
-                        }}
-                        ref={ref}
-                      />
-                    </div>
+                      ref={ref}
+                      id={"imgInput"}
+                    />
                   </>
                 ))}
 
@@ -281,6 +320,7 @@ const PostCreate = () => {
                   YouTube
                 </div>
                 <input
+                  onChange={onChangeInput}
                   type="url"
                   placeholder={"영상의 유투브 URL을 입력해주세요."}
                   id={"post_youtube"}
@@ -288,7 +328,12 @@ const PostCreate = () => {
                 <div className={styles.title} htmlFor={"post_title"}>
                   TITLE
                 </div>
-                <input type="text" placeholder={"작품 제목을 입력해주세요."} id={"post_title"} />
+                <input
+                  onChange={onChangeInput}
+                  type="text"
+                  placeholder={"작품 제목을 입력해주세요."}
+                  id={"post_title"}
+                />
               </div>
               <div className={styles.postContentWrap}>
                 <div className={styles.title}>MATERIAL</div>
@@ -304,7 +349,7 @@ const PostCreate = () => {
                           onChangeInput(e);
                         }}
                         type="text"
-                        placeholder={item.name}
+                        placeholder={"재료명"}
                         id={"mt"}
                       />
                       <input
@@ -313,7 +358,7 @@ const PostCreate = () => {
                           onChangeInput(e);
                         }}
                         type="url"
-                        placeholder={item.url}
+                        placeholder={"구입처 URL"}
                         id={"murl"}
                       />
                       <img
@@ -336,13 +381,29 @@ const PostCreate = () => {
                   COLOR
                 </div>
                 <input
+                  onChange={onChangeInput}
                   type="text"
                   placeholder={"작품의 색상들을 입력해주세요."}
                   id={"post_color"}
                 />
               </div>
+
+              <div className={styles.postContentWrap}>
+                <div className={styles.title} htmlFor={"post_color"}>
+                  DESCRIPTION
+                </div>
+                <input
+                  onChange={onChangeInput}
+                  type="text"
+                  placeholder={"작품의 설명을 입력해주세요."}
+                  id={"post_desc"}
+                />
+              </div>
+
               <div className={styles.postBtnWrap}>
-                <div className={styles.postSaveBtn}>저장</div>
+                <div className={styles.postSaveBtn} onClick={onSubmitPost}>
+                  저장
+                </div>
                 <div
                   className={styles.postCancelBtn}
                   onClick={() => {
