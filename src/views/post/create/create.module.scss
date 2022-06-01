@@ -1,10 +1,15 @@
 .createWrap {
-  margin-top: 7rem;
+  margin: 0rem;
+
+  //padding: 4%;
+  //background-image: url("../../../assets/images/banner_img.png");
 }
 
 .createAdvice {
+  margin-top: 7rem;
   margin-bottom: 4rem;
   text-align: center;
+  font-size: 1.2rem;
 }
 
 .contentWrap {
@@ -15,27 +20,49 @@
   display: flex;
   justify-content: space-between;
 }
+.imgWrap {
+  display: flex;
+  justify-content: column;
+  width: 35%;
+}
 
 .postImageWrap {
   //display: flex;
   //flex-direction: column;
   //width: 30%;
 }
-
-.postImage {
-  width: 30%;
-  height: 500px;
-  border: 1px solid black;
+.imgBtn {
+  width: 100%;
+  height: 25rem;
+  //background-color: #c4c4c4;
+  border: 1px solid #1f1f1f8d;
+  background: url("../../../assets/images/plus_btn.svg") no-repeat center
+    #6c6c6c;
   & input {
     display: none;
   }
-  background-color: #6c6c6c;
+  &:hover {
+    cursor: pointer;
+    background-color: #1f1f1f8d;
+  }
+}
+
+.postImage {
+  width: 100%;
+  height: 25rem;
+  border: 1px solid black;
+  opacity: 0.5;
+  & input {
+    display: none;
+  }
+  //background-color: #6c6c6c;
 
   text-align: center;
   line-height: 12rem;
 
   &:hover {
     cursor: pointer;
+    background-color: #6c6c6c8d;
   }
 }
 
@@ -44,7 +71,15 @@
 }
 
 .minusImg {
-  width: 50%;
+  width: 4%;
+
+  margin-left: 1rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  &:hover {
+    border-radius: 100%;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.257);
+  }
 }
 
 .postPreview {
@@ -57,9 +92,10 @@
 
 .postContentWrap {
   width: 100%;
+  margin-top: 3rem;
   & input {
     width: 100%;
-    // padding: 1rem;
+    padding: 0.5rem;
     background-color: #c4c4c4;
     border: none;
     border-radius: 0.35rem;
@@ -71,7 +107,8 @@
   }
 
   & input::placeholder {
-    color: rgba(255, 255, 255, 0.657);
+    font-weight: 400;
+    color: rgb(255, 255, 255);
   }
 
   &:not(:first-child) {
@@ -80,6 +117,8 @@
 }
 
 .title {
+  color: #6c6c6c;
+  margin-top: 3rem;
   font-size: 1.5rem;
 }
 
@@ -99,6 +138,7 @@
 
   & input:nth-child(2n) {
     width: 66%;
+    margin-left: 1rem;
   }
 }
 
@@ -114,6 +154,7 @@
 
   &:hover {
     cursor: pointer;
+    background-color: #7f7f7f;
   }
 }
 
@@ -124,13 +165,13 @@
 }
 
 .postSaveBtn {
-  width: 10rem;
-  height: 3rem;
+  padding: 0.5rem 4rem;
   background-color: #fff;
   border: 1px solid #c4c4c4;
   color: #c4c4c4;
   border-radius: 0.35rem;
-  font-size: 1.3rem;
+  font-size: 1rem;
+  text-align: center;
 
   &:hover {
     cursor: pointer;
@@ -140,13 +181,13 @@
 }
 
 .postCancelBtn {
-  width: 10rem;
-  height: 3rem;
+  padding: 0.5rem 4rem;
   background-color: #fff;
   border: 1px solid #c4c4c4;
   color: #c4c4c4;
   border-radius: 0.35rem;
-  font-size: 1.3rem;
+  font-size: 1rem;
+  text-align: center;
 
   &:hover {
     cursor: pointer;
