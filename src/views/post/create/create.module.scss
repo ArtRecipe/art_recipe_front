@@ -1,8 +1,7 @@
 .createWrap {
   margin: 0rem;
-
-  //padding: 4%;
-  //background-image: url("../../../assets/images/banner_img.png");
+  text-align: left;
+  width: 100%;
 }
 
 .createAdvice {
@@ -14,11 +13,13 @@
 
 .contentWrap {
   // margin: 0 10rem 4rem;
+  width: 100%;
 }
 
 .form {
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 .imgWrap {
   display: flex;
@@ -34,16 +35,20 @@
 .imgBtn {
   width: 100%;
   height: 25rem;
+  border-radius: 0.35rem;
   //background-color: #c4c4c4;
-  border: 1px solid #1f1f1f8d;
+  border: 1px solid #1f1f1f69;
+
   background: url("../../../assets/images/plus_btn.svg") no-repeat center
-    #6c6c6c;
+    #00000063;
   & input {
     display: none;
   }
   &:hover {
+    // background: url("../../../assets/images/min_btn.svg") no-repeat center
+    //   #00000063;
     cursor: pointer;
-    background-color: #1f1f1f8d;
+    background-color: #c7c7c7d6;
   }
 }
 
@@ -88,13 +93,14 @@
 
 .postContent {
   width: 50%;
+  margin-left: 20%;
 }
 
 .postContentWrap {
   width: 100%;
   margin-top: 3rem;
   & input {
-    width: 100%;
+    width: 98%;
     padding: 0.5rem;
     background-color: #c4c4c4;
     border: none;
@@ -114,6 +120,9 @@
   &:not(:first-child) {
     margin-top: 2rem;
   }
+}
+.fileUpload {
+  width: 50%;
 }
 
 .title {
@@ -159,7 +168,7 @@
 }
 
 .postBtnWrap {
-  margin: 5rem 2rem 0;
+  margin: 5rem 2rem;
   display: flex;
   justify-content: space-between;
 }
@@ -178,6 +187,9 @@
     background-color: #c4c4c4;
     color: #ffff;
   }
+  @media (max-width: 768px) {
+    padding: 0.2rem 2rem;
+  }
 }
 
 .postCancelBtn {
@@ -193,5 +205,8 @@
     cursor: pointer;
     background-color: #c4c4c4;
     color: #ffff;
+  }
+  @media (max-width: 768px) {
+    padding: 0.2rem 2rem;
   }
 }
