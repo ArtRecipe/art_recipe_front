@@ -1,0 +1,22 @@
+.bannerWrap {
+  background: linear-gradient(#aca4d3, #ffced9);
+  height: 14rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 180px;
+}
+
+.subtitle {
+  color: #ffffff;
+  font-weight: lighter;
+  font-size: 18px;
+  line-height: 25px;
+}
+
+.title {
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 55px;
+  line-height: 75px;
+}
