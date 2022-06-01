@@ -9,18 +9,24 @@ import CreateBanner from "../../../components/CreateBanner";
 
 import { useNavigate } from "react-router-dom";
 import { postPost } from "../../../axios/Post";
+
+import { useSelector } from "react-redux";
 //Todo : postForm을 jsonNested 하기 전에 postForm.materials에 materials에서 id를 제외하고 입력해야함
 //Todo : postForm을 jsonNested 하기 전에 postForm 이미지배열에 imgUrl에서 id를 제외하고 입력해야함 + submit할때
 // /api/post/post/ POST : 게시글 생성. 여러 개의 image 및 material 생성 가능 json nested하게 보내면 됨.
 const PostCreate = () => {
   const ref = useRef(null);
   const navigate = useNavigate();
+  const user = useSelector((user) => user.user.user);
+  console.log(user);
 
   const [postForm, setPostForm] = useState({
+    writer: user,
     title: "",
     color: "",
     desc: "",
     url: "",
+    images: [],
     materials: [{ name: "", url: "" }],
   });
   const [materials, setMaterials] = useState([{ id: 0, name: "", url: "" }]); // materials의 id는 삭제 기능을 위한 것으로 서버에 보낼 시 mateirals의 id를 제외하고 postForm materials 에 저장해야함
@@ -175,6 +181,8 @@ const PostCreate = () => {
       }
     } else if (eid === "post_color") {
       setPostForm({ ...postForm, color: val });
+    } else if (eid === "post_desc") {
+      setPostForm({ ...postForm, desc: val });
     }
     console.log(postForm);
   };
@@ -385,6 +393,19 @@ const PostCreate = () => {
                   id={"post_color"}
                 />
               </div>
+
+              <div className={styles.postContentWrap}>
+                <div className={styles.title} htmlFor={"post_color"}>
+                  DESCRIPTION
+                </div>
+                <input
+                  onChange={onChangeInput}
+                  type="text"
+                  placeholder={"작품의 설명을 입력해주세요."}
+                  id={"post_desc"}
+                />
+              </div>
+
               <div className={styles.postBtnWrap}>
                 <div className={styles.postSaveBtn} onClick={onSubmitPost}>
                   저장
