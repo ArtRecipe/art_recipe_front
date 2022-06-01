@@ -11,7 +11,7 @@ export const SideBarContainer = ({ data }) => {
   if (data) {
     return (
       <>
-        <div className={styles.modalForm}>
+        <div className={styles.modalWrap}>
           <Modal status={status} data={data} />
         </div>
 

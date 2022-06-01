@@ -10,7 +10,7 @@ import defaultLogo from "../../assets/images/logo/logo_1.png";
 export const PostContainer = ({ data }) => {
   if (data) {
     return (
-      <div className={styles.detailForm}>
+      <div className={styles.detailWrap}>
         <div>
           {/* 유저 정보 */}
           <div className={styles.userInfo}>

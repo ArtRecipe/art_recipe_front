@@ -1,0 +1,56 @@
+.postCardWrap {
+  margin: 10px;
+
+  .postInfo {
+    position: relative;
+
+    img {
+      width: 356px;
+      height: 393px;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    .title {
+      display: none;
+    }
+  }
+
+  .postInfo:hover {
+    img {
+      filter: brightness(50%);
+    }
+
+    .title {
+      display: block;
+      position: absolute;
+      bottom: 30px;
+      color: #e2e2e2;
+      font-size: 18px;
+      line-height: 25px;
+      margin-left: 20px;
+      z-index: 1;
+    }
+  }
+
+  .userInfo {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    img {
+      width: 34px;
+      height: 34px;
+      background-color: #c4c4c4;
+      border-radius: 100%;
+      margin-right: 10px;
+    }
+
+    .userName {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 25px;
+    }
+  }
+}

@@ -1,78 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { getPostList } from "../../../axios/Post";
-import PostBanner from "../banner";
-import PostCard from "./card";
-import ReactLoading from "react-loading";
-import DefaultPhoto from "../../../assets/images/default_photo.png";
+import { Loading } from "../../../components/Loading/Loading";
+import { PostListContainer } from "../../../containers/Post/PostListContainer";
 
 const PostList = () => {
-  const [postlist, setPostlist] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [isLoading, setisLoading] = useState(false); // 데이터 로딩
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    setError(null);
-    setLoading(true);
-    const res = getPostList()
-      .then(function (res) {
-        setPostlist([...res.data]);
-      })
-      .catch(function (rej) {
-        console.error();
-        setError(rej);
-      });
-    setLoading(false);
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const res = await getPostList();
+        setData([...res.data]);
+      } catch (err) {
+        setError(err.response.status);
+      }
+      setLoading(false);
+    };
+    fetchData();
   }, []);
 
-  console.log("포스트 리스트페이지");
+  // 로딩 중인 경우
+  if (loading) return <Loading />;
 
-  console.log(postlist);
-  // 대기중일때
-  if (loading) {
-    return <div className="list-block">로딩 중</div>;
-  }
-  if (error) return <div>에러가 발생했습니다</div>;
-  // 아직 postlist값이 설정되지 않았을때
-  if (!postlist) {
-    console.log("아직 값이 설정되지 않음");
-    return null;
-  }
-  return (
-    <>
-      <PostBanner />
-      <div>
-        {postlist.map((post) => (
-          <div key={post.id}>
-            {post.images.length === 0 ? (
-              <PostCard
-                key={post.id}
-                post={post}
-                thumbnail={DefaultPhoto}
-                username={post.writer.username}
-                profile={post.profile}
-              />
-            ) : (
-              <PostCard
-                key={post.id}
-                post={post}
-                thumbnail={post.images[0].image}
-                username={post.writer.username}
-                profile={post.profile}
-              />
-            )}
-          </div>
-        ))}
-      </div>
-      {isLoading ? (
-        <div>
-          <ReactLoading type="spin" color="#A593E0" />
-        </div>
-      ) : (
-        ""
-      )}
-    </>
-  );
+  // 에러 발생한 경우
+  if (error) return <div>에러가 발생했습니다 {error}</div>;
+
+  return <PostListContainer data={data} />;
 };
 
 export default PostList;
