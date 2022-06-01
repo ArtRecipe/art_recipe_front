@@ -14,7 +14,6 @@ export const PostListContainer = ({ data }) => {
           {data.map((post) => {
             return <PostCard key={post.id} post={post} />;
           })}
-          ;
         </div>
       </>
     );
