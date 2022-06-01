@@ -5,7 +5,7 @@ import plusIcon from "../../../assets/images/plus_btn.svg";
 import minusIcon from "../../../assets/images/min_btn.svg";
 import minusIconB from "../../../assets/images/min_btn_b.svg";
 import PlusInput from "./plusInput"; //Materials 파트
-import CreateBanner from "../../../components/CreateBanner";
+import { PostCreateBanner } from "../../../components/Banner/postCreateBanner";
 
 import { useNavigate } from "react-router-dom";
 //Todo : postForm을 jsonNested 하기 전에 postForm.materials에 materials에서 id를 제외하고 입력해야함
@@ -191,7 +191,7 @@ const PostCreate = () => {
   return (
     <>
       <div className={styles.postBanner}>
-        <CreateBanner />
+        <PostCreateBanner />
       </div>
       <div className={styles.createWrap}>
         <div className={styles.createAdvice}>
@@ -242,10 +242,7 @@ const PostCreate = () => {
                   </>
                 ))}
 
-                <div
-                  className={styles.ingredientPlusBtn}
-                  onClick={onClickPlusImgInput}
-                >
+                <div className={styles.ingredientPlusBtn} onClick={onClickPlusImgInput}>
                   <img src={plusIcon} alt="plusIcon" />
                 </div>
 
@@ -291,11 +288,7 @@ const PostCreate = () => {
                 <div className={styles.title} htmlFor={"post_title"}>
                   TITLE
                 </div>
-                <input
-                  type="text"
-                  placeholder={"작품 제목을 입력해주세요."}
-                  id={"post_title"}
-                />
+                <input type="text" placeholder={"작품 제목을 입력해주세요."} id={"post_title"} />
               </div>
               <div className={styles.postContentWrap}>
                 <div className={styles.title}>MATERIAL</div>
@@ -333,10 +326,7 @@ const PostCreate = () => {
                       />
                     </div>
                   ))}
-                  <div
-                    className={styles.ingredientPlusBtn}
-                    onClick={onClickPlusM}
-                  >
+                  <div className={styles.ingredientPlusBtn} onClick={onClickPlusM}>
                     <img src={plusIcon} alt="plusIcon" />
                   </div>
                 </div>

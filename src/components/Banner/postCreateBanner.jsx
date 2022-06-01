@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./banner.module.scss";
+import styles from "./postCreateBanner.module.scss";
 
-const PostBanner = () => {
+export const PostCreateBanner = () => {
   return (
     <>
       <div className={styles.bannerWrap}>
@@ -18,4 +18,4 @@ const PostBanner = () => {
   );
 };
 
-export default PostBanner;
+export default PostCreateBanner;
