@@ -17,16 +17,15 @@ import { useSelector } from "react-redux";
 const PostCreate = () => {
   const ref = useRef(null);
   const navigate = useNavigate();
-  const user = useSelector((user) => user.user.user);
-  console.log(user);
+  const userid = useSelector((user) => user.user.user.id);
+  console.log(userid);
 
   const [postForm, setPostForm] = useState({
-    writer: user,
+    writer: { id: userid },
     title: "",
     color: "",
     desc: "",
     url: "",
-    images: [],
     materials: [{ name: "", url: "" }],
   });
   const [materials, setMaterials] = useState([{ id: 0, name: "", url: "" }]); // materials의 id는 삭제 기능을 위한 것으로 서버에 보낼 시 mateirals의 id를 제외하고 postForm materials 에 저장해야함
@@ -86,7 +85,7 @@ const PostCreate = () => {
         copy[index].image = reader.result;
         setImgUrl(copy);
       }
-      // setImgUrl([...imgUrl, { name: file }]);
+      // setImgUrl([…imgUrl, { name: file }]);
       // setPreviewURL(reader.result);
       //setPreviewURL(reader.result);
     };
@@ -133,7 +132,7 @@ const PostCreate = () => {
   };
 
   const onClickMinusBtn = (e) => {
-    //이미지 삭제 ---진희
+    //이미지 삭제 —진희
     setImgFile("");
     setPreviewURL("");
 
@@ -152,7 +151,7 @@ const PostCreate = () => {
     } else if (eid === "post_title") {
       setPostForm({ ...postForm, title: val });
     } else if (eid === "mt") {
-      let copy = materials;
+      let copy = [...materials];
       let obj = copy.find((a) => {
         if (a.id === midx) {
           return true;
@@ -212,20 +211,42 @@ const PostCreate = () => {
   };
 
   const onSubmitPost = async () => {
-    // const response = postData();
-    delete materials.id;
     let postSubmit = { ...postForm };
-    // postSubmit.materials = [...materials];
-    delete imgUrl.id;
 
-    // postSubmit = { ...postSubmit, images: imgUrl };
-    postSubmit = JSON.stringify(postSubmit);
+    for (let i = 0; i < materials.length; i++) {
+      let arr = [];
+      if (materials[i].name !== "" || materials[i].url !== "") {
+        const mat = { name: materials[i].name, url: materials[i].url };
+        arr.push(mat);
+      }
+      if (arr.length >= 1) {
+        postSubmit.materials = arr;
+      } else {
+        postSubmit.materials = [];
+      }
+    }
+    console.log("imgUrl");
+    console.log(imgUrl);
+    if (imgUrl[0].image !== PlusInput) {
+      let arr = [];
+      for (let i = 0; i < imgUrl.length; i++) {
+        const image = { image: imgUrl[i].image };
+        if (image.image !== PlusInput) {
+          arr.push(image);
+        }
+      }
+      if (arr.length >= 1) {
+        postSubmit = { ...postSubmit, images: arr };
+      }
+    }
     console.log(postSubmit);
     try {
       const res = await postPost(postSubmit);
       console.log(res);
+      navigate("/list");
     } catch (err) {
       console.log(err);
+
       alert("게시물 업로드 실패");
     }
   };
@@ -281,7 +302,10 @@ const PostCreate = () => {
                   </>
                 ))}
 
-                <div className={styles.ingredientPlusBtn} onClick={onClickPlusImgInput}>
+                <div
+                  className={styles.ingredientPlusBtn}
+                  onClick={onClickPlusImgInput}
+                >
                   <img src={plusIcon} alt="plusIcon" />
                 </div>
 
@@ -371,7 +395,10 @@ const PostCreate = () => {
                       />
                     </div>
                   ))}
-                  <div className={styles.ingredientPlusBtn} onClick={onClickPlusM}>
+                  <div
+                    className={styles.ingredientPlusBtn}
+                    onClick={onClickPlusM}
+                  >
                     <img src={plusIcon} alt="plusIcon" />
                   </div>
                 </div>
