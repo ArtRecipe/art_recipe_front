@@ -1,0 +1,42 @@
+.navSearchWrap {
+  border-bottom: 1px solid #ffffff;
+  width: 22%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+
+  input {
+    width: 80%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: rgba(245, 245, 245, 0.735);
+    text-align: center;
+  }
+
+  input::placeholder {
+    color: rgba(245, 245, 245, 0.735);
+    text-align: end;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  button {
+    width: 20%;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  svg {
+    width: 30%;
+    fill: rgba(245, 245, 245, 0.735);
+    z-index: 0;
+  }
+}
