@@ -1,0 +1,39 @@
+.navbarWrap {
+  background-color: rgba(0, 0, 0, 0.427);
+  height: auto;
+  z-index: 100;
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+
+  @media only screen and (max-width: 600px) {
+    height: 5%;
+  }
+
+  img {
+    width: 20%;
+    height: 10%;
+  }
+
+  .linkWrap {
+    display: flex;
+
+    .link {
+      cursor: pointer;
+      text-decoration: none;
+      color: rgba(245, 245, 245, 0.735);
+      font-size: 15px;
+      margin: 0 30px;
+
+      @media only screen and (max-width: 600px) {
+        font-size: 8px;
+      }
+    }
+
+    .link:hover {
+      color: white;
+    }
+  }
+}

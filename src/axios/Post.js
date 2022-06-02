@@ -1,11 +1,11 @@
 import axios from "axios";
 
 // 게시글 전체 조회
-export const getPostList = async () => {
+export const getPostList = async (word) => {
   return axios(
     {
       method: "GET",
-      url: "/api/post/post/",
+      url: `/api/post/post/?search=${word}`,
     },
     {
       withCredentials: true,
@@ -47,19 +47,6 @@ export const putPost = async (jData) => {
       method: "PUT",
       url: "/api/post/post/",
       data: jData,
-    },
-    {
-      withCredentials: true,
-    }
-  );
-};
-
-// 검색 - “제목“, “설명“, “작성자 이름“, “재료 이름“에 포함된 경우 result 나옴
-export const getSearch = async (word) => {
-  return axios(
-    {
-      method: "GET",
-      url: `/api/post/post/?search=${word}`,
     },
     {
       withCredentials: true,

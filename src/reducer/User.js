@@ -11,7 +11,7 @@ export const REMOVE_USER = "user/removeUser";
 
 // Initial State
 const initialState = {
-  isLoggedin: false,
+  isLoggedIn: false,
   // date_joined: "2022-05-14T22:09:04.626584+09:00"
   // email: "helloking1234567890@gmail.com"
   // id: 3
@@ -83,7 +83,7 @@ const reducer = (state = initialState, action) => {
     case SET_USER: {
       return {
         ...state,
-        isLoggedin: true,
+        isLoggedIn: true,
         user: action.payload,
         login: {
           status: "SUCCESS",
@@ -98,7 +98,7 @@ const reducer = (state = initialState, action) => {
     case GET_USER: {
       return {
         ...state,
-        isLoggedin: true,
+        isLoggedIn: true,
         user: action.payload,
         login: {
           status: "SUCCESS",
@@ -120,7 +120,7 @@ const reducer = (state = initialState, action) => {
     case REMOVE_USER: {
       return {
         ...state,
-        isLoggedin: false,
+        isLoggedIn: false,
         user: undefined,
         login: undefined,
         status: undefined,
