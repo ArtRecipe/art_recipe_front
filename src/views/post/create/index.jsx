@@ -30,39 +30,11 @@ const PostCreate = () => {
   });
   const [materials, setMaterials] = useState([{ id: 0, name: "", url: "" }]); // materials의 id는 삭제 기능을 위한 것으로 서버에 보낼 시 mateirals의 id를 제외하고 postForm materials 에 저장해야함
   let midx = 0;
-
-  const [imageUrl, setImageUrl] = useState(null); //전에 진희의 작업사항
-  const [imgUrl, setImgUrl] = useState([{ id: 0, image: PlusInput }]); //[{ image: "" }]
-
+  const [imgUrl, setImgUrl] = useState([{ id: 0, index: -1 }]);
   const [imgFile, setImgFile] = useState([]);
-  const [previewURL, setPreviewURL] = useState(null);
 
   let nextId = 1;
   let imgId = 0;
-
-  // useEffect(() => {
-  //   if (imgFile) {
-  //     const PostImage = document.querySelector("#post_image");
-  //     // post_preview = <PostPreview src={previewURL} />;
-  //     PostImage.style.background = `url(${previewURL}) no-repeat center #6C6C6C`;
-  //     PostImage.style.opacity = 0.5;
-  //   }
-  //   // else {
-  //   //   const PostImage = document.querySelector("#post_image");
-  //   //   // post_preview = <PostPreview src={previewURL} />
-  //   //   PostImage.style.background = "#6C6C6C";
-  //   //   PostImage.style.opacity = 1;
-  //   // }
-  // }, [imgFile]);
-
-  let post_preview = null;
-
-  // if (file) {
-  //   const PostImage = document.querySelector("#post_image");
-  //   // post_preview = <PostPreview src={previewURL} />;
-  //   PostImage.style.background = `url(${previewURL}) no-repeat center #6C6C6C`;
-  //   // PostImage.style.opacity = 0.5;
-  // }
 
   const onChangeFile = (e, img_id) => {
     e.preventDefault();
@@ -70,7 +42,6 @@ const PostCreate = () => {
     let file = e.target.files[0];
     reader.onloadend = () => {
       setImgFile([...imgFile, file]);
-      //setPreviewURL(reader.result);
 
       let copy = [...imgUrl];
       let obj = copy.find((a) => {
@@ -82,12 +53,9 @@ const PostCreate = () => {
       if (index === -1) {
         alert("에러");
       } else {
-        copy[index].image = reader.result;
+        copy[index].index = reader.result;
         setImgUrl(copy);
       }
-      // setImgUrl([…imgUrl, { name: file }]);
-      // setPreviewURL(reader.result);
-      //setPreviewURL(reader.result);
     };
     if (file) {
       reader.readAsDataURL(file);
@@ -100,11 +68,11 @@ const PostCreate = () => {
 
   const onClickPlusImgInput = () => {
     //이미지 입력칸 추가
-    if (imgUrl[imgUrl.length - 1].image === PlusInput) {
+    if (imgUrl[imgUrl.length - 1].image === -1) {
       alert("이미지를 먼저 업로드해주세요.");
     } else {
       imgId += 1;
-      setImgUrl([...imgUrl, { id: imgId, image: PlusInput }]);
+      setImgUrl([...imgUrl, { id: imgId, index: -1 }]);
     }
   };
 
@@ -112,8 +80,8 @@ const PostCreate = () => {
     console.log(imgid);
     if (imgUrl.length === 1) {
       //업로드한 이미지가 하나일때
-      setImgFile([]);
-      setImgUrl([{ id: 0, image: PlusInput }]);
+      setImgFile(null);
+      setImgUrl([{ id: 0, index: -1 }]);
       imgId = 0;
       const inputImg = document.getElementById("imgInput");
       inputImg.value = null;
@@ -121,25 +89,6 @@ const PostCreate = () => {
       setImgUrl(imgUrl.filter((image) => image.id !== imgid));
     }
     console.log(imgUrl);
-  };
-
-  const onClickImageUpload = (e, idx) => {
-    if (imgFile.length === 0) {
-      // ref.current.click();
-    } else if (!imgFile[idx]) {
-      // ref.current.click();
-    }
-  };
-
-  const onClickMinusBtn = (e) => {
-    //이미지 삭제 —진희
-    setImgFile("");
-    setPreviewURL("");
-
-    const PostImage = document.querySelector("#post_image");
-    // post_preview = <PostPreview src={previewURL} />;
-    PostImage.style.background = "#6C6C6C";
-    PostImage.style.opacity = 1;
   };
 
   //input Texts and URLS 값 관리
@@ -198,8 +147,7 @@ const PostCreate = () => {
   };
   const onClickMinusM = (e, index) => {
     if (materials.length === 1) {
-      //한 칸 밖에 없는데 삭제 누를 경우
-      setMaterials([{ id: "0", name: "", url: "" }]); //칸만 비워줌
+      setMaterials([{ id: "0", name: "", url: "" }]); //한 칸 밖에 없는데 삭제 누를 경우 칸만 비워줌
       const inputT = document.getElementById("mt");
       const inputURL = document.getElementById("murl");
       inputT.value = null;
@@ -257,9 +205,6 @@ const PostCreate = () => {
         <PostCreateBanner />
       </div>
       <div className={styles.createWrap}>
-        {/* <div className={styles.createAdvice}>
-          나만의 재료와 미술작품을 공유하고, 작품에 스토리를 더하세요 !
-        </div> */}
         <div className={styles.contentWrap}>
           <form className={styles.form} action="#" method="post">
             <div className={styles.postContent}>
@@ -267,39 +212,26 @@ const PostCreate = () => {
                 <div className={styles.title} htmlFor={"post_title"}>
                   Image
                 </div>
-                {imgUrl.map((a, i) => (
-                  <>
-                    <div
-                      key={a.id}
-                      className={styles.ingredientPlusBtn}
-                      onClick={() => {
-                        onClickMinusImgInput(a.id);
-                      }}
-                      id={a.id}
-                    >
-                      <img
-                        // onClick={() => {
-                        //   // onClickMinusBtn(a.id);
-                        //   onClickMinusImgInput(a.id);
-                        // }}
-                        src={minusIcon}
-                        style={{ height: "50%", width: "50%" }}
-                        alt="minusIcon"
-                      />
-                    </div>
 
+                {imgUrl.map((a, i) => (
+                  <div className={styles.form}>
                     <input
-                      className={styles.fileUpload}
                       type="file"
                       name={"post_img"}
                       accept="image/*"
                       onChange={(e) => {
                         onChangeFile(e, a.id);
                       }}
-                      ref={ref}
-                      id={"imgInput"}
                     />
-                  </>
+                    <img
+                      className={styles.minusImg}
+                      onClick={() => {
+                        onClickMinusImgInput(a.id);
+                      }}
+                      src={minusIconB}
+                      alt="minusImg"
+                    />
+                  </div>
                 ))}
 
                 <div
@@ -308,38 +240,6 @@ const PostCreate = () => {
                 >
                   <img src={plusIcon} alt="plusIcon" />
                 </div>
-
-                {/* <div
-                  className={styles.postImage}
-                  onClick={onClickImageUpload}
-                  id={"post_image"}
-                >
-                  <img src={imageUrl} alt={imageUrl} />
-                  <input
-                    type="file"
-                    name={"post_img"}
-                    accept="image/*"
-                    onChange={onChangeFile}
-                    ref={ref}
-                  />
-                  {file ? (
-                    <div
-                      className={styles.plusImg}
-                      src={minusIcon}
-                      alt="minusIcon"
-                      onClick={onCLickMinusBtn}
-                    ></div>
-                  ) : (
-                    <div
-                      className={styles.plusImg}
-                      src={plusIcon}
-                      alt="plusIcon"
-                    ></div>
-                  )}
-                </div> */}
-
-                {/* <div className={styles.postContent}>
-                <div className={styles.postContentWrap}> */}
                 <div className={styles.title} htmlFor={"post_title"}>
                   YouTube
                 </div>
