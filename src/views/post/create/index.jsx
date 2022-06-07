@@ -30,7 +30,7 @@ const PostCreate = () => {
   });
   const [materials, setMaterials] = useState([{ id: 0, name: "", url: "" }]); // materials의 id는 삭제 기능을 위한 것으로 서버에 보낼 시 mateirals의 id를 제외하고 postForm materials 에 저장해야함
   let midx = 0;
-  const [imgUrl, setImgUrl] = useState([{ id: 0, index: -1 }]);
+  const [imgInfo, setImgInfo] = useState([{ id: 0, files: null }]);
   const [imgFile, setImgFile] = useState([]);
 
   let nextId = 1;
@@ -39,56 +39,60 @@ const PostCreate = () => {
   const onChangeFile = (e, img_id) => {
     e.preventDefault();
     let reader = new FileReader();
-    let file = e.target.files[0];
-    reader.onloadend = () => {
-      setImgFile([...imgFile, file]);
-
-      let copy = [...imgUrl];
-      let obj = copy.find((a) => {
-        if (a.id === img_id) {
-          return true;
-        }
-      });
-      const index = copy.indexOf(obj);
-      if (index === -1) {
-        alert("에러");
-      } else {
-        copy[index].index = reader.result;
-        setImgUrl(copy);
-      }
-    };
-    if (file) {
-      reader.readAsDataURL(file);
-      if (e.target.files[0]) {
-        const img_formD = new FormData();
-        img_formD.append("file", e.target.files[0]);
-      }
-    }
+    let file = e.target.files;
+    console.log(file);
+    // reader.onloadend = () => {
+    let arr = [...imgInfo];
+    arr = arr.filter((a) => a.id !== img_id);
+    arr.push({ id: img_id, files: [...file] });
+    setImgInfo(arr);
+    console.log("imgInfo");
+    console.log(imgInfo);
+    // let copy = [...imgInfo];
+    // let obj = copy.find((a) => {
+    //   if (a.id === img_id) {
+    //     return true;
+    //   }
+    // });
+    // const index = copy.indexOf(obj);
+    // if (index === -1) {
+    //   alert("에러");
+    // } else {
+    //   copy[index].index = reader.result;
+    //   setImgInfo(copy);
+    // }
+    // };
+    // if (file) {
+    //   reader.readAsDataURL(file);
+    //   if (e.target.files[0]) {
+    //     const img_formD = new FormData();
+    //     img_formD.append("file", e.target.files[0]);
+    //   }
+    // }
   };
 
   const onClickPlusImgInput = () => {
     //이미지 입력칸 추가
-    if (imgUrl[imgUrl.length - 1].image === -1) {
+    console.log(imgInfo);
+    if (imgInfo[imgInfo.length - 1].files === null) {
       alert("이미지를 먼저 업로드해주세요.");
     } else {
       imgId += 1;
-      setImgUrl([...imgUrl, { id: imgId, index: -1 }]);
+      setImgInfo([...imgInfo, { id: imgId, files: null }]);
     }
   };
 
   const onClickMinusImgInput = (imgid) => {
-    console.log(imgid);
-    if (imgUrl.length === 1) {
-      //업로드한 이미지가 하나일때
-      setImgFile(null);
-      setImgUrl([{ id: 0, index: -1 }]);
+    if (imgInfo.length === 1) {
+      //업로드한 이미지input이 하나일때
+      setImgInfo([{ id: 0, files: null }]);
       imgId = 0;
-      const inputImg = document.getElementById("imgInput");
+      const inputImg = document.getElementById("post_img");
       inputImg.value = null;
     } else {
-      setImgUrl(imgUrl.filter((image) => image.id !== imgid));
+      setImgInfo(imgInfo.filter((image) => image.id !== imgid));
     }
-    console.log(imgUrl);
+    console.log(imgInfo);
   };
 
   //input Texts and URLS 값 관리
@@ -160,7 +164,7 @@ const PostCreate = () => {
 
   const onSubmitPost = async () => {
     let postSubmit = { ...postForm };
-
+    let formData = new FormData();
     for (let i = 0; i < materials.length; i++) {
       let arr = [];
       if (materials[i].name !== "" || materials[i].url !== "") {
@@ -172,29 +176,25 @@ const PostCreate = () => {
       } else {
         postSubmit.materials = [];
       }
-    }
-    console.log("imgUrl");
-    console.log(imgUrl);
-    if (imgUrl[0].image !== PlusInput) {
-      let arr = [];
-      for (let i = 0; i < imgUrl.length; i++) {
-        const image = { image: imgUrl[i].image };
-        if (image.image !== PlusInput) {
-          arr.push(image);
+
+      for (let i = 0; i < imgInfo.length; i++) {
+        if (imgInfo[i].files !== null) {
+          for (let j = 0; j < imgInfo[i].files.length; j++) {
+            formData.append("files", imgInfo[i].files[j]);
+          }
         }
       }
-      if (arr.length >= 1) {
-        postSubmit = { ...postSubmit, images: arr };
-      }
+      formData.append("data", postSubmit);
     }
-    console.log(postSubmit);
+
+    console.log(formData);
     try {
       const res = await postPost(postSubmit);
+      //const res = await postPost(formData);
       console.log(res);
       navigate("/list");
     } catch (err) {
       console.log(err);
-
       alert("게시물 업로드 실패");
     }
   };
@@ -213,12 +213,13 @@ const PostCreate = () => {
                   Image
                 </div>
 
-                {imgUrl.map((a, i) => (
+                {imgInfo.map((a, i) => (
                   <div className={styles.form}>
                     <input
                       type="file"
-                      name={"post_img"}
+                      id={"post_img"}
                       accept="image/*"
+                      multiple="multiple"
                       onChange={(e) => {
                         onChangeFile(e, a.id);
                       }}
