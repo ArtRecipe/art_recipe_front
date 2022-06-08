@@ -11,13 +11,10 @@ import { useNavigate } from "react-router-dom";
 import { postPost } from "../../../axios/Post";
 
 import { useSelector } from "react-redux";
-//Todo : 서버 업데이트이후 formData(이미지) 전송
-
+//TODO 1: imgInput 동작 정상화 - nextId 작업 참고할것
+//TODO 2: 서버 업데이트이후 formData(이미지) 전송
 const PostCreate = () => {
-  const ref = useRef(null);
-  const navigate = useNavigate();
   const userid = useSelector((user) => user.user.user.id);
-  console.log(userid);
 
   const [postForm, setPostForm] = useState({
     writer: { id: userid },
@@ -27,147 +24,23 @@ const PostCreate = () => {
     url: "",
     materials: [{ name: "", url: "" }],
   });
-  const [materials, setMaterials] = useState([{ id: 0, name: "", url: "" }]); // materials의 id는 삭제 기능을 위한 것으로 서버에 보낼 시 mateirals의 id를 제외하고 postForm materials 에 저장해야함
-  let midx = 0;
-  const [imgInfo, setImgInfo] = useState([{ id: 0, files: null }]);
+  const [materials, setMaterials] = useState([{ id: 0, name: "", url: "" }]);
+  const [imgInfo, setImgInfo] = useState([{ id: 0, files: [] }]);
   const [imgFile, setImgFile] = useState([]);
+  const [nextId, setNextId] = useState(1);
+  const [imgId, setImgId] = useState(1);
 
-  let nextId = 1;
-  let imgId = 0;
-
-  const onChangeFile = (e, img_id) => {
-    e.preventDefault();
-    let file = e.target.files;
-    console.log(file);
-    let arr = [...imgInfo];
-    arr = arr.filter((a) => a.id !== img_id);
-    arr.push({ id: img_id, files: [...file] });
-    setImgInfo(arr);
-    console.log("imgInfo");
-    console.log(imgInfo);
-  };
-
-  const onClickPlusImgInput = () => {
-    //이미지 입력칸 추가
-    console.log(imgInfo);
-    if (imgInfo[imgInfo.length - 1].files === null) {
-      alert("이미지를 먼저 업로드해주세요.");
-    } else {
-      imgId += 1;
-      setImgInfo([...imgInfo, { id: imgId, files: null }]);
-    }
-  };
-
-  const onClickMinusImgInput = (imgid) => {
-    if (imgInfo.length === 1) {
-      //업로드한 이미지input이 하나일때
-      setImgInfo([{ id: 0, files: null }]);
-      imgId = 0;
-      const inputImg = document.getElementById("post_img");
-      inputImg.value = null;
-    } else {
-      setImgInfo(imgInfo.filter((image) => image.id !== imgid));
-    }
-    console.log(imgInfo);
-  };
-
-  //input Texts and URLS 값 관리
-  const onChangeInput = (e, mid) => {
+  const onChangeInput = (e) => {
     const val = e.target.value;
     const eid = e.target.id;
     if (eid === "post_youtube") {
       setPostForm({ ...postForm, url: val });
     } else if (eid === "post_title") {
       setPostForm({ ...postForm, title: val });
-    } else if (eid === "mt") {
-      let copy = [...materials];
-      let obj = copy.find((a) => {
-        if (a.id === mid) {
-          return true;
-        }
-      });
-      const index = copy.indexOf(obj);
-      if (index === -1) {
-        alert("에러");
-      } else {
-        copy[index].name = val;
-        setMaterials(copy);
-      }
-    } else if (eid === "murl") {
-      let copy = materials;
-      let obj = copy.find((a) => {
-        if (a.id === mid) {
-          return true;
-        }
-      });
-      const index = copy.indexOf(obj);
-      if (index === -1) {
-        alert("에러");
-      } else {
-        copy[index].url = val;
-        setMaterials(copy);
-      }
     } else if (eid === "post_color") {
       setPostForm({ ...postForm, color: val });
     } else if (eid === "post_desc") {
       setPostForm({ ...postForm, desc: val });
-    }
-    console.log(postForm);
-  };
-
-  const onClickPlusM = (e) => {
-    const name = materials[materials.length - 1].name;
-    const url = materials[materials.length - 1].url;
-    if (name === "" && url === "") {
-      alert("Materials의 빈칸을 먼저 채워주세요.");
-    } else {
-      setMaterials([...materials, { id: nextId, name: "", url: "" }]);
-      nextId += 1;
-    }
-  };
-  const onClickMinusM = (e, index) => {
-    if (materials.length === 1) {
-      setMaterials([{ id: "0", name: "", url: "" }]); //한 칸 밖에 없는데 삭제 누를 경우 칸만 비워줌
-      const inputT = document.getElementById("mt");
-      const inputURL = document.getElementById("murl");
-      inputT.value = null;
-      inputURL.value = null;
-      nextId = 1;
-    } else {
-      setMaterials(materials.filter((material) => material.id !== index));
-    }
-  };
-
-  const onSubmitPost = async () => {
-    let postSubmit = { ...postForm };
-    // let formData = new FormData();
-    for (let i = 0; i < materials.length; i++) {
-      let arr = [];
-      if (materials[i].name !== "" || materials[i].url !== "") {
-        const mat = { name: materials[i].name, url: materials[i].url };
-        arr.push(mat);
-      }
-      postSubmit.materials = arr;
-
-      // for (let i = 0; i < imgInfo.length; i++) { //이미지업로드
-      //   if (imgInfo[i].files !== null) {
-      //     for (let j = 0; j < imgInfo[i].files.length; j++) {
-      //       formData.append("files", imgInfo[i].files[j]);
-      //     }
-      //   }
-      // }
-      // formData.append("data", postSubmit);
-    }
-
-    console.log(postSubmit);
-    try {
-      const res = await postPost(postSubmit);
-      //const res = await postPost(formData);
-      console.log(res);
-      navigate("/list");
-    } catch (err) {
-      console.log(err);
-      alert("게시물 업로드 실패");
     }
   };
 
@@ -181,38 +54,11 @@ const PostCreate = () => {
           <form className={styles.form} action="#" method="post">
             <div className={styles.postContent}>
               <div className={styles.postContentWrap}>
-                <div className={styles.title} htmlFor={"post_title"}>
-                  Image
-                </div>
-
-                {imgInfo.map((a, i) => (
-                  <div className={styles.form}>
-                    <input
-                      type="file"
-                      id={"post_img"}
-                      accept="image/*"
-                      multiple="multiple"
-                      onChange={(e) => {
-                        onChangeFile(e, a.id);
-                      }}
-                    />
-                    <img
-                      className={styles.minusImg}
-                      onClick={() => {
-                        onClickMinusImgInput(a.id);
-                      }}
-                      src={minusIconB}
-                      alt="minusImg"
-                    />
-                  </div>
-                ))}
-
-                <div
-                  className={styles.ingredientPlusBtn}
-                  onClick={onClickPlusImgInput}
-                >
-                  <img src={plusIcon} alt="plusIcon" />
-                </div>
+                <ImgInputs
+                  imgInfo={imgInfo}
+                  setImgInfo={setImgInfo}
+                  setImgId={setImgId}
+                />
                 <div className={styles.title} htmlFor={"post_title"}>
                   YouTube
                 </div>
@@ -232,48 +78,13 @@ const PostCreate = () => {
                   id={"post_title"}
                 />
               </div>
-              <div className={styles.postContentWrap}>
-                <div className={styles.title}>MATERIAL</div>
-                <div className={styles.postMaterialSubTitle}>
-                  작품에 사용된 재료를 입력해주세요.
-                </div>
-                <div className={styles.ingredientInputWrap}>
-                  {materials.map((item, index) => (
-                    <div className={styles.ingredientInputTop} key={item.id}>
-                      <input
-                        onChange={(e) => {
-                          onChangeInput(e, item.id);
-                        }}
-                        type="text"
-                        placeholder={"재료명"}
-                        id={"mt"}
-                      />
-                      <input
-                        onChange={(e) => {
-                          onChangeInput(e, item.id);
-                        }}
-                        type="url"
-                        placeholder={"구입처 URL"}
-                        id={"murl"}
-                      />
-                      <img
-                        className={styles.minusImg}
-                        onClick={(e) => {
-                          onClickMinusM(e, index);
-                        }}
-                        src={minusIconB}
-                        alt="minusImg"
-                      />
-                    </div>
-                  ))}
-                  <div
-                    className={styles.ingredientPlusBtn}
-                    onClick={onClickPlusM}
-                  >
-                    <img src={plusIcon} alt="plusIcon" />
-                  </div>
-                </div>
-              </div>
+              <Materials
+                materials={materials}
+                setMaterials={setMaterials}
+                setNextId={setNextId}
+                nextId={nextId}
+              />
+
               <div className={styles.postContentWrap}>
                 <div className={styles.title} htmlFor={"post_color"}>
                   COLOR
@@ -297,20 +108,7 @@ const PostCreate = () => {
                   id={"post_desc"}
                 />
               </div>
-
-              <div className={styles.postBtnWrap}>
-                <div className={styles.postSaveBtn} onClick={onSubmitPost}>
-                  저장
-                </div>
-                <div
-                  className={styles.postCancelBtn}
-                  onClick={() => {
-                    navigate("/list");
-                  }}
-                >
-                  취소
-                </div>
-              </div>
+              <SubmitButtons postForm={postForm} materials={materials} />
             </div>
           </form>
         </div>
@@ -318,5 +116,231 @@ const PostCreate = () => {
     </>
   );
 };
+
+function ImgInputs(props) {
+  const onChangeFile = (e, img_id) => {
+    //e.preventDefault();
+    let file = e.target.files;
+    let arr = [...props.imgInfo];
+    arr = arr.filter((a) => a.id !== img_id);
+    arr.push({ id: img_id, files: [...file] });
+    props.setImgInfo(arr);
+  };
+
+  const onClickMinusImgInput = (index) => {
+    if (props.imgInfo.length === 1) {
+      //업로드한 이미지input이 하나일때
+      props.setImgInfo([{ id: 0, files: [] }]);
+      props.setImgId(1);
+      const inputImg = document.getElementById("post_img");
+      inputImg.value = null;
+    } else {
+      let res = props.imgInfo.filter((image) => image.id !== index);
+      if (res.length === 0) {
+        console.log(props.imgInfo);
+        const inputImg = document.getElementById("post_img");
+        inputImg.value = null;
+        props.setImgId(1);
+        res = [{ id: 0, files: [] }];
+      }
+      props.setImgInfo(res);
+    }
+  };
+
+  const onClickPlusImgInput = () => {
+    //이미지 입력칸 추가
+    if (props.imgInfo[props.imgInfo.length - 1].files.length === 0) {
+      alert("이미지를 먼저 업로드해주세요.");
+    } else {
+      props.setImgInfo([...props.imgInfo, { id: props.imgId, files: [] }]);
+      const now = props.imgId + 1; //TODO //문제해결 시급
+      props.setImgId(now);
+    }
+  };
+  return (
+    <>
+      <div className={styles.title} htmlFor={"post_title"}>
+        Image
+      </div>
+      {props.imgInfo.map((a, i) => (
+        <div className={styles.form}>
+          <input
+            type="file"
+            id={"post_img"}
+            accept="image/*"
+            multiple="multiple"
+            onChange={(e) => {
+              onChangeFile(e, a.id);
+            }}
+          />
+          <img
+            className={styles.minusImg}
+            onClick={() => {
+              onClickMinusImgInput(a.id);
+            }}
+            src={minusIconB}
+            alt="minusImg"
+          />
+        </div>
+      ))}
+      <div className={styles.ingredientPlusBtn} onClick={onClickPlusImgInput}>
+        <img src={plusIcon} alt="plusIcon" />
+      </div>
+    </>
+  );
+}
+
+function Materials(props) {
+  //input Texts and URLS 값 관리
+  const onChangeInput = (e, mid) => {
+    const val = e.target.value;
+    const eid = e.target.id;
+    if (eid === "mt") {
+      let copy = [...props.materials];
+      let obj = copy.find((a) => {
+        if (a.id === mid) {
+          return true;
+        }
+      });
+      const index = copy.indexOf(obj);
+      if (index === -1) {
+        alert("에러");
+      } else {
+        copy[index].name = val;
+        props.setMaterials(copy);
+      }
+    } else if (eid === "murl") {
+      let copy = props.materials;
+      let obj = copy.find((a) => {
+        if (a.id === mid) {
+          return true;
+        }
+      });
+      const index = copy.indexOf(obj);
+      if (index === -1) {
+        alert("에러");
+      } else {
+        copy[index].url = val;
+        props.setMaterials(copy);
+      }
+    }
+  };
+
+  const onClickMinusM = (e, index) => {
+    if (props.materials.length === 1) {
+      props.setMaterials([{ id: "0", name: "", url: "" }]); //한 칸 밖에 없는데 삭제 누를 경우 칸만 비워줌
+      const inputT = document.getElementById("mt");
+      const inputURL = document.getElementById("murl");
+      inputT.value = null;
+      inputURL.value = null;
+      props.setNextId(1);
+    } else {
+      props.setMaterials(
+        props.materials.filter((material) => material.id !== index)
+      );
+    }
+  };
+
+  const onClickPlusM = (e) => {
+    const name = props.materials[props.materials.length - 1].name;
+    const url = props.materials[props.materials.length - 1].url;
+    if (name === "" && url === "") {
+      alert("Materials의 빈칸을 먼저 채워주세요.");
+    } else {
+      props.setMaterials([
+        ...props.materials,
+        { id: props.nextId, name: "", url: "" },
+      ]);
+      const now = props.nextId + 1;
+      props.setNextId(now);
+      console.log(props.materials);
+    }
+  };
+
+  return (
+    <div className={styles.postContentWrap}>
+      <div className={styles.title}>MATERIAL</div>
+      <div className={styles.postMaterialSubTitle}>
+        작품에 사용된 재료를 입력해주세요.
+      </div>
+      <div className={styles.ingredientInputWrap}>
+        {" "}
+        {props.materials.map((item, index) => (
+          <div className={styles.ingredientInputTop} key={item.id}>
+            <input
+              onChange={(e) => {
+                onChangeInput(e, item.id);
+              }}
+              type="text"
+              placeholder={"재료명"}
+              id={"mt"}
+            />
+            <input
+              onChange={(e) => {
+                onChangeInput(e, item.id);
+              }}
+              type="url"
+              placeholder={"구입처 URL"}
+              id={"murl"}
+            />
+            <img
+              className={styles.minusImg}
+              onClick={(e) => {
+                onClickMinusM(e, index);
+              }}
+              src={minusIconB}
+              alt="minusImg"
+            />
+          </div>
+        ))}
+        <div className={styles.ingredientPlusBtn} onClick={onClickPlusM}>
+          <img src={plusIcon} alt="plusIcon" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SubmitButtons(props) {
+  const navigate = useNavigate();
+
+  const onSubmitPost = async () => {
+    let postSubmit = { ...props.postForm };
+    for (let i = 0; i < props.materials.length; i++) {
+      let arr = [];
+      if (props.materials[i].name !== "" || props.materials[i].url !== "") {
+        const mat = {
+          name: props.materials[i].name,
+          url: props.materials[i].url,
+        };
+        arr.push(mat);
+      }
+      postSubmit.materials = arr;
+    }
+    try {
+      const res = await postPost(postSubmit);
+      navigate("/list");
+    } catch (err) {
+      console.log(err);
+      alert("게시물 업로드 실패");
+    }
+  };
+
+  return (
+    <div className={styles.postBtnWrap}>
+      <div className={styles.postSaveBtn} onClick={onSubmitPost}>
+        저장
+      </div>
+      <div
+        className={styles.postCancelBtn}
+        onClick={() => {
+          navigate("/list");
+        }}
+      >
+        취소
+      </div>
+    </div>
+  );
+}
 
 export default PostCreate;
