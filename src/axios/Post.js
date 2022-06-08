@@ -27,33 +27,18 @@ export const getPost = async (postId) => {
 };
 
 // 게시글 생성
-export const postPost = async (formData) => {
+export const postPost = async (data) => {
   return axios(
     {
       method: "POST",
       url: "/api/post/post/",
-      headers: {
-        "Content-Type": "multipart/form-data", // Content-Type을 반드시 이렇게 하여야 한다.
-      },
-      data: formData,
+      data,
     },
     {
       withCredentials: true,
     }
   );
 };
-// export const postPost = async (data) => {
-//   return axios(
-//     {
-//       method: "POST",
-//       url: "/api/post/post/",
-//       data,
-//     },
-//     {
-//       withCredentials: true,
-//     }
-//   );
-// };
 
 // 게시글 수정 - 여러 개의 image 및 material 수정 가능 json nested하게 보내면
 export const putPost = async (jData) => {

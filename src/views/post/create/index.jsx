@@ -11,9 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { postPost } from "../../../axios/Post";
 
 import { useSelector } from "react-redux";
-//Todo : postForm을 jsonNested 하기 전에 postForm.materials에 materials에서 id를 제외하고 입력해야함
-//Todo : postForm을 jsonNested 하기 전에 postForm 이미지배열에 imgUrl에서 id를 제외하고 입력해야함 + submit할때
-// /api/post/post/ POST : 게시글 생성. 여러 개의 image 및 material 생성 가능 json nested하게 보내면 됨.
+//Todo : 서버 업데이트이후 formData(이미지) 전송
+
 const PostCreate = () => {
   const ref = useRef(null);
   const navigate = useNavigate();
@@ -38,37 +37,14 @@ const PostCreate = () => {
 
   const onChangeFile = (e, img_id) => {
     e.preventDefault();
-    let reader = new FileReader();
     let file = e.target.files;
     console.log(file);
-    // reader.onloadend = () => {
     let arr = [...imgInfo];
     arr = arr.filter((a) => a.id !== img_id);
     arr.push({ id: img_id, files: [...file] });
     setImgInfo(arr);
     console.log("imgInfo");
     console.log(imgInfo);
-    // let copy = [...imgInfo];
-    // let obj = copy.find((a) => {
-    //   if (a.id === img_id) {
-    //     return true;
-    //   }
-    // });
-    // const index = copy.indexOf(obj);
-    // if (index === -1) {
-    //   alert("에러");
-    // } else {
-    //   copy[index].index = reader.result;
-    //   setImgInfo(copy);
-    // }
-    // };
-    // if (file) {
-    //   reader.readAsDataURL(file);
-    //   if (e.target.files[0]) {
-    //     const img_formD = new FormData();
-    //     img_formD.append("file", e.target.files[0]);
-    //   }
-    // }
   };
 
   const onClickPlusImgInput = () => {
@@ -96,7 +72,7 @@ const PostCreate = () => {
   };
 
   //input Texts and URLS 값 관리
-  const onChangeInput = (e) => {
+  const onChangeInput = (e, mid) => {
     const val = e.target.value;
     const eid = e.target.id;
     if (eid === "post_youtube") {
@@ -106,7 +82,7 @@ const PostCreate = () => {
     } else if (eid === "mt") {
       let copy = [...materials];
       let obj = copy.find((a) => {
-        if (a.id === midx) {
+        if (a.id === mid) {
           return true;
         }
       });
@@ -120,7 +96,7 @@ const PostCreate = () => {
     } else if (eid === "murl") {
       let copy = materials;
       let obj = copy.find((a) => {
-        if (a.id === midx) {
+        if (a.id === mid) {
           return true;
         }
       });
@@ -164,30 +140,26 @@ const PostCreate = () => {
 
   const onSubmitPost = async () => {
     let postSubmit = { ...postForm };
-    let formData = new FormData();
+    // let formData = new FormData();
     for (let i = 0; i < materials.length; i++) {
       let arr = [];
       if (materials[i].name !== "" || materials[i].url !== "") {
         const mat = { name: materials[i].name, url: materials[i].url };
         arr.push(mat);
       }
-      if (arr.length >= 1) {
-        postSubmit.materials = arr;
-      } else {
-        postSubmit.materials = [];
-      }
+      postSubmit.materials = arr;
 
-      for (let i = 0; i < imgInfo.length; i++) {
-        if (imgInfo[i].files !== null) {
-          for (let j = 0; j < imgInfo[i].files.length; j++) {
-            formData.append("files", imgInfo[i].files[j]);
-          }
-        }
-      }
-      formData.append("data", postSubmit);
+      // for (let i = 0; i < imgInfo.length; i++) { //이미지업로드
+      //   if (imgInfo[i].files !== null) {
+      //     for (let j = 0; j < imgInfo[i].files.length; j++) {
+      //       formData.append("files", imgInfo[i].files[j]);
+      //     }
+      //   }
+      // }
+      // formData.append("data", postSubmit);
     }
 
-    console.log(formData);
+    console.log(postSubmit);
     try {
       const res = await postPost(postSubmit);
       //const res = await postPost(formData);
@@ -270,8 +242,7 @@ const PostCreate = () => {
                     <div className={styles.ingredientInputTop} key={item.id}>
                       <input
                         onChange={(e) => {
-                          midx = item.id;
-                          onChangeInput(e);
+                          onChangeInput(e, item.id);
                         }}
                         type="text"
                         placeholder={"재료명"}
@@ -279,8 +250,7 @@ const PostCreate = () => {
                       />
                       <input
                         onChange={(e) => {
-                          midx = item.id;
-                          onChangeInput(e);
+                          onChangeInput(e, item.id);
                         }}
                         type="url"
                         placeholder={"구입처 URL"}
