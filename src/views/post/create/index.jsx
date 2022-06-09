@@ -26,7 +26,7 @@ const PostCreate = () => {
   });
   const [materials, setMaterials] = useState([{ id: 0, name: "", url: "" }]);
   const [imgInfo, setImgInfo] = useState([{ id: 0, files: [] }]);
-  const [imgFile, setImgFile] = useState([]);
+  //const [imgFile, setImgFile] = useState([]);
   const [nextId, setNextId] = useState(1);
   const [imgId, setImgId] = useState(1);
 
@@ -127,24 +127,26 @@ function ImgInputs(props) {
     props.setImgInfo(arr);
   };
 
-  const onClickMinusImgInput = (index) => {
+  const onClickMinusImgInput = (e, index) => {
     if (props.imgInfo.length === 1) {
       //업로드한 이미지input이 하나일때
-      props.setImgInfo([{ id: 0, files: [] }]);
       props.setImgId(1);
+      props.setImgInfo([{ id: 0, files: [] }]);
+
       const inputImg = document.getElementById("post_img");
       inputImg.value = null;
     } else {
-      let res = props.imgInfo.filter((image) => image.id !== index);
-      if (res.length === 0) {
-        console.log(props.imgInfo);
-        const inputImg = document.getElementById("post_img");
-        inputImg.value = null;
-        props.setImgId(1);
-        res = [{ id: 0, files: [] }];
-      }
-      props.setImgInfo(res);
+      props.setImgInfo(props.imgInfo.filter((a) => a.id !== index));
+      // let res = props.imgInfo.filter((image) => image.id !== index);
+      // if (res.length === 0) {
+      //   console.log(props.imgInfo);
+
+      //   props.setImgId(1);
+      //   res = [{ id: 0, files: [] }];
+      // }
+      // props.setImgInfo(res);
     }
+    console.log(props.imgInfo);
   };
 
   const onClickPlusImgInput = () => {
@@ -153,9 +155,10 @@ function ImgInputs(props) {
       alert("이미지를 먼저 업로드해주세요.");
     } else {
       props.setImgInfo([...props.imgInfo, { id: props.imgId, files: [] }]);
-      const now = props.imgId + 1; //TODO //문제해결 시급
-      props.setImgId(now);
+      //TODO //문제해결 시급
+      props.setImgId(props.imgId + 1);
     }
+    console.log(props.imgInfo);
   };
   return (
     <>
@@ -175,8 +178,8 @@ function ImgInputs(props) {
           />
           <img
             className={styles.minusImg}
-            onClick={() => {
-              onClickMinusImgInput(a.id);
+            onClick={(e) => {
+              onClickMinusImgInput(e, a.id);
             }}
             src={minusIconB}
             alt="minusImg"
