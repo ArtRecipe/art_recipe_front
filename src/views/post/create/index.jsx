@@ -1,18 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import styles from "./create.module.scss";
 
 import plusIcon from "../../../assets/images/plus_btn.svg";
 import minusIcon from "../../../assets/images/min_btn.svg";
 import minusIconB from "../../../assets/images/min_btn_b.svg";
-import PlusInput from "./plusInput"; //Materials 파트
 import { PostCreateBanner } from "../../../components/Banner/postCreateBanner";
 
 import { useNavigate } from "react-router-dom";
 import { postPost } from "../../../axios/Post";
 
 import { useSelector } from "react-redux";
-//TODO 1: imgInput 동작 정상화 - nextId 작업 참고할것
-//TODO 2: 서버 업데이트이후 formData(이미지) 전송
+//TODO : 서버 업데이트이후 formData(이미지) 전송
 const PostCreate = () => {
   const userid = useSelector((user) => user.user.user.id);
 
@@ -26,7 +24,6 @@ const PostCreate = () => {
   });
   const [materials, setMaterials] = useState([{ id: 0, name: "", url: "" }]);
   const [imgInfo, setImgInfo] = useState([{ id: 0, files: [] }]);
-  //const [imgFile, setImgFile] = useState([]);
   const [nextId, setNextId] = useState(1);
   const [imgId, setImgId] = useState(1);
 
@@ -57,6 +54,7 @@ const PostCreate = () => {
                 <ImgInputs
                   imgInfo={imgInfo}
                   setImgInfo={setImgInfo}
+                  imgId={imgId}
                   setImgId={setImgId}
                 />
                 <div className={styles.title} htmlFor={"post_title"}>
@@ -128,37 +126,24 @@ function ImgInputs(props) {
   };
 
   const onClickMinusImgInput = (e, index) => {
+    console.log(props.imgInfo);
     if (props.imgInfo.length === 1) {
-      //업로드한 이미지input이 하나일때
-      props.setImgId(1);
-      props.setImgInfo([{ id: 0, files: [] }]);
-
       const inputImg = document.getElementById("post_img");
       inputImg.value = null;
+      props.setImgId(1);
+      props.setImgInfo([{ id: 0, files: [] }]);
     } else {
       props.setImgInfo(props.imgInfo.filter((a) => a.id !== index));
-      // let res = props.imgInfo.filter((image) => image.id !== index);
-      // if (res.length === 0) {
-      //   console.log(props.imgInfo);
-
-      //   props.setImgId(1);
-      //   res = [{ id: 0, files: [] }];
-      // }
-      // props.setImgInfo(res);
     }
-    console.log(props.imgInfo);
   };
 
   const onClickPlusImgInput = () => {
-    //이미지 입력칸 추가
     if (props.imgInfo[props.imgInfo.length - 1].files.length === 0) {
       alert("이미지를 먼저 업로드해주세요.");
     } else {
       props.setImgInfo([...props.imgInfo, { id: props.imgId, files: [] }]);
-      //TODO //문제해결 시급
       props.setImgId(props.imgId + 1);
     }
-    console.log(props.imgInfo);
   };
   return (
     <>
@@ -166,7 +151,7 @@ function ImgInputs(props) {
         Image
       </div>
       {props.imgInfo.map((a, i) => (
-        <div className={styles.form}>
+        <div className={styles.form} key={a.id}>
           <input
             type="file"
             id={"post_img"}
@@ -175,6 +160,7 @@ function ImgInputs(props) {
             onChange={(e) => {
               onChangeFile(e, a.id);
             }}
+            style={{ cursor: "pointer" }}
           />
           <img
             className={styles.minusImg}
@@ -194,7 +180,6 @@ function ImgInputs(props) {
 }
 
 function Materials(props) {
-  //input Texts and URLS 값 관리
   const onChangeInput = (e, mid) => {
     const val = e.target.value;
     const eid = e.target.id;
@@ -231,7 +216,7 @@ function Materials(props) {
 
   const onClickMinusM = (e, index) => {
     if (props.materials.length === 1) {
-      props.setMaterials([{ id: "0", name: "", url: "" }]); //한 칸 밖에 없는데 삭제 누를 경우 칸만 비워줌
+      props.setMaterials([{ id: 0, name: "", url: "" }]);
       const inputT = document.getElementById("mt");
       const inputURL = document.getElementById("murl");
       inputT.value = null;
@@ -254,9 +239,7 @@ function Materials(props) {
         ...props.materials,
         { id: props.nextId, name: "", url: "" },
       ]);
-      const now = props.nextId + 1;
-      props.setNextId(now);
-      console.log(props.materials);
+      props.setNextId(props.nextId + 1);
     }
   };
 
