@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import "./globalstyle.scss";
-import NavBar from "./components/NavBar";
+import { Navbar } from "./components/Navbar/Navbar";
 import AuthRoute from "./components/Routing/AuthRoute";
 import PostMainPage from "./views/post/mainPage";
 import PostList from "./views/post/list";
@@ -14,7 +14,7 @@ import GalleryPage from "./views/user/galleryViewPage";
 function App() {
   return (
     <div className="global">
-      <NavBar />
+      <Navbar />
       <Routes className="global-form">
         <Route path="/" element={<PostMainPage />} exact={true} />
         <Route path="*" element={<h2>ERROR : 없는 페이지 입니다.</h2>} />

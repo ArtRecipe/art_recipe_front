@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { getPostList } from "../../../axios/Post";
 import { Loading } from "../../../components/Loading/Loading";
 import { PostListContainer } from "../../../containers/Post/PostListContainer";
 
 const PostList = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState([]);
@@ -12,7 +15,8 @@ const PostList = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await getPostList();
+        const word = searchParams.get("search") ? searchParams.get("search") : '';
+        const res = await getPostList(word);
         setData([...res.data]);
       } catch (err) {
         setError(err.response.status);
