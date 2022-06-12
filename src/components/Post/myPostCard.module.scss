@@ -1,0 +1,23 @@
+.postCardWrap {
+  margin: 10px;
+
+  img {
+    width: 100%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  img:hover {
+    filter: brightness(50%);
+  }
+
+  .title {
+    color: #000000;
+    font-weight: 400;
+    font-size: 18px;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 80%;
+  }
+}
