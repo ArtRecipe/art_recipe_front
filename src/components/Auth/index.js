@@ -10,7 +10,7 @@ import "./google-button.scss";
 
 const Index = () => {
   const navigation = useNavigate();
-  const logindata = useSelector((state) => state.user.isLoggedin);
+  const logindata = useSelector((state) => state.user.isLoggedIn);
   const dispatch = useDispatch();
 
   const GoogleBtn = async () => {
