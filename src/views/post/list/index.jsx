@@ -24,7 +24,7 @@ const PostList = () => {
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, [searchParams]);
 
   // 로딩 중인 경우
   if (loading) return <Loading />;
