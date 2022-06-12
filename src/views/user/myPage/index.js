@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
-import ci from "./smallestci.png";
+import ci from "./ci.png";
 import "./mypage.scss";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileUpdateModal from "../../../components/ProfileUpdateModal";
-import PostCardList from "../../../components/MypostCardList";
+import { MyPostListContainer } from "../../../containers/Post/MyPostListContainer";
 import GalleryViewBtn from "../../../components/GalleryViewBtn";
-import { useNavigate } from "react-router-dom";
 import { getUser } from "../../../reducer/User";
 
 const Index = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.user);
-  const [myGallery, setMyGallery] = useState(true);
   const [snsContents, setSnsContents] = useState("등록된 SNS가 없습니다.");
-  const [descContents, setDescContents] =
-    useState("등록된 작가소개가 없습니다.");
+  const [descContents, setDescContents] = useState("등록된 작가소개가 없습니다.");
   dispatch(getUser);
   useEffect(() => {
     dispatch(getUser);
@@ -30,8 +27,8 @@ const Index = () => {
     }
   }, [state]);
 
-  if (!state.isLoggedin) {
-    // isLoggedin 값이 false 일때
+  if (!state.isLoggedIn) {
+    // isLoggedIn 값이 false 일때
     return (
       <div>
         <h2>ERROR</h2>
@@ -48,19 +45,15 @@ const Index = () => {
           <div className="my-box">
             <div className="make-row">
               <div className="contents">SNS.</div>
-              {state.user.profile.sns ? (
-                <div
-                  className="contents"
-                  onClick={() => {
-                    window.open(snsContents, "_blank");
-                  }}
-                  style={{ textDecoration: "underline", cursor: "pointer" }}
-                >
-                  {snsContents}
-                </div>
-              ) : (
-                <div className="contents">{snsContents}</div>
-              )}
+              <div
+                className="contents"
+                onClick={() => {
+                  window.open(snsContents, "_blank");
+                }}
+                style={{ textDecoration: "underline", cursor: "pointer" }}
+              >
+                {snsContents}
+              </div>
             </div>
             <div className="make-row">
               <div className="contents">Intro.</div>
@@ -69,20 +62,9 @@ const Index = () => {
             <ProfileUpdateModal profile={state.user.profile} />
           </div>
         </div>
-        <div className="row">
-          <div className="tab-button" onClick={() => setMyGallery(true)}>
-            내 게시물
-          </div>
-          <div className="tab-button" onClick={() => setMyGallery(false)}>
-            저장한 게시물
-          </div>
-        </div>
-        <hr />
-        <div className="image-box">
-          <PostCardList myGallery={myGallery} />
-        </div>
+        <MyPostListContainer />
       </div>
-      <GalleryViewBtn myGallery={myGallery} />
+      <GalleryViewBtn myGallery={true} />
     </div>
   );
 };
